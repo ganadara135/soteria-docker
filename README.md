@@ -11,13 +11,13 @@ docker-compose up
  설정 파일이나 배포 파일을 그 안에 위치 시킴
 
 
- volumes:
-    - type: bind
-        source: /home/ubuntu2/soteria/conf
-        target: /usr/local/tomcat/conf
-    - type: bind
-        source: /home/ubuntu2/soteria/webapps
-        target: /usr/local/tomcat/webapps
-    - type: bind
-        source: /home/ubuntu2/soteria/logs
-        target: /soteria/ManagerFiles/log 
+ volumes:                                           <br>
+    - type: bind                                    <br>
+        source: /home/ubuntu2/soteria/conf          <br>
+        target: /usr/local/tomcat/conf              <br>
+    - type: bind                                    <br>
+        source: /home/ubuntu2/soteria/webapps       <br>
+        target: /usr/local/tomcat/webapps           <br>
+    - type: bind                                    <br>
+        source: /home/ubuntu2/soteria/logs          <br>
+        target: /soteria/ManagerFiles/log           <br>
