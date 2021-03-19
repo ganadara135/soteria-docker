@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Userlist</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+             <!--   <nav th:replace="fragments/left :: left"/> -->
+            
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+				
+				<!--tracker 메뉴위치 start-->
+	            <div class="pageheader pd-t-25 pd-b-35 tracker">
+	                  <div class="pd-t-5 pd-b-5">
+	                     <h1 class="pd-0 mg-0 tx-20 text-overflow">Authorization</h1>
+	                  </div>
+	                  <div class="breadcrumb pd-0 mg-0">
+	                     <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+	                     <a class="breadcrumb-item" href="#">Setting</a>
+	                     <span class="breadcrumb-item active">Authorization</span>
+	                  </div>
+	               </div>
+	         <!--tracker 메뉴위치 end-->
+         		<!--================================-->
+                     <!-- Basic Accordions Start -->
+	               <div class ="card_sq_da_170_1">
+	                  <div class="auto_roll">
+	                     <!--Header-->
+	                     <div class="auto_header">Total User List</div>
+	                     <div class="auto_header">Manage SBB List</div>
+	                     <div></div>
+	                     <div class="auto_header">Total SBB List</div>
+	                     <!--Contents Body-->
+	                     <div class="auto_content">  
+	                          <!---->
+	                        
+	                        
+	                          <div class="card-body collapse show au-body" id="collapse7 data_contents">
+	                                   
+	                             <table id="totalUserList" class="row-border text_cen">
+	                                <thead>
+	                                   <tr class="tr_header">
+	                                       <th>User Name</th>
+	                                       <th>User ID</th>
+	                                       <th>USER TYPE</th>
+	                                      </tr>
+	                                   </thead>
+	                                <tbody>
+	                                </tbody>       
+	                             </table>
+	                          </div>
+	                     </div>
+	                     <div class="auto_content">
+	                     <div class="card-body collapse show" id="collapse7 data_contents">
+	                                   
+	                        <table id="manageSbbList" class="row-border text_cen">
+	                           <thead>
+	                              <tr class="tr_header">
+	                                 <th>SBB Name</th>
+	                                 <th >IP</th>
+	                                 <th>ALIAS</th> 
+	                                 </tr>
+	                              </thead>
+	                           <tbody>
+	                           </tbody>       
+	                        </table>
+	                     </div>
+	                     </div>
+	                     <div class="buttn_au">
+	                        <button id="btnRemove" class="au_btn">Delete<i class="fas fa-arrow-right"></i></button>
+	                        <button id="btnAdd" class="au_btn add-btn">Add<br><i class="fas fa-arrow-left"></i></button> 
+	                     </div>
+	                     <div class="auto_content">
+	                     <div class="card-body collapse show" id="collapse7 data_contents">
+	                              
+	                        <table id="totalSbbList" class="row-border text_cen">
+	                           <thead>
+	                              <tr class="tr_header">
+	                                    <th>SBB Name</th>
+	                                    <th>IP</th>
+	                                    <th>ALIAS</th> 
+	                                 </tr>
+	                              </thead>
+	                           <tbody>
+	                           </tbody>       
+	                        </table>
+	                     </div>     
+	                     </div>
+	                 </div>
+	               </div>
+				
+			      </div>
+				
+				<div th:replace="fragments/spinner :: spinner"></div>
+         </div>
+      </div>
+      </div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+	  <script>
+	  	var actionMode = "add";//add, edit
+	  	var clickAdd = false;
+	  	regEvent = function(){
+	  		
+	  		loadAllUsers();
+	  		initLoadSbbs();
+	  		initManagedSbbs();
+	  		
+	  		$('#btnAdd').click(function(){
+	  			manageUserSbb(CMD_ADD, addManaged);
+	  		});
+	  		
+	  		$('#btnRemove').click(function(){
+	  			manageUserSbb(CMD_REMOVE, removeManaged);
+	  		});
+	  	}
+		
+		var selUser = null;
+		var selSbb = null;
+		var selManagedSbb;
+		var tbManagedSbb;
+		var tbSbb;
+		
+		var manSbbBuff = [];//draw managed Sbb table
+		var currSbbBuff = [];//draw Sbb list
+		var sbbBuffAll = [];//backup all sbb list
+		
+		function resetBuff(){
+			//remove all items from managed
+			manSbbBuff.length = 0;
+			//reset all sbbs
+			currSbbBuff.length = 0;
+			sbbBuffAll.forEach((el)=>{
+				currSbbBuff.push(el);
+			});
+			drawAll();
+		}
+	  	function loadAllUsers(){
+	  		var stTime = new Date();
+	  		progress(true);
+	  		var table = $('#totalUserList').DataTable({
+	  			autoWidth:true,
+				scrollX: true,
+				fixedColums:{
+					leftColums:1
+				},
+ 				/* select: {
+		            style: 'os',
+		            blurable: true
+		        }, */
+		        select: true,
+ 				language : {
+					searchPlaceholder : 'Search...',
+					sSearch : ''
+				},
+				order: [ [ 0, "desc" ] ],
+				paging : true, 
+				stateSave: true,
+				ajax: {
+	  		        url: ctx+'setting/userlist/ajax',
+	  		        type: 'POST',
+	  		        dataSrc: 'data.list'
+	  		    },
+	  		    columns: [ 
+					{"data": "userName"},
+					{"data": "logonName"},
+					{"data": "userTypeName"},
+	  		    ]
+			});
+	  		
+	  		table.on('xhr.submitComplete', function () {
+	  		  //console.log('UI unblocked');
+	  			progress(false, 2000);
+	  		});
+	  		
+	  		table
+	        .on( 'select', function ( e, dt, type, indexes ) {
+	            console.log("select", e, dt, type, indexes );
+	            selUser = table.rows({selected:true}).data()[0];
+	            console.log(">>",selUser);
+	            
+	            //getInfo(sel[0], setEdit);
+	            loadManagedSbbs();
+	        } )
+	        .on( 'deselect', function ( e, dt, type, indexes ) {
+	            console.log("deselect", e, dt, type, indexes );
+	            selUser = null;
+	            resetBuff();
+	        } );
+	  		
+	  		
+	  		
+/* 	  		$('#totalUserList tbody').on( 'click', 'tr', function () {
+	  	        if ( $(this).hasClass('selected') ) {
+	  	            $(this).removeClass('selected');
+	  	            
+	  	            //deselect
+	  	          	selUser = null;
+		            resetBuff();
+	  	        }
+	  	        else {
+	  	            table.$('tr.selected').removeClass('selected');
+	  	            $(this).addClass('selected');
+	  	            
+	  	        //selected
+	  	            selUser = table.rows({selected:true}).data()[0];
+		            console.log(">>",selUser);
+		            
+		            //getInfo(sel[0], setEdit);
+		            loadManagedSbbs();
+	  	        }
+	  	    } ); */
+	  	 
+	  	}
+	  	function loadManagedSbbs(){
+	  		if(!selUser){
+	  			return;
+	  		}
+	  		
+	  		var url = ctx+'setting/user/sbblist/ajax';
+	  		var params = {
+	  				userId: selUser.userId
+	  		};
+			var req = $.ajax({
+		        type : "POST",
+		        async: false,
+		        url : url,
+		        data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					//remove all items from managed
+					manSbbBuff.length = 0;
+					//reset all sbbs
+					currSbbBuff.length = 0;
+					sbbBuffAll.forEach((el)=>{
+						currSbbBuff.push(el);
+					});
+					
+					if(out.data.total > 0){
+						//add to manSbbBuff
+						$.each(out.data.list, function(idx, el){
+							manSbbBuff.push(el);
+						});
+						//remove from currSbbBuff
+						var list = [];
+						currSbbBuff.forEach((el,idx,ary)=>{
+							out.data.list.forEach((e,i)=>{
+								if(el.sbbId === e.sbbId){
+									//ary.splice(idx,1);
+									list.push(idx);
+								}
+							});
+						});
+						list.sort( (a,b)=>{a-b}).reverse();
+						list.forEach( e=>{currSbbBuff.splice(e,1)} );
+					}
+					drawAll();
+				}else{
+					showAlert('Sbb 조회에 실패 하였습니다.');
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+	  	}
+	  	function initLoadSbbs(){
+	  		tbSbb = $('#totalSbbList').DataTable({
+	  			autoWidth:false,
+	  			columnDefs: [
+	  		      { width: '300px', targets: 0 }, //step 2, column 1 out of 4
+	  		      { width: '200px', targets: 1 }, //step 2, column 2 out of 4
+	  		      { width: '500px', targets: 2 }  //step 2, column 3 out of 4
+	  		    ],
+				scrollX: true,
+				fixedColums:{
+					leftColums:1
+				},
+				select: {
+		            style: 'os',
+		            blurable: true
+		        },
+				language : {
+					searchPlaceholder : 'Search...',
+					sSearch : ''
+				},
+				"order" : [ [ 0, "desc" ] ],
+				paging : true, 
+				data: currSbbBuff,
+				columns: [ 
+					{"data": "sbbName"},
+					{"data": "hostIp"},
+					{"data": "sbbAlias"},
+	  		    ],
+	  		    //scrollY: '500px',
+	  		    //scrollCollapse: true
+			});
+	  		
+	  		tbSbb
+	        .on( 'select', function ( e, dt, type, indexes ) {
+	        	selSbb = tbSbb.rows({selected:true}).data()[0];
+	        } )
+	        .on( 'deselect', function ( e, dt, type, indexes ) {
+	        	selSbb = null;
+	        } );
+	  		
+	  		
+	  		var url = ctx+'setting/sbblist/ajax';
+	  		var params = {
+	  		};
+			var req = $.ajax({
+		        type : "POST",
+		        async: false,
+		        url : url,
+		        data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					//save all sbbs
+					//copy
+					out.data.list.forEach((el, idx)=>{
+						sbbBuffAll.push(el);
+					});
+					//add rows
+					if(out.data.total > 0){
+						$.each(out.data.list, (idx, el)=>{
+							currSbbBuff.push(el);
+						});
+					}
+					draw(2);
+				}else{
+					showAlert('Sbb 조회에 실패 하였습니다.');
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+	  	}
+	  	
+	  	function initManagedSbbs(){
+	  		
+	  		tbSbbManaged = $('#manageSbbList').DataTable({
+	  			autoWidth:false,
+	  			 columnDefs: [
+	  		         { width: '300px', targets: 0 }, //step 2, column 1 out of 4
+	  		         { width: '300px', targets: 1 }, //step 2, column 2 out of 4
+	  		         { width: '300px', targets: 2 }  //step 2, column 3 out of 4
+	  		      ],
+	  			
+				scrollX: true,
+				fixedColums:{
+					leftColums:1
+				},
+	  			select: {
+		            style: 'os',
+		            blurable: true
+		        },
+				language : {
+					searchPlaceholder : 'Search...',
+					sSearch : ''
+				},
+				"order" : [ [ 0, "desc" ] ],
+				"paging" : true, 
+				data: manSbbBuff,
+				columns: [ 
+					{"data": "sbbName"},
+					{"data": "hostIp"},
+					{"data": "sbbAlias"},
+	  		    ]
+	  		});
+	  		
+	  		tbSbbManaged
+	        .on( 'select', function ( e, dt, type, indexes ) {
+	        	selManagedSbb = tbSbbManaged.rows({selected:true}).data()[0];
+	        } )
+	        .on( 'deselect', function ( e, dt, type, indexes ) {
+	        	selManagedSbb = null;
+	        } );
+	  	}
+	  	function draw(tgt){
+	  		if(tgt == 1){
+	  			tbSbbManaged.clear();
+	  			manSbbBuff.forEach((el,idx)=>{
+	  				tbSbbManaged.row.add(el);
+	  			});
+	  			tbSbbManaged.draw(false);
+	  		}else if(tgt == 2){
+	  			tbSbb.clear();
+	  			currSbbBuff.forEach((el,idx)=>{
+	  				/* tbSbb.row.add([
+		  				el.sbbName,
+		  				el.hostIp,
+		  				el.sbbAlias
+  		  			]); */
+  		  			tbSbb.row.add(el);
+	  			});
+	  			tbSbb.draw(false);
+	  		}
+	  	}
+	  	function drawAll(){
+	  		draw(1);
+	  		draw(2);
+	  	}
+	  	function manageUserSbb(cmd, succ, fail){
+	  		if(cmd !== CMD_ADD && cmd !== CMD_REMOVE){
+	  			return;
+	  		}
+	  		var sbbId = 0;
+	  		if(cmd === CMD_ADD){
+	  			sbbId = selSbb.sbbId;
+	  		}else if(cmd === CMD_REMOVE){
+	  			sbbId = selManagedSbb.sbbId;
+	  		}
+	  		var url = ctx+'setting/usersbb/update';
+	  		var params = {
+	  				userId: selUser.userId,
+	  				sbbId: sbbId,
+	  				cmd: cmd
+	  		};
+			var req = $.ajax({
+		        type : "POST",
+		        async: false,
+		        url : url,
+		        data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					if(succ){
+						succ();
+					}
+				}else{
+					showAlert('Sbb 추가/삭제에 실패 하였습니다.');
+					if(fail){
+						fail();
+					}
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+			});
+	  	}
+	  	//sbblist -> user sbb
+	  	function addManaged(){
+	        if(!selUser){
+	        	showAlert('Select User.');
+	        	return;
+	        }
+			console.log(selSbb);
+			//add to user sbbs
+			addToUserSbb(selSbb);
+			//remove sbbs
+			removeFromCurrSbb(selSbb);
+			drawAll();
+	  	}
+	  	//user sbb -> sbblist
+	  	function removeManaged(){
+	  		if(!selUser){
+	        	showAlert('Select User.');
+	        	return;
+	        }
+	  		
+	  		console.log(selManagedSbb);
+	  		//remove from user sbbs
+			removeFromUserSbb(selManagedSbb);
+			
+			//add to curr sbb
+			addToCurrSbb(selManagedSbb);
+			drawAll();
+	  	}
+	  	var addToCurrSbb = (selSbb) =>{
+	  		if(!buffIncludesSbb(selSbb.sbbId, currSbbBuff)){
+	  			currSbbBuff.push(selSbb);
+	  		}
+	  	};
+	  	var addToUserSbb = (selSbb) =>{
+	  		if(!buffIncludesSbb(selSbb.sbbId, manSbbBuff)){
+	  			manSbbBuff.push(selSbb);
+	  		}
+	  	};
+	  	var removeFromCurrSbb = (selSbb)=>{
+  			//remove from curr Sbbs
+			currSbbBuff.some( (el,idx,ary)=>{
+				if(el.sbbId === selSbb.sbbId){
+					ary.splice(idx,1);
+					return true
+				}
+				return false;
+			});
+  		};
+  		var removeFromUserSbb = (selSbb)=>{
+  			//remove from curr Sbbs
+			manSbbBuff.some( (el,idx,ary)=>{
+				if(el.sbbId === selSbb.sbbId){
+					ary.splice(idx,1);
+					return true
+				}
+				return false;
+			});
+  		};
+	  	function buffIncludesSbb(sbbId, buff){
+	  		var bInclude = false;
+	  		if(!buff){
+	  			return bInclude;
+	  		}
+	  		
+	  		var check = buff.some( el=> {
+	  			if(el.sbbId === sbbId){
+	  				bInclude = true;
+	  				return true;
+	  			}
+	  			return false;
+	  		});
+	  	}
+	  </script>
+</body>
+</html>

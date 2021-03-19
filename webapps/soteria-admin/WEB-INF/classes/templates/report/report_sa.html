@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Report</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+  	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/buttons.dataTables.min.cs}">
+   
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+               <nav th:replace="fragments/left :: left">
+               </nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+					<div class="pageheader pd-t-25 pd-b-35 tracker">
+	                  <div class="pd-t-5 pd-b-5">
+	                     <h1 class="pd-0 mg-0 tx-20 text-overflow">Audit Report</h1>
+	                  </div>
+	                  <div class="breadcrumb pd-0 mg-0">
+	                     <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+	                     <a class="breadcrumb-item" href="#">Report</a>
+	                     <span class="breadcrumb-item active">Audit Report</span>
+	                  </div>
+	               </div>  
+	               <div class="card_1 shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center">
+	                  <div class="audit_table_grid">
+	                     <div class="audit_table">
+	                        <h5 class="sa_his_report">Audit Report</h5>
+	                        <table id="audit_table"  class="row-border">
+	                           <thead>
+	                              <tr>
+	                                 <th>No</th>
+	                                 <th>Datetime</th>
+	                                 <th>User ID</th>
+	                                 <th>Authority</th>
+	                                 <th>Audit Messages</th>
+	                                 <th>Status</th>
+	                              </tr>
+	                           </thead>
+	                           <tbody>
+	                           
+	                     </table>
+	                    
+	                  </div>
+	                  <div class="history_table">
+	                     <hr>
+	                     <h5 class="sa_his_report history-margin">SBB Manage History Report</h5>
+	                     <table id="history_table"  class="row-border">
+	                        <thead>
+	                           <tr>
+	                              <th>No</th>
+	                              <th>Datetime</th>
+	                              <th>User ID</th>
+	                              <th>Authority</th>
+	                              <th>SBB Manage List</th>
+	                              <th>Status</th>
+	                           </tr>
+	                        </thead>     
+	               	</div>
+		              
+	               </div>
+	        
+	               </div> 
+      			</div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/dataTables.buttons.min.js}"></script>
+     <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/jszip.min.js}"></script>
+     <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/pdfmake.min.js}"></script>
+     <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/vfs_fonts.js}"></script>
+     <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.html5.min.js}"></script>
+     <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.print.min.js}"></script>
+      <script>
+      regEvent = function(){
+    	  initTables();
+      }
+      var params1 = {
+    		  actionSubTypes: [101,102,201,202,203,401,402,410,901,902].join(','),
+    		  pg: 1,
+    		  pgSize: 8,
+    		  data: {},
+    		  totalPg: 1,
+    		  draw:1,
+    		  srchField: '',
+    		  srchValue: ''
+      };
+      var params2 = {
+    		  actionSubTypes: [403].join(','),
+    		  pg: 1,
+    		  pgSize: 8,
+    		  draw: 1,
+    		  srchField: '',
+    		  srchValue: ''
+      };
+      function tb1Params(data){
+    	  	data['actionSubTypes'] = params1.actionSubTypes;
+		 	data['pg'] = getPg(data.start, params1.pgSize);
+  			data['pgSize'] = params1.pgSize;
+  			data['totalPg'] = 1;
+  			params1.draw = data.draw;
+  			data['srchField'] = $('#audit_table_filter.dataTables_filter select option:selected').val();
+  			data['srchValue'] = $('#audit_table_filter.dataTables_filter input').val();
+      }
+      function tb2Params(data){
+  	  		data['actionSubTypes'] = params2.actionSubTypes;
+		 	data['pg'] = getPg(data.start, params2.pgSize);
+			data['pgSize'] = params2.pgSize;
+			data['totalPg'] = 1;
+			params2.draw = data.draw;
+			data['srchField'] = $('#history_table_filter.dataTables_filter select option:selected').val();
+			data['srchValue'] = $('#history_table_filter.dataTables_filter input').val();
+    }
+      function getPg(start, pgSize){
+    	  if(start === 0){
+    		  return 1;
+    	  }
+    	  var a = (start / pgSize) + 1;
+    	  return a;
+      }
+      
+      function addSearchField($dom){
+    	  if(!$dom){
+    		  return;
+    	  }
+    	  var tag = '<select class="srchfield form-control form-control-sm" data-provide="selectpicker"> \
+			              <option value="LOGON_NAME" selected>User ID</option>\
+			         </select></div>';
+		  $dom.prepend(tag);
+      }
+      
+      var table1, table2;
+      function initTables(){
+		
+    	  table1 = $('#audit_table').DataTable({
+				"processing": true,
+  	        	"serverSide": true,
+  	        	"pageLength": 8,
+  	        	"ajax": {
+	  	            url: ctx+'report/actions',
+	  	            data: tb1Params,
+	  	            method: 'POST',
+	  	          	dataSrc: function(json){
+	  	          		json.draw = params1.draw;
+	  	          		json.recordsTotal = json.data.total;
+            			json.recordsFiltered = json.data.total;
+            			if(json.data.list){
+            				json.data.list.map(e=>{e.reason = 'ACTION=['+e.actionSubType + '] '+ e.reason.replace(/,/g,', ');maskingUserInfo(e);return e});
+            			}else{
+            				json.data.list = [];
+            			}
+            			console.log('999');
+            			downloadStart = false;
+            			return json.data.list;
+	            	},
+	  	        },
+	  	        language : {
+					searchPlaceholder : 'Search User ID',
+					sSearch : ''
+				},
+				dom : 'Bfrtip',
+				buttons: [
+						{extend: 'csv', action: newExportAction, filename: 'audit-report'},
+						{extend: 'pdf', action: newExportAction, filename: 'audit-report'}
+				],
+				columns: [ 
+					{'data': 'hisId'},
+					{'data': 'regDate'},
+					{'data': 'logonName'},
+					{'data': 'userType'},
+					{'data': 'reason'},
+					{'data': 'userStatus'},
+	  		    ],
+	  		  	columnDefs: [
+	  		  		{targets: 1, width: '10%', render: function(data,type,row){return moment(data).format(date_foramt_table);}},
+	  		  		{targets: 3, width: '20%',render: roleName},
+	  		  		{targets: 4, render: (data)=>{return '<div style="width:600px;white-space:normal;word-break:normal;text-align:left;">'+data+'</div>'}},
+	  		  		{targets: 5, width: '10%', render: function(data){return data === 'Y' ? "Active":"Inactive"}},
+  		  		], 
+  		  		order: false,
+  		  		scrollY: '100%',
+	  		  	initComplete : function() {
+	  		        var input = $('#audit_table_filter.dataTables_filter input').unbind(),
+	  		            self = this.api(),
+	  		            $searchButton = $('<button class="btn btn-primary">')
+	  		                       .text('search')
+	  		                       .click(function() {
+	  		                          self.search(input.val()).draw();
+	  		                       }),
+	  		            $clearButton = $('<button class="btn btn-secondary">')
+	  		                       .text('clear')
+	  		                       .click(function() {
+	  		                          input.val('');
+	  		                          $searchButton.click(); 
+	  		                       }) 
+	  		        $('#audit_table_filter.dataTables_filter').append($searchButton, $clearButton);
+	  		        addSearchField($('#audit_table_filter.dataTables_filter'));
+	  		        $('#audit_table_filter.dataTables_filter input').bind('keyup',function(e){
+	  		        	if(e.keyCode == 13){
+	  		        		self.search(this.value).draw();
+	  		        	}
+	  		        });
+	  		    }   
+			});
+    	  
+    	  
+			table2 = $('#history_table').DataTable({
+				"processing": true,
+  	        	"serverSide": true,
+  	        	"pageLength": 8,
+  	        	"ajax": {
+	  	            url: ctx+'report/actions',
+	  	            data: tb2Params,
+	  	            method: 'POST',
+	  	          	dataSrc: function(json){
+	  	          		json.draw = params2.draw;
+	  	          		json.recordsTotal = json.data.total;
+            			json.recordsFiltered = json.data.total;
+            			if(json.data.list){
+            				json.data.list.map(e=>{e.reason = 'ACTION=['+e.actionSubType + '] '+ e.reason.replace(/,/g,', ');return e});
+            			}else{
+            				json.data.list = [];
+            			}
+            			console.log('999');
+            			downloadStart = false;
+            			return json.data.list;
+	            	},
+	  	        },
+	  	        language : {
+					searchPlaceholder : 'Search User ID',
+					sSearch : ''
+				},
+				dom : 'Bfrtip',
+				buttons: [
+						{extend: 'csv', action: newExportAction, filename: 'audit-report-sbb'},
+						{extend: 'pdf', action: newExportAction, filename: 'audit-report-sbb'}
+				],
+				columns: [ 
+					{'data': 'hisId'},
+					{'data': 'regDate'},
+					{'data': 'logonName'},
+					{'data': 'userType'},
+					{'data': 'reason'},
+					{'data': 'userStatus'},
+	  		    ],
+	  		  	columnDefs: [
+	  		  		{targets: 1, width: '10%', render: function(data,type,row){return moment(data).format(date_foramt_table);}},
+	  		  		{targets: 3,render: roleName},
+	  		  		{targets: 4, render: (data)=>{return '<div style="width:600px;white-space:normal;word-break:normal;text-align:left;">'+data+'</div>'}},
+	  		  		{targets: 5, width: '10%', render: function(data){ return data === 'Y' ? "Active":"Inactive"}},
+  		  		], 
+  		  		order: false,
+  		  		scrollY: '100%',
+  		  		initComplete : function() {
+  		        	var input = $('#history_table_filter.dataTables_filter input').unbind(),
+  		            self = this.api(),
+  		            $searchButton = $('<button class="btn btn-primary">')
+  		                       .text('search')
+  		                       .click(function() {
+  		                          self.search(input.val()).draw();
+  		                       }),
+  		            $clearButton = $('<button class="btn btn-secondary">')
+  		                       .text('clear')
+  		                       .click(function() {
+  		                          input.val('');
+  		                          $searchButton.click(); 
+  		                       }) 
+  		        	$('#history_table_filter.dataTables_filter').append($searchButton, $clearButton);
+  		        	addSearchField($('#history_table_filter.dataTables_filter'));
+  		        	$('#history_table_filter.dataTables_filter input').bind('keyup',function(e){
+	  		        	if(e.keyCode == 13){
+	  		        		self.search(this.value).draw();
+	  		        	}
+	  		        });
+  		    	}
+			}); 
+	  }
+      
+      var downloadStart = false;
+      var oldExportAction = function (self, e, dt, button, config) {
+    	  	console.log('3',button[0].className);
+    	    if (button[0].className.indexOf('buttons-excel') >= 0) {
+    	        if ($.fn.dataTable.ext.buttons.excelHtml5.available(dt, config)) {
+    	            $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config);
+    	        }
+    	        else {
+    	            $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+    	        }
+    	    } else if ( button[0].className.indexOf('buttons-csv') >= 0){
+    	    	if ($.fn.dataTable.ext.buttons.csvHtml5.available(dt, config)) {
+    	            $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config);
+    	        }
+    	        else {
+    	            $.fn.dataTable.ext.buttons.csvlHtml5.action.call(self, e, dt, button, config);
+    	        }
+    	    } else if (button[0].className.indexOf('buttons-pdf') >= 0){
+    	    	if ($.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config)) {
+    	            $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config);
+    	        }
+    	        else {
+    	            $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config);
+    	        }
+    	    } else if (button[0].className.indexOf('buttons-print') >= 0) {
+    	        $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+    	    }
+    	    
+   	  };
+   	  
+   	  var $button;
+      var newExportAction = function (e, dt, button, config) {
+    	  	downloadStart = true;
+    	  	console.log('1',button[0].className);
+    	    var self = this;
+    	    var oldStart = dt.settings()[0]._iDisplayStart;
+    	    
+    	    $button = button;
+
+    	    dt.one('preXhr', function (e, s, data) {
+    	    	console.log('1.5',button[0].className);
+    	        data.start = 0;
+    	        data.length = 2147483647;
+    	        data.pg = 1;
+    	        data.pgSize = 100000000;
+
+    	        dt.one('preDraw', function (e, settings) {
+    	            console.log('2',button[0].className);
+    	            console.log('2.1',$button[0].className);
+    	            oldExportAction(self, e, dt, $button, config);
+
+    	            dt.one('preXhr', function (e, s, data) {
+    	                settings._iDisplayStart = oldStart;
+    	                data.start = oldStart;
+    	            });
+
+    	            setTimeout(dt.ajax.reload, 10);
+
+    	            return false;
+    	        });
+    	    });
+
+    	    dt.ajax.reload();
+   	  };
+   	  
+   	  function maskingUserInfo(data){
+   		  if(!data){
+   			  return data;
+   		  }
+   		  
+   		  if(data.actionType !== 200){
+   			  return data;
+   		  }
+   		  data.reason = data.reason.replace(/"contact"\:[^,]*\,/g, '"contact":,');
+   		  data.reason = data.reason.replace(/"userName"\:[^,]*\,/g, '"userName":,');
+   		  data.reason = data.reason.replace(/"otpSecret"\:[^,]*\,/g, '"otpSecret":,');
+   		  data.reason = data.reason.replace(/"email"\:[^,]*\,/g, '"email":,');
+   		  return data;
+   	  }
+</script>
+</body>
+</html>

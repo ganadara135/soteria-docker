@@ -1,0 +1,81 @@
+<script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/script/js/moment-with-locales.min.js}"></script>
+<script th:src="@{/assets/plugins/jquery-ui/jquery-ui.js}"></script>
+<script th:src="@{/assets/plugins/popper/popper.js}"></script>
+<script th:src="@{/assets/plugins/feather-icon/feather.min.js}"></script>
+<script th:src="@{/assets/css/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/assets/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/assets/plugins/toastr/toastr.min.js}"></script>
+<script th:src="@{/assets/plugins/countup/counterup.min.js}"></script>		
+<script th:src="@{/assets/plugins/waypoints/waypoints.min.js}"></script>
+<script th:src="@{/assets/plugins/chartjs/chartjs.js}"></script>
+<script th:src="@{/assets/plugins/popper/popper.js}"></script>
+<script th:src="@{/assets/plugins/simpler-sidebar/jquery.simpler-sidebar.min.js}"></script>	   
+<script th:src="@{/assets/js/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/assets/js/highlight.min.js}"></script>
+<script th:src="@{/assets/js/custom.js}"></script>
+<script th:src="@{/assets/js/jquery.mCustomScrollbar.js}"></script>
+<script defer th:src="@{/assets/js/solid.js}"></script>
+<script defer th:src="@{/assets/js/fontawesome.js}"></script>
+<script type="text/javascript" th:src="@{/script/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
+
+
+<script th:src="@{/assets/plugins/apex-chart/irregular-data-series.js}"></script>
+<script th:src="@{/assets/plugins/apex-chart/apexcharts.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/common.js}"></script>
+<script th:src="@{/script/js/jquery.jscroll.min.js}"></script>
+<script th:inline="javascript">
+	 // var ctx = [[ @{/} ]];    //jsession 정보까지 딸아와서 삭제
+    // let ctx = [[ ${#httpServletRequest.getContextPath()} ]];
+    //  let ctx = ${#pageContext.request.contextPath};
+    var ctx = "/soteria-admin/"
+	var uId = /*[[ ${session.login_user} != null ? ${session.login_user.userId} : 0 ]]*/;
+</script>
+<script type="text/javascript">
+    var regEvent;
+    var regEventList = [];
+	$(document).ready(function () {
+	    
+	    if(regEvent != undefined){
+	    	regEvent();
+	    }
+	    if(regEventList.length > 0){
+	    	regEventList.forEach(e=>{ e(); });
+	    }
+		$('#sysnoti-dropdown').on('shown.bs.dropdown', function(){
+		 if(notiParam.pg === 1){
+			getNewSysNotiCount();
+		 	$('.nextSysNoti').trigger('click');
+		 	
+		 	//닫힘 방지 
+		 	$('.notifications-heading').off('click').on('click', function(e){
+		 		e.stopPropagation();
+		 	});
+		 	$('#notificationsBox').off('click').on('click', function(e){
+		 		e.stopPropagation();
+		 	});
+		 }
+		});
+	    
+	    initNotiScroll();
+	});
+	
+	function toggleMenu(){
+		$('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+	}
+	
+	function menuOpen(){
+		if(!$('#sidebar, #content').hasClass('active')){
+			toggleMenu();
+		}
+	}
+	
+	function menuClose(){
+		if($('#sidebar, #content').hasClass('active')){
+			toggleMenu();
+		}
+	}
+</script>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>report</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex">
+    <meta name="google" content="nositelinkssearchbox">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.google.com">
+    <link rel="dns-prefetch" href="//picsum.photos"> 
+    <link rel="text/css" th:href="@{/assets/plugins/report/icon.css}">
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+               <nav th:replace="fragments/left :: left">
+               </nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+					<div class="pageheader pd-t-25 pd-b-35 tracker">
+	                  <div class="pd-t-5 pd-b-5">
+	                     <h1 class="pd-0 mg-0 tx-20 text-overflow">Report</h1>
+	                  </div>
+	                  <div class="breadcrumb pd-0 mg-0">
+	                     <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+	                     <span class="breadcrumb-item active">Report</span>
+	                  </div>
+	               </div>
+	               
+	               <div class="card_re shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center">
+	                    
+	                  <div id="dyn-container" class="container width_re">   
+	                     <fieldset>
+	                        <legend class="report_title">1Month Report</legend>
+	                           <div id="report-upload" >
+	                              <form id="report-upload-form">
+	                                 
+	                                    
+	                                       <div class="waves-effect waves-light btn light-blue accent-4 white-text">
+	                                          <span >File</span>
+	                                          <input type="file" id="report-upload-file" accept="text/xml" class="re_input_file">
+	                                          <input type="submit" value="Parse" class="re_parser">
+	                                       </div>
+	                                       <div id="report-upload-details" style="display: none; margin-top: 10px;">
+	                                          Count: <span id="fileNum"></span> | Size: <span id="fileSize"></span>
+	                                       </div>
+	                                   
+	                                
+	                              </form>
+	                              </div>
+	                     </fieldset>
+	                     <fieldset id="report-fieldset" style="display: none;">
+	                        <legend class="report_title">Converted Report</legend>
+	                        <div class="progress blue lighten-5" style="display: none;">
+	                           <div class="indeterminate light-blue"></div>
+	                        </div>
+	                        <div id="report-container"></div>
+	                     </fieldset>
+	                  </div>   
+	               </div>
+	            </div>
+				<footer th:replace="fragments/footer :: footer"></footer>
+         </div>
+      </div>
+      </div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+
+		<script type="text/javascript" id="materialize-js" src="assets/plugins/report/materialize.min.js"></script>
+		<script type="text/javascript" id="xml2js-js" src="assets/plugins/report/xml2json.min.js"></script>
+		<script type="text/javascript" id="echarts-js" src="assets/plugins/report/echarts.min.js"></script>
+		<script type="text/javascript" id="echarts-template-chalk-js" src="assets/plugins/report/echarts/echarts.chalk.js"></script>
+		<script type="text/javascript" id="echarts-template-purple-passion-js" src="assets/plugins/report/echarts/echarts.purple-passion.js"></script>
+		<script type="text/javascript" id="echarts-template-macarons-js" src="assets/plugins/report/echarts/echarts.macarons.js"></script>
+		<script type="text/javascript" id="echarts-template-vintage-js" src="assets/plugins/report/echarts/echarts.vintage.js"></script>
+		<script type="text/javascript" id="echarts-template-walden-js" src="assets/plugins/report/echarts/echarts.walden.js"></script>
+		<script type="text/javascript" id="echarts-template-westeros-js" src="assets/plugins/report/echarts/echarts.westeros.js"></script>
+		<script type="text/javascript" id="echarts-template-wonderland-js" src="assets/plugins/report/echarts/echarts.wonderland.js"></script>
+		<script type="text/javascript" id="main-js" src="assets/plugins/report/main.js"></script>
+      <script>
+      regEvent = function(){
+    	  //ready
+    	  
+      }
+      
+	  </script>
+</body>
+</html>

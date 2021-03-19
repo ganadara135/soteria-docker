@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="modal">
+	<div class="modal" id="baseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+	   <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <h2 class="modal-title" id="exampleModalLabel_1">Alert</h2>
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	            <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+	            </button>
+	         </div>
+	         <div class="modal-body">
+	            <p>비밀번호를 변경해주세요.</p>
+	         </div>
+	         <div class="modal-footer">
+	            <!-- <button type="button" class="btn btn-secondary" >취소</button> -->
+	            <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+	         </div>
+	      </div>
+	   </div>
+	</div>
+</div>
+<div th:fragment="modal_initchange">
+	<div class="modal" id="m_modal_2" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	       <div class="modal-content">
+	          <div class="modal-header">
+	             <h2 class="modal-title" id="exampleModalLabel_1">First Login</h2>
+	             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+	             </button>
+	          </div>
+	          <div class="modal-body">
+	             <div class="modal_body_contents">
+	                <p class="modal_body_contents_text"><strong>안녕하세요, <span id="modal_uname"></span>님</strong><br> 최초 접속하셨습니다.<br>기존 비밀번호를 바꿔주세요.</p>
+	                <div class="modal_body_imput">
+	                   <p class="form-control_name"><strong>기존 비밀번호 변경</strong></p>
+	                   <div class="form-group input-group">
+	                      <input id="txtModal2Pass" class="form-control sizz" placeholder="비밀번호" type="password">
+	                   </div>
+	
+	                   <div class="form-group input-group">
+	                      <input id="txtModal2Pass2" class="form-control" placeholder="비밀번호 재입력" type="password">
+	                   </div>
+	                </div>
+	             </div>
+	          </div>
+	          <div class="modal-footer">
+	             <button id="btnModal2Cancel" type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	             <button id="btnModal2Ok" type="button" class="btn btn-primary">완료</button>
+<!--                  <button id="btnModal2Ok" type="button" class="btn btn-primary" onClick="changePassInit();">완료</button>-->
+	          </div>
+	       </div>
+	    </div>
+	 </div>
+ </div>
+ <div th:fragment="modal_expchange">
+ 	<div class="modal" id="m_modal_3" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h2 class="modal-title" id="exampleModalLabel_1">Alert Alarm</h2>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="modal_body_contents">
+                  <p class="modal_body_contents_text"><strong>안녕하세요, <span id="modal3Uname"></span>님</strong><br>비밀번호 변경 주기가
+                     초과되었습니다.<br>비밀번호를 변경해주세요!</p>
+               </div>
+            </div>
+
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+               <button type="button" class="btn btn-primary" data-toggle="modal"
+                  data-target="#m_modal_4">변경</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1"
+      style="display: none;" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h2 class="modal-title" id="exampleModalLabel_1">Password Change</h2>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="modal_body_contents">
+                  <p class="modal_body_contents_text"><strong>비밀번호 변경안내</strong></p>
+                  <p class="modal_body_contents_text">비밀번호는 9자리 이상 <br>대소문자,숫자,특수문자중 3가지 이상을 포함해야 됩니다.</p>
+                  <div class="modal_body_imput">
+                     <div class="form-group input-group">
+                        <input id="txtModal4OldPass" class="form-control sizz" placeholder="기존 비밀번호" type="password">
+                     </div>
+                     <div class="form-group input-group">
+                        <input id="txtModal4Pass1" class="form-control sizz" placeholder="비밀번호" type="password">
+                     </div>
+
+                     <div class="form-group input-group">
+                        <input id="txtModal4Pass2" class="form-control" placeholder="비밀번호 재입력" type="password">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+               <button type="button" class="btn btn-primary" id="btnModal4Ok">완료</button>
+<!--                <button type="button" class="btn btn-primary" onClick="changePassOld();">완료</button>-->
+            </div>
+
+
+         </div>
+      </div>
+   </div>
+</div>
+
+<div th:fragment="modal_otp">
+    <div class="modal" id="modal_otp_auth" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel_1">OTP 인증</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal_body_contents">
+                        <p class="modal_body_contents_text">
+                        <li>구글 OTP에 표시된 코드를 입력하세요.</li>
+                        </p>
+
+                        <input class="form-control" id="otpCode" placeholder="Enter OTP code" type="text">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> -->
+                    <button type="button" class="btn btn-primary" id="btnOtp">인증</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

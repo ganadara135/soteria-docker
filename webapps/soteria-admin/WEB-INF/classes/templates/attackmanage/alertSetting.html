@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Alert Setting</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/buttons.dataTables.min.css}">
+</head>
+<body>
+	<div class="wrapper">
+		 <nav th:replace="fragments/left :: left">
+		</nav>
+		<div class="page-content">
+			<div id="content">
+				<nav th:replace="fragments/gnb :: gnb">
+				</nav>
+		
+<!--			  <div class="ht-100v d-flex">-->
+				<div class="d-flex pd-l-70">
+
+				<div class="pageheader pd-t-25 pd-b-35 tracker_ts">
+                   <div class="pd-t-5 pd-b-5">
+                      <h1 class="pd-0 mg-0 tx-20 text-overflow">Detection Alert Setting</h1>
+                   </div>
+                   <div class="breadcrumb pd-0 mg-0">
+						Home / System Management / Alert policy setting
+                   </div>
+                 </div>
+
+
+				<div class="card_dashboard  pd-20 mx-auto wd-280 text-center bd-1 align-self-center data_table">
+					<h4>Alert policy</h4>
+					<div class="card-body collapse show" id="collapse7 data_contents">
+
+						<div class="row alarm_setting">
+							<div class="form-check col-md-4">
+								<input type="checkbox" class="form-check-input" id="emailCheckbox">
+								<label class="form-check-label" for="emailCheckbox"><h4>Email</h4></label>
+							</div>
+							<div class="form-check col-md-4">
+								<input type="checkbox" class="form-check-input" id="smsCheckbox">
+								<label class="form-check-label" for="smsCheckbox"><h4>SMS</h4></label>
+							</div>
+							<div class="form-check col-md-4">
+								<input type="checkbox" class="form-check-input" id="pushCheckbox">
+								<label class="form-check-label" for="pushCheckbox"><h4>Push Alert</h4></label>
+							</div>
+							
+							<div class="form-check col-md-5 threat_level">
+								    <h4>Threat Level : </h4>
+								<select name="threat_level" id="severityLevel">
+								    <option value="HIGH">HIGH</option>
+								    <option value="MEDIUM">MEDIUM</option>
+								    <option value="LOW">LOW</option>
+								</select>
+<!--								<b>more</b>-->
+							</div>
+							
+							<div class="attackCateBtn col-md-10">
+								<input type="hidden" id="alert_setting_hidden_id">
+								<input type="hidden" id="severityLevel_hidden_as_id">
+ 								<button onclick="saveAlertSetting()" class="btn btn-custom-primary">Confirm</button>
+							</div>
+						</div>
+							
+					</div>
+				</div>
+			  </div>
+         </div>
+      </div>
+      </div>
+
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/js/parsley.js}"></script>
+	  <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/dataTables.buttons.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/jszip.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/pdfmake.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/vfs_fonts.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.html5.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.print.min.js}"></script>
+
+<script th:inline="javascript">
+regEvent = function(){
+	  initBtn();
+}
+
+function initBtn(){
+	
+	var alertSettingInfo = [[${alertSettingInfo}]];
+	console.log("chk alertSettingInfo  : ", alertSettingInfo)
+
+	if(alertSettingInfo.EMAIL === "Y"){
+		$("input:checkbox[id='emailCheckbox']").attr("checked", true);
+	}
+	if(alertSettingInfo.SMS === "Y"){
+		$("input:checkbox[id='smsCheckbox']").attr("checked", true);
+	}
+	if(alertSettingInfo.PUSH === "Y"){
+		$("input:checkbox[id='pushCheckbox']").attr("checked", true);
+	}
+
+	console.log("ID : ", alertSettingInfo.ID)
+
+	$("#alert_setting_hidden_id").val(alertSettingInfo.ID)
+
+	$("#severityLevel_hidden_as_id").val(alertSettingInfo.AS_ID)
+	
+	$("#severityLevel").find("option").each(function(index){
+		if($(this).val() == alertSettingInfo.SEVERITY_LEVEL)
+			$(this).prop("selected",true);
+	});
+	
+}
+
+function validateSeverityLevelAndAsId(){
+	var levelName = $("#severityLevel option:selected").val();
+	var asIdCode = "";
+
+	console.log("levelName : ", levelName)
+
+	if(levelName == "HIGH"){
+		asIdCode = "AS_1";
+	}else if(levelName == "MEDIUM"){
+		asIdCode = "AS_2";
+	}else if(levelName == "LOW"){
+		asIdCode = "AS_3";
+	}
+
+	return asIdCode;
+}
+function saveAlertSetting(){
+
+
+	console.log("severity level check : ", $("#severityLevel option:selected").val())
+
+
+
+	var params = {
+		id : $("#alert_setting_hidden_id").val(),
+		push : $("input:checkbox[id='pushCheckbox']").is(":checked")?"Y":"N",
+		email : $("input:checkbox[id='emailCheckbox']").is(":checked")?"Y":"N",
+		sms : $("input:checkbox[id='smsCheckbox']").is(":checked")?"Y":"N",
+		// severityLevel : $("#severityLevel option:selected").val()
+		asid : validateSeverityLevelAndAsId()
+	};
+
+	console.log("check params : ", params)
+	// return;
+
+
+	var url = ctx+"alert/update/setting";
+	var req = $.ajax({
+		type : "POST",
+        async: false,
+        url : url,
+        data: params
+    });
+	req.done(function(out){
+		console.log(out)
+		if(out.code === 0){
+			alert('Success Updating Alert Setting.')
+		}else{
+			alert('Fail Updating Alert Setting.')
+		}
+	}).fail(function(err){
+		console.log(err);
+	}).always(function(){
+	});
+	
+
+}
+
+ </script>
+
+</body>
+</html>

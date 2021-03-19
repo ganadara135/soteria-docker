@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>error</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<script>
+// 		location.href="./login";
+	</script>
+</head>
+<body>
+<!-- <p th:text="${err_msg}"></p>
+<p th:text="${#httpServletRequest.getAttribute('err_msg')}"></p>
+ -->
+	<div class="error_100 d-flex">
+       <div class="card-1 shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center">
+          <h1 class="tx-bold tx-140 tx-gray-500" th:text="${err_code}">404</h1>
+          <h3 class="text-uppercase" th:text="${err_msg}">페이지를 찾을 수 없습니다.</h3>
+          <p class="tx-gray-500"></p>
+          <p>
+           <h1><a th:href="@{/login}">Move to Login</a></h1>
+          </p>
+          <div class="text-center">
+                <p>Copyright&copy; 2020 | All rights reserved. | Soteria.,llc</p>
+          </div>
+       </div>
+    </div>
+
+<th:block th:replace="fragments/commonScript"></th:block>
+</body>
+</html>

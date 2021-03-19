@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Dashboard</title>
+	<script th:src="@{/script/js/sockjs.js}"></script>
+	<script th:src="@{/script/js/stomp.min.js}"></script>
+	<script th:src="@{/assets/plugins/svgMap-master/dist/svgMap.js}"></script>
+	<script th:src="@{/assets/plugins/svgMap-master/data/gdp.js}"></script>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/buttons.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/n3chart/build/nv.d3.css}">
+	
+</head>
+<body>
+
+	<div>
+		<nav th:replace="fragments/left :: left"></nav>
+		<div class="page-content">
+			<div id="content">
+			  <nav th:replace="fragments/gnb :: gnb"></nav>
+			</div>
+			 <!-- content -->
+			<div class="pd-l-70 d-flex">
+<!--               <div class="ht-100v d-flex"> w-100 -->
+			<!--			<div class="pd-l-70 w-100">-->
+<!--			<div style="padding-left:70px; padding-right:10px;">-->
+<!--				<div class="pd-t-25 pd-b-35 tracker_ts">-->
+<!--					<div >-->
+<!--&lt;!&ndash;						class="pd-t-5 pd-b-5"  &ndash;&gt;-->
+			<div class="tracker_ts">
+				<div class="pd-t-5 pd-b-5">
+					   <h1 class="pd-0 mg-0 tx-20 text-overflow">Dashboard</h1>
+					</div>
+					<div class="breadcrumb pd-0 mg-0">
+						Home / Dashboard
+					</div>
+				</div>
+
+				<div class="card_dashboard shadow-none data_table mx-0" style="height: 85vh;">
+					<div class="data_contents">
+						<div class="row" style="height: 30vh; ">
+							<div class="col-md-6  border" >
+								<h4 style="text-align: left;">Attack detection status</h4>
+								<div id="attackClassification_chart" ></div>
+							</div>
+
+							<div class="col-md-6  border" >
+								<h4 style="text-align: left;">Attack type Top 5</h4>
+								<div id="attackTop_chart"></div>
+							</div>
+						</div>
+
+						<div class="row border "  style="height: 19vh;">
+							<table id="detection_info_table" class="col-md-12 table-striped hover table-responsive-md table-bordered nowrap text_cen">
+								<thead>
+									<tr>
+	<!--									<th><strong>Log ID</strong></th>-->
+										<th><strong>Level</strong></th>
+										<th><strong>Attack detection</strong></th>
+										<th><strong>Attack mitigation</strong></th>
+										<th><strong>Mitigation</strong></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+
+						<div class="row border" style="height: 33vh;">
+<!--							<div class="col-md-6 mr-md-auto divMargin  " >-->
+							<div class="col-md-6 ">
+								<h4 style="text-align: left;">Attack Threat level</h4>
+								<div id="threatLevel_chart" ></div>
+							</div>
+
+							<div class="col-md-6 border-left"  >
+								<h4 style="text-align: left;">Global Attack Status</h4>
+<!--								이 모듈은 인터넷 연결 상태에서만 작동, 해당 모듈만 추출이 안됨 -->
+<!--								<div id="iembed" style="position: relative;width:100%; ;    padding-bottom:58%;overflow-y:hidden; ">-->
+
+								<iframe id="iembedframe" src="http://metrocosm.com/world-migration.html"  scrolling="no"
+										style="overflow:visible;height: 30vh;width: 100%;"></iframe>
+<!--											style="position:absolute;left:0;top:0;transform-origin:top left;overflow-y:hidden;height: 33vh;width: 100%;"></iframe>-->
+
+<!--								<h4 class="graph_title ">글로벌 공격</h4>-->
+<!--									  <p>Global Attack Status</p>-->
+<!--									  <div id="chart-container-geomap"></div>-->
+							</div>
+						</div>
+
+	             	</div>
+				</div>
+            </div>
+		</div>
+	</div>
+
+
+	<div class="modal up_z" id="modal_Mitigation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog tim-al" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title" id="exampleModalLabel_1">Attack Mitigation</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+					</button>
+				</div>
+				<div class="modal-body " >
+<!--					<div class="modal_body_contents attack_miti col mb-2">-->
+						<div class="modal_body_contents col"  >
+						<div class="pr-4">
+							<h5>How to respond to attacks</h5>
+							<p id="mitigation_description" class="border "
+									  style="width: 100%;height: 10rem; padding: 1rem;background:#eeeeee;"></p>
+						</div>
+						<div class="attack_miti mr-1 pr-4">
+							<h5>Admin response plan</h5>
+<!--							<h5 class="attack_modal_info">관리자 대응 방법	</h5>-->
+<!--							<p>Admin Mitigation Method :</p>-->
+							<div class="form-check mitigation_check mb-2" style="width: 150px;">
+								<select id="select_measure_status">
+									<option value="notRead" selected>대기중</option>
+									<option value="doing">처리중</option>
+									<option value="done">처리완료</option>
+								</select>
+							</div>
+
+							<div class="attack_miti">
+<!--								<h5 class="attack_modal_info">조치내역 : </h5>-->
+								<textarea class="form-control" id="measure_contents_id" ></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-custom-primary mr-4" data-dismiss="modal" id="measure_confirm_id">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+               
+     <!--  <audio autoplay controls class="sound_hide" style="opacity:0;" id='sound_play' th:src="@{/assets/sound/alertSound.MP3}"></audio>  -->       
+               
+	<th:block th:replace="fragments/commonScript"></th:block>
+	<script th:src="@{/assets/js/parsley.js}"></script>
+	<script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+	<script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+	<script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/jszip.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/pdfmake.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/vfs_fonts.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.html5.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.print.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/n3chart/build/d3.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/n3chart/build/nv.d3.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/n3chart/examples/lib/stream_layers.js}"></script>
+	<script src="http://metrocosm.com/metrocosm-migration-embed.js"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/datatables/dataTables.scroller.min.js}"></script>
+
+	<script  th:inline="javascript">
+	var currSbbId = /*[[ ${firstServer != null ? firstServer.sbbId: '0'} ]]*/;
+	var uId = /*[[ ${user.userId}]]*/;
+	var pg = 1;  //, pgSize = 10;
+	var refreshRate = 1000 * [[${refreshRate}]] * 6;
+	</script>
+
+	<!--	지도부분  -->
+	<script th:src="@{/assets/js/d3.min.js}"></script>
+<!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>-->
+	<script th:src="@{/assets/js/topojson.min.js}"></script>
+<!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>-->
+	<script th:src="@{/assets/js/datamaps.all.min.js}"></script>
+<!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.0/datamaps.all.min.js"></script>-->
+
+	<script type="text/javascript">
+		var innerViewPortHeight = window.innerHeight;		// ViewPort 값 얻기
+
+		var dataTableHandler;
+
+		regEvent = function(){
+			  // initAttackDectionStatus();
+			  initAttackClassification();
+			  initAttackTypeTop();
+			  // initTables();
+			  initThreatLevel();
+
+			  initMeasureTable();
+			  
+			  /* soundPlay(); */
+
+			  // initTodayIpGeoLocation();
+			  initAlarm();
+		}
+
+		function initTodayIpGeoLocation(){
+			var todayResult;
+
+			var params = {requestLIMIT : "5"};
+			var url = ctx+"display/today/ipgeolocation";
+			var req = $.ajax({
+				async: false,
+				url : url,
+				data: params
+			});
+			req.done(function(out){
+				if(out.code === 0){
+					todayResult = out.data;
+				}else{
+					alert('fail getting IP geoLocation data');
+				}
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+			});
+
+			console.log("IpGeoLocation : ", todayResult);
+
+			let interMediateVal = todayResult.filter(it => it.returnCode === 0);
+
+			console.log("interMediatVal : ", interMediateVal);
+
+
+			var mapData = interMediateVal.map( function (obj) {
+				return {
+					latitude: obj.geoLocation.lat,
+					longitude: obj.geoLocation.longV,
+					fillKey: 'Trouble',
+					radius: 10,
+					name: obj.geoLocation.net,
+					attackedTime: obj.attackedTime
+				}
+			})
+
+			console.log("mapData : ", mapData);
+
+			var map = new Datamap({
+				element: document.getElementById('chart-container-geomap'),
+				scope: 'world',
+				responsive: true,
+				geographyConfig: {
+					hideAntarctica: true,
+					hideHawaiiAndAlaska : true,
+					borderWidth: 1,
+				},
+				fills: {
+					'Visited': '#306596',
+					'neato': '#0fa0fa',
+					'Trouble': '#bada55',
+					defaultFill: '#dddddd'
+				},
+				// setProjection: function (element) {
+				// 	var projection = d3.geo.mercator()
+				// 			.center([127.001, 37.564]); // always in [East Latitude, North Longitude]
+				// 			// .scale(10);
+				// 			//.translate([element.offsetWidth , element.offsetHeight ]);
+				//
+				// 	var path = d3.geo.path().projection(projection);
+				// 	return { path: path, projection: projection };
+				// }
+			});
+			map.bubbles(mapData,
+					{popupTemplate: function (geo, data){
+						return ['<div class="hoverinfo"> ' + 'name : ' + data.name,
+								'<br/> AttackTime: ' + data.attackedTime + '</div>'].join('');
+					}});
+		}
+		// var content = JSON.parse(alarm.body);
+
+
+		// 대응 방안에 대한 설명자료 강제 주입
+		function callMe(val1, val2) {
+			console.log("val1 : ", val1)
+			console.log("val2 : ", val2)
+			document.getElementById("mitigation_description").innerText = val1;
+			document.getElementById("measure_contents_id").innerText = val2;
+		}
+
+		// var param = {
+		// 	draw: 0,
+		// 	start: 0,
+		// 	length: 8
+		// };
+
+		// function tbParams(requestData){
+		// 	// requestData['pg'] = getPg(requestData.start, param.pgSize);
+		// 	requestData['draw'] = requestData.draw;
+		// 	requestData['start'] = requestData.start;
+		// 	requestData['pgSize'] = param.pgSize;
+		// 	requestData['length'] = param.length;
+		//
+		// 	// param.data = requestData.data;
+		// 	console.log("chk requestData : ", requestData)
+		// }
+
+		function getPg(start, pgSize){
+			if(start === 0){return 1;}
+			return (start / pgSize) + 1;
+		}
+
+		function initMeasureTable(){
+			dataTableHandler = $('#detection_info_table').DataTable({
+				processing: true,
+				serverSide: true,
+				scrollY: '15.5vh',
+				scrollX: false,
+				sScrollX: false,
+				// responsive: true,
+				autoWidth: false,
+				// scrollX: innerViewPortWidth,
+				scrollCollapse: false,
+				searching: false,
+				// paging:  false,
+				deferRender: false,
+				scroller:	{
+					loadingIndicator: true,
+					trace: true
+				},
+				dom: 'tS',
+				// ajax: function ( data, callback, settings ) {
+				// 	var out = [];
+				//
+				// 	console.log("settings : ", settings)
+				//
+				// 	for ( var i=data.start, ien=data.start+data.length ; i<ien ; i++ ) {
+				// 		out.push( [ i+'-1', i+'-2', i+'-3', i+'-4', i+'-5' ] );
+				// 	}
+				//
+				// 	setTimeout( function () {
+				// 		callback( {
+				// 			draw: data.draw,
+				// 			data: out,
+				// 			recordsTotal: 500000,
+				// 			recordsFiltered: 500000
+				// 		} );
+				// 	}, 50 );
+				// },
+				// ajax: {
+				// 	url: ctx+'detection/detectiondetail/list/scroller',
+				// 	method: 'POST',
+				// 	data: tbParams,
+				// 	dataSrc: function(json, callback, settings){			// response part
+				// 		console.log("json.data.list : ", json.data.list)
+				// 		// console.log(JSON.stringify(json.data.list))
+				// 		// json.draw = json.data.currPg + 1;
+				// 		json.recordsTotal = json.data.total;
+				// 		json.recordsFiltered = json.data.total;
+				// 		// console.log("json.error : ", json.error);
+				// 		// if(!json.data.list)
+				// 		// 	json.data.list = [];
+				// 		return json.data.list;
+				// 	}
+				// },
+				ajax: ctx+'detection/detectiondetail/list/scroller',
+				columns: [
+					// {'data': 'logId'},
+					{'data': 'asName'},		// 공격 위협도
+					{'data': 'attackName'},
+					{    },		//  대응 상태
+					{    },	// 버튼 넣는 위치,  type : display
+				],
+				order : false,
+				columnDefs: [
+					{
+						// "targets": 3,
+						"targets": [2],
+						"data": function ( data, type) {
+							return data.measureStatus == '0' ? "대기중" : (data.measureStatus == "1" ? "처리완료" : "처리중");
+						}
+					},
+					{
+						"targets": [ 3 ],
+						// "defaultContent": "Click to edit",
+						"data": function ( row, type, val, meta) {
+							console.log("row.measureContents : ", row.measureContents)
+							// console.log("row.amDesc : ", row.amDesc)
+							// 아래 value 부분에 " " 중요, name 속성에 값을 담아서 전달용도 활용
+							return `대응방법 &nbsp &nbsp &nbsp <button value="${row.amDesc}" name="${row.measureContents}"
+								onclick=\"callMe(this.value, this.name)\" type=\"button\" data-toggle=\"modal\"
+								data-target=\"#modal_Mitigation\" class=\"btn btn-custom-primary\">	입력 </button>`;
+						}
+					},
+				],
+			});
+
+			$('.dataTables_scrollBody').css({"overflow-x":"hidden"});
+			// $('.dataTables_scrollBody').on('scroll', function ( pos) {
+			// 	// alert('pos ', pos);
+			// })
+		}
+		
+		// function initAttackDectionStatus(){
+		function initAttackClassification() {
+			var classificationResult;
+			var params = {};
+			var url = ctx+"display/status/today/classification";
+			var req = $.ajax({
+				 async: false,
+		         url : url,
+		         data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					classificationResult = out.data;
+				}else{
+					alert('fail update');
+				}
+
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+			});
+
+			var mapDBSeries = classificationResult.listDB.map( function (obj) {
+				const myDateDB = new Date(obj.dateOrd);
+				myDateDB.setHours(obj.hourOrd)
+				return { x: myDateDB , y: obj.cnt}
+			})
+
+			var mapOSSeries = classificationResult.listOS.map( function (obj) {
+				const myDateOS = new Date(obj.dateOrd);
+				myDateOS.setHours(obj.hourOrd)
+				return { x: myDateOS , y: obj.cnt}
+			})
+
+			var mapAPPSeries = classificationResult.listAPP.map( function (obj) {
+				const myDateAPP = new Date(obj.dateOrd);
+				myDateAPP.setHours(obj.hourOrd)
+				return { x: myDateAPP , y: obj.cnt}
+			})
+
+			const attackType_options = {
+				//  여기는 Y 춖임
+				series: [{
+						name: "DB",
+						data: mapDBSeries
+					},{
+						name: "OS",
+						data: mapOSSeries
+					},{
+						name: "APP",
+						data: mapAPPSeries
+					}],
+				  chart: {
+					  height: innerViewPortHeight/3.9,
+					  type: 'line',
+					  toolbar: {
+						// show: true
+					  }
+				},
+				colors: ["#382035","#204dd4","#974B8D"],
+				dataLabels: {
+				  enabled: true,
+				},
+				stroke: {
+				  curve: 'smooth'
+				},
+				grid: {
+				  borderColor: '#e7e7e7',
+				  row: {
+					colors: ['#f3f3f3', 'transparent'],
+					opacity: 0.5
+				  },
+				},
+				markers: {
+				  // size: 1
+				},
+				xaxis: {
+				   	// categories:mapDBSeries,
+					type:'datetime',
+					// min: new Date('01/11/2021').getTime(),
+					// max: new Date('01/11/2021').getTime(),
+				},
+				yaxis: {
+				  title: {
+					text: 'Attack Count'
+				  },
+				  min: 1,
+				  // max: lastMaxYval+1, // classificationResult.MAXCNT
+				},
+				legend: {
+				  position: 'top',
+				  horizontalAlign: 'right',
+				  floating: true,
+				}
+			};
+			
+			const attackType_chart = new ApexCharts(
+					document.querySelector("#attackClassification_chart"),
+					attackType_options
+			);
+			attackType_chart.render();
+		}
+		
+		function initAttackTypeTop(){
+			var todayDetectionResult;
+
+			var params = {};
+			var url = ctx+"display/status/today/top/attack";
+			var req = $.ajax({
+				async: false,
+				url : url,
+				data: params
+			});
+			req.done(function(out){
+				if(out.code === 0){
+					todayDetectionResult = out.data;
+				}else{
+					alert('fail update');
+				}
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+			});
+
+
+			var mapSeries = todayDetectionResult.SERIES.map( function (obj) {
+				return obj.data[0];
+			})
+
+			var options = {
+				series: [{
+					data: mapSeries
+				}],
+				chart: {
+				  height: innerViewPortHeight/3.9,
+				  type: 'bar',
+				  events: {
+					click: function(chart, w, e) {
+					}
+				  }
+				},
+				colors: ["#382035","#4C3249","#60445C","#876883","#9B7A97"],
+				plotOptions: {
+				  bar: {
+					columnWidth: '45%',
+					distributed: true
+				  }
+				},
+				dataLabels: {
+				  enabled: true
+				},
+				legend: {
+				  show: true
+				},
+				yaxis: {
+					  title: {
+							text: '건수 - count'
+						  }
+				},
+				xaxis: {
+					title: {
+						text: '공격명 - Attack Name'
+					  },
+					categories: [[todayDetectionResult.XAXIS]],
+			          // categories: [
+			        	// ['SQL Injection'],
+			        	// ['XSS'],
+			        	// ['XML Injection'],
+			        	// ['Stored XSS'],
+			        	// ['File Upload'],
+			          // ],
+					labels: {
+						style: {
+						  colors: ["#000"],
+						  fontSize: '12px'
+						}
+					}
+				}
+			};
+
+			var chart = new ApexCharts(document.querySelector("#attackTop_chart"), options);
+			chart.render();
+		}
+		
+		function initThreatLevel(){
+			var threatResultTmp;
+			var params = {};
+			var url = ctx+"display/status/totalGroupedServerity";
+			var req = $.ajax({
+				async: false,
+				url : url,
+				data: params
+			});
+			req.done(function(out){
+				if(out.code === 0){
+					// console.log("chk totalGroupedServerity : ", out)
+					threatResultTmp = out.data;
+
+				}else{
+					alert('fail update');
+					return;
+				}
+
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+			});
+
+			const mapSeries = threatResultTmp.SERIES.map( function (obj) {
+				return obj.eachTotalCnt[0];
+			})
+			// console.log("mappSeries : ", mapSeries)
+
+			 var  threatStatus_options = {
+				 plotOptions: {
+						pie: {
+						  customScale: 1,
+						  expandOnClick: true
+						}
+					  },
+				 colors: ["#DB4949","#4285f4","#59CE6D"],
+				 labels:["HIGH","MEDIUM","LOW"],
+				 // series: [61, 28, 11],
+				 // series: [{
+					//  data: mapSeries
+				 // }],
+				 series: mapSeries,
+				 chart: {
+					// height: 300,
+					 height: innerViewPortHeight/3.0,
+					type: 'pie',
+					toolbar: {
+						show: true
+					  }
+					},
+				legend: {
+					show:true
+					},
+				dataLabels: {
+					 enabled: true,
+					 textAnchor: 'start',
+					 style: {
+						fontWeight: 'bold',
+						colors: ['#fff'],
+						fontSize: '15px',
+					 },
+					 dataLabels: {
+						 formatter(val, opts) {
+						   const name = opts.w.globals.labels[opts.seriesIndex]
+						   return [name, val.toFixed(1)]
+						 }
+					   },
+					 offsetX: 0,
+					 dropShadow: {
+						 enabled: true,
+						 top: 1,
+						 left: 1,
+						 blur: 1,
+						 color: '#000',
+						 opacity: 0.9
+					 }
+				},
+			       
+				responsive: [{
+				  breakpoint: 350,
+				  options: {
+					chart: {
+					  // width: 300,
+					  // height:300
+					},
+					legend: {
+						show:false,
+					  position: 'bottom'
+					}
+				  }
+
+				}]
+			};
+
+			var threatStatus_chart = new ApexCharts(document.querySelector("#threatLevel_chart"), threatStatus_options);
+			threatStatus_chart.render();
+		}
+
+		
+
+	/*  function soundPlay(){
+	           var sound = document.getElementById('sound_play');      
+	    }
+	 */
+
+
+		
+	  var sock;
+	  var client;
+	  function initAlarm(){
+		  sock = new SockJS(ctx+"/stomp-alarm");
+		  sock.onhearbeat = function(d){
+			  console.log('>>>hearbeat',d);
+		  }
+		  
+	      client = Stomp.over(sock); 
+	      client.heartbeat.outgoing = 20000;
+    	  client.heartbeat.incoming = 0;
+	      client.connect({},()=>{
+	    	  client.subscribe('/subscribe/alarm/detection', (alarm)=>{
+	    		 /*  $("#sound_play").toggleClass("sound_hide",false);
+	    		 soundPlay();
+	    		   */
+	    		  var content = JSON.parse(alarm.body);
+	    		  console.log("content : ", content);
+	    		  var msg = `${content.attackName} 공격이 발생하였습니다.<br>
+							Attack Time:${content.attackTime}<br>
+							Src IP: ${content.srcIp}<br>
+ 							Dst IP: ${content.dstIp}<br>
+							Port: ${content.dstPort}`;
+
+	    		  showToast('success', msg);
+	    		  dataTableHandler.ajax.reload();
+				  // location.href = ctx + 'login';
+				  // location.reload();
+				  // detection_info_table.reload(); //.ajax.reload();
+	    		  
+ 	    		  // if(content.amId){
+	    		   //  $('#modal_Mitigation').modal();
+	    		   //  getMitigationByAmId(content);
+ 	    		  // }
+ 	    		  
+	    	  });
+	      },()=>{
+	    	  setTimeout(()=>{
+	    		  initAlarm();
+	    	  },1000);
+	      });
+	  }
+ </script>
+	<script type="text/javascript">
+	// var clockTarget = document.getElementById("clock");
+
+
+	// function clock() {
+	// 	var date = new Date();
+	// 	var year = date.getFullYear();
+	// 	var month = date.getMonth();
+	// 	var clockDate = date.getDate();
+	// 	var day = date.getDay();
+	// 	var week = ['일', '월', '화', '수', '목', '금', '토'];
+	// 	var hours = date.getHours();
+	// 	var minutes = date.getMinutes();
+	//
+	// 	clockTarget .innerText = `${year}년  ${month+1}월  ${clockDate}일  ${week[day]}요일  ` +
+	//
+	// 	`${hours < 10 ? `0${hours}` : hours} : ${minutes < 10 ? `0${minutes }`: minutes }`;
+	// }
+
+	// function initClock() {
+	// 	clock();
+	// 	setInterval(clock, 1000);
+	// }
+	// initClock();
+
+	</script>
+  </body>
+</html>

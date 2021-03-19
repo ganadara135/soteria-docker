@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="fragments/commonHead"></th:block>
+  </head>
+  <body>
+    <h2>auth/login</h2>
+    <p>
+	<span th:text="${user}"></span>
+	</p>
+	<p>
+		<button type="button" id="btnModal" class="btn btn-primary" data-toggle="modal" data-target="#baseModal">
+		    Open modal
+		</button>
+		<div th:replace="fragments/modals/base :: modal">
+		</div>
+	</p>
+	<p>
+	Move to <a th:href="@{/apitest}">apitest</a> page
+	</p>
+	
+	
+	<footer th:replace="fragments/footer :: footer"></footer>
+	<th:block th:replace="fragments/commonScript"></th:block>
+    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+    <script th:src="|@{/}script/js/jquery-1.11.0.min.js|"></script>	
+	<script th:inline="javascript">
+		var ctx = /*[[ @{/} ]]*/;
+	</script>
+	
+	<script >
+	$(document).ready(function (){
+		$('#btnModal').click(function(e){
+			$('#btnModal').attr('data-target', "#baseModal");
+		});
+	});	
+	
+	</script>
+    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+    <!-- <script th:src="@{/script/bootstrap/js/bootstrap.min.js}"></script> -->
+  </body>
+</html>

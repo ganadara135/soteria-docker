@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+   		<title>Soteria Admin</title>
+    	<th:block th:replace="fragments/commonHead"></th:block>
+   </head>
+   <body>
+      <!--================================-->
+      <!-- Page Container Start -->
+      <!--================================-->
+      <div>
+         <!--================================-->
+         <!-- Page Sidebar Start -->
+         <!--================================-->
+         <div class="wrapper">
+               <!-- Sidebar  -->
+            에러발생 부분 left
+<!--               <nav th:replace="fragments/left :: left">-->
+<!--               </nav>-->
+<!--            <th:block th:if="${authorization=='USER'}">-->
+<!--               <th:block th:replace="fragments/left"></th:block>-->
+<!--            </th:block>-->
+         <div class="page-content">
+            <!--================================-->
+            <!-- Page Header Start -->
+            <!--================================-->
+            <div id="content">
+               <!--================================-->
+               <!-- Page Header  Start -->
+               에러발생 부분 gnb
+               <!--================================-->
+<!--               <nav th:replace="fragments/gnb :: gnb">-->
+<!--               </nav>-->
+            </div>
+            <!-- Contents 들어갈 장소--->
+
+            <!--Footer-->
+            <footer th:replace="fragments/footer :: footer"></footer>
+         </div>
+ 
+      </div>
+      
+      <!-- Scroll To Top Start-->
+      <!--================================-->	
+      
+      </div>
+     
+     
+      <!-- Right Side Bar (SBB List) -->
+      <!--================================-->
+       에러발생 right
+            <div th:replace="fragments/right :: right"></div>
+   
+      <!-- Footer Script -->
+      <th:block th:replace="fragments/commonScript"></th:block>
+   </body>
+</html>

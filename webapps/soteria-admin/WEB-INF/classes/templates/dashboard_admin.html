@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Dashboard</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<script th:src="@{/script/js/sockjs.js}"></script>
+	<script th:src="@{/script/js/stomp.min.js}"></script>
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+               <nav th:replace="fragments/left :: left"></nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+					<div class="pageheader pd-t-25 pd-b-35 tracker">
+                        <div class="pd-t-5 pd-b-5">
+                           <h1 class="pd-0 mg-0 tx-20 text-overflow">Dashboard</h1>
+                        </div>
+                        <div class="breadcrumb pd-0 mg-0">
+                           <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+                           
+                        </div>
+                     </div>
+                  
+               <div class="card_sq_da shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center">
+                  <h6 class="title_to_al_sq">Total Alarm</h6>
+                  <div class="seq_dash">
+                    
+                        <div class="neu_total_seq">
+                           <h3 class="ne_al_das_1">Neurotron AI</h3> 
+                           <p class="neur_al_num" id="neuroCount">0</p>
+                        </div>
+                    
+                     
+                        <div class="sys_total_seq">
+                           <div class="sys_al_gr_sq">
+                              <div>
+                                 <h3 class="ne_al_das">System log</h3> 
+                                 <p class="neur_al_num" id="syslogTotal">0</p>
+                              </div>
+                              <div class="sys_ale_sq">
+                                 <div class="sys_al_em">
+                                    <h7 class="ne_al_das">Emergency</h7> 
+                                    <h3 id="syslogEmergency" class="ne_al_das">0</h3>
+                                 </div>
+                                 <div class="sys_al_er">
+                                    <h7 class="ne_al_das">Alert</h7> 
+                                    <h3 id="syslogError" class="ne_al_das">0</h3>
+                                 </div>
+                                 <div class="sys_al_cr">
+                                    <h7 class="ne_al_das">Critical</h7>
+                                    <h3 id="syslogCritical" class="ne_al_das">0</h3>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     
+                  </div>
+                 
+                  <div class="sq_graph">
+                    <h6 class="title_to_al_sq">Total Alarm Chart</h6>
+                    <div class="total_chart_gird" id="serverGrid">
+                       <div class="color_graph_chart chart-sizing ba_ho_sq" style="background:#3A2374;"> 
+                           <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Neurotron: 10 | System log :10" title="Service Name" data-original-title="SBB DISK Status">
+                              <h6>Service Name</h6>
+                              <h4>120</h4>
+                           </button>
+                       </div>
+                       <div class="color_graph_chart chart-sizing ba_ho_sq" style="background:#46367D;"> 
+                           <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Neurotron: 10 | System log :10" title="Service Name" data-original-title="SBB DISK Status">
+                              <h6>Service Name</h6>
+                              <h4>120</h4>
+                           </button>
+                       </div>
+                      
+                    </div> 
+                     <div class="total_chart_gird" id="detailGrid">
+                        
+                        <div class="color-g-group chart-sizing">
+                           <div class="color_graph_chart ne-co-sq-da">
+                              <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Neurotron:30" title="Neurotron" data-original-title="Neurotron">
+                                 <p>30</p>
+                              </button>
+                           </div>
+                           <div class="color_graph_chart sy-co-em-da"> 
+                              <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Emergency:30" title="System log" data-original-title="System log">
+                                 <p>30</p>
+                              </button>
+                           </div>
+                           <div class="color_graph_chart sy-co-er-da">
+                              <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Alert:30" title="System log" data-original-title="System log">
+                                 <p>30</p>
+                              </button></div>
+                           <div class="color_graph_chart sy-co-cr-da">
+                              <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Critical:30" title="System log" data-original-title="System log">
+                                 <p>30</p>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="color-g-group chart-sizing">
+                              <div class="color_graph_chart ne-co-sq-da">
+                                 <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Neurotron:30" title="Neurotron" data-original-title="Neurotron">
+                                    <p>30</p>
+                                 </button>
+                              </div>
+                              <div class="color_graph_chart sy-co-em-da"> 
+                                 <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Emergency:30" title="System log" data-original-title="System log">
+                                    <p>30</p>
+                                 </button>
+                              </div>
+                              <div class="color_graph_chart sy-co-er-da">
+                                 <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Alert:30" title="System log" data-original-title="System log">
+                                    <p>30</p>
+                                 </button></div>
+                              <div class="color_graph_chart sy-co-cr-da">
+                                 <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Critical:30" title="System log" data-original-title="System log">
+                                    <p>30</p>
+                                 </button>
+                              </div>
+                           </div>
+                       
+                     </div> 
+                  </div>
+	              <div class="tx-10 tx-uppercase footer_margin">
+				     <p class="pd-y-10 mb-0">Copyright© 2019 | All rights reserved. | Soteria.,llc</p>
+				  </div>
+               </div>
+				</div>
+         </div>
+      </div>
+      </div>
+      <div id="serverDom" style="display:none;">
+      	<div class="color_graph_chart chart-sizing ba_ho_sq" style="background:#A4D0C9;"> 
+            <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Neurotron: 10 | System log :10" title="Service Name">
+                <h6 id="serverName">Server Name</h6>
+                <h4 id="totalCount">0</h4>
+             </button>
+         </div>
+      </div>
+      <div id="detailDom" style="display:none;">
+	      <div class="color-g-group chart-sizing">
+		      <div class="color_graph_chart ne-co-sq-da">
+		         <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Neurotron:30" title="Neurotron" data-original-title="Neurotron">
+		            <p id="neuroCount">0</p>
+		         </button>
+		      </div>
+		      <div class="color_graph_chart sy-co-em-da"> 
+		         <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Emergency:30" title="System log" data-original-title="System log">
+		            <p id="emergencyCount">0</p>
+		         </button>
+		      </div>
+		      <div class="color_graph_chart sy-co-er-da">
+		         <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Alert:30" title="System log" data-original-title="System log">
+		            <p id="errorCount">0</p>
+		         </button></div>
+		      <div class="color_graph_chart sy-co-cr-da">
+		         <button type="button" class="popover_bac" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Critical:30" title="System log" data-original-title="System log">
+		            <p id="criticalCount">0</p>
+		         </button>
+		      </div>
+		   </div>
+      </div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:inline="javascript">
+		var currSbbId = /*[[ ${firstServer != null ? firstServer.sbbId: '0'} ]]*/;
+		var pg = 1, pgSize = 10;
+		var refreshRate = 1000 * [[${refreshRate}]] * 6;
+	  </script>
+      <script>
+      var innerReplay, serverReplay;
+      var serverReplayInterval = 10000;//10 sec
+      var server_colors = ['#3A2374','#46367D','#514A87','#5D5D90','#69709A','#7583A3','#8097AD','#8CAAB6','#98BDC0','#A4D0C9','#AFE4D3'];
+	  regEvent = function(){
+		  
+		  loadSummLogTable(calcServerReplayInterval) ;
+		  
+		  setTimeout( refreshContent, 5000);
+		  refreshContent();
+		  initAlarm(uId);
+	  }
+	  
+	  function refreshContent(){
+		  
+		  innerReplay = setInterval( onlogNext, 60000);
+	  }
+	  
+	  function calcServerReplayInterval(){
+		  var totPg = sumLogParam['lastPg'];
+		  serverReplayInterval = Math.max(totPg * 5000, 10000);
+	  }
+	  
+	  function getUnreadCount(){
+		  
+	  }
+	  
+	  var sumLogParam = {
+	  	period: PERIOD_7DAYS,
+		pg: 1,
+		pgSize: 10
+	  }
+	  var summServers = [];
+	  function loadSummLogTable(cb){
+		  
+		    var params = sumLogParam;
+		    
+		    if(params.pg > 1 && params.lastPg > 0){
+		    	loadSummNext();
+		    	return;
+		    }
+		    
+			var url = ctx+"dashboard/logs/summary-sa";
+			var req = $.ajax({
+				type : "POST",
+		        async: true,
+		        url : url,
+		        data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					if(params.pg === 1){
+						updateParamPaging(out.data.serverInfo.total, sumLogParam);
+						summServers = out.data.serverInfo.list;
+						
+						if(!cb){
+							cb();
+						}
+					}
+					
+					setTopLogCount(out.data);
+					
+					loadSummNext();
+				}else{
+				}				
+			}).fail(function(err){
+				showAlert('데이터 조회에 실패하였습니다.');
+			}).always(function(){
+				
+			});
+	  }
+	  function loadSummNext(){
+		  removeAllSummlogRows();
+		  
+		  var params = sumLogParam;
+		  var idx = (params.pg - 1)*params.pgSize;
+		  addServerLogSummary( summServers.filter( (el,index)=>{
+			return index >= idx && index < idx+params.pgSize; })
+		  );
+		  
+	  }
+	  function updateParamPaging(total, param){
+		  param['tot'] = total;
+		  param['lastPg'] = Math.floor(total / param.pgSize) + (total % param.pgSize > 0 ? 1 : 0);
+	  }
+	  
+	  function removeAllSummlogRows(){
+		  
+		  if ($('[data-toggle="popover"]').length !== 0) {
+		      $('[data-toggle=popover]').popover('dispose');
+		  }
+		  $('#serverGrid').empty();
+		  $('#detailGrid').empty();
+	  }
+	  
+	  function addServerLogSummary(list){
+		  if(!list){
+			  return;
+		  }
+		  var serverGrid = $('#serverGrid');
+		  var detailGrid = $('#detailGrid');
+		  
+		  list.forEach( (el,idx)=>{
+			  serverGrid.append(getServerElem(el,idx));
+			  detailGrid.append(getDetailElem(el));
+		  });
+		  
+		  if ($('[data-toggle="popover"]').length !== 0) {
+		      $('[data-toggle=popover]').popover();
+		  }
+	  }
+	  
+	  function getServerElem(data, index){
+		  if(!data){
+			  return null;
+		  }
+		  var serverDom = $('#serverDom');
+		  serverDom.find('#serverName').html(data.sbbName);
+		  serverDom.find('#totalCount').html(data.total);
+		  var btn = serverDom.find('button');
+		  btn.attr('data-content', 'Neurotron: _ncount_ | System log : _scount_'.replace('_ncount_',data.neuroCount).replace('_scount_', data.syslogCount));
+		  btn.attr('title', data.alias);
+		  var tgt = $(serverDom.find('div')[0]).css('background', server_colors[index]);
+		  return tgt.clone();
+	  }
+	  
+	  function getDetailElem(data){
+		  if(!data){
+			  return null;
+		  }
+		  var detailDom = $('#detailDom');
+		  detailDom.find('#neuroCount').html(data.neuroCount);
+		  detailDom.find('#neuroCount').parent().attr('data-content','Neurotron:'+data.neuroCount);
+		  detailDom.find('#emergencyCount').html(data.emergencyCount);
+		  detailDom.find('#emergencyCount').parent().attr('data-content','Emergency:'+data.emergencyCount);
+		  detailDom.find('#errorCount').html(data.alertCount);
+		  detailDom.find('#errorCount').parent().attr('data-content','Alert:'+data.alertCount);
+		  detailDom.find('#criticalCount').html(data.criticalCount);
+		  detailDom.find('#criticalCount').parent().attr('data-content', 'Critical:'+data.criticalCount);
+		  
+		  var tgt = $(detailDom.find('div')[0]).clone();
+		  return tgt;
+	  }
+	  
+	  function onlogNext(){
+		  console.log('next pg');
+		  var param = sumLogParam;
+		  if(!param){
+			  return;
+		  }
+		  if(param.lastPg === param.pg){
+			  param.pg = 1;
+			  loadSummLogTable(calcServerReplayInterval);
+			  return;
+		  }else{
+		      param.pg = param.pg + 1;
+		  }
+		  loadSummNext();
+	  }
+	  
+	  function setTopLogCount(data){
+		  if(!data){
+			  return;
+		  }
+		  
+		  $('#neuroCount').html(data.neuroCount);
+		  $('#syslogTotal').html(data.syslogCount);
+		  $('#syslogEmergency').html(data.p0Count);
+		  $('#syslogError').html(data.p1Count);
+		  $('#syslogCritical').html(data.p2Count);
+	  }
+	  
+	  var sock;
+	  var client;
+	  function initAlarm(userId){
+		  sock = new SockJS(ctx+"stomp-alarm");
+	      client = Stomp.over(sock); 
+	      client.connect({},()=>{
+	    	  client.subscribe('/subscribe/noti/'+userId, (alarm)=>{
+	    		  var content = JSON.parse(alarm.body);
+	    		  showToast('success', content.msg1, content.msg2);
+	    	  })
+	      })
+	  }
+	  
+	  </script>
+</body>
+</html>

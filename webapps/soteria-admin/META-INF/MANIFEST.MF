@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Implementation-Title: soteria-admin
+Implementation-Version: 0.0.2-SNAPSHOT
+Built-By: ubuntu2
+Implementation-Vendor-Id: com.soteria-sys
+Spring-Boot-Version: 2.0.3.RELEASE
+Main-Class: org.springframework.boot.loader.WarLauncher
+Start-Class: com.soteriasys.MyApplication
+Spring-Boot-Classes: WEB-INF/classes/
+Spring-Boot-Lib: WEB-INF/lib/
+Created-By: Apache Maven 3.6.3
+Build-Jdk: 1.8.0_275
+Implementation-URL: http://maven.apache.org
+

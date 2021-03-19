@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Attack Information</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/buttons.dataTables.min.css}">
+</head>
+<body>
+	<div class="wrapper">
+		 <nav th:replace="fragments/left :: left">
+		</nav>
+		<div class="page-content">
+			<div id="content">
+				<nav th:replace="fragments/gnb :: gnb">
+				</nav>
+		
+<!--			  <div class="ht-100v d-flex">-->
+				<div class="d-flex pd-l-70">
+
+				<div class="pageheader pd-t-25 pd-b-35 tracker_ts">
+                   <div class="pd-t-5 pd-b-5">
+                      <h1 class="pd-0 mg-0 tx-20 text-overflow">Attack Information</h1>
+                   </div>
+                   <div class="breadcrumb pd-0 mg-0">
+					   Home / System Management / Attack Information
+<!--					<a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>-->
+<!--                      <a class="breadcrumb-item" href="/">Attack Information Manage</a>-->
+                   </div>
+                 </div>
+
+				<div class="card_dashboard shadow-none pd-20 mx-auto wd-280 text-center bd-1 align-self-center data_table">
+				
+					<div class="table_name_h row">
+						<button type="button" data-toggle="modal" data-target="#modal_add_attack_info" class="btn btn-custom-primary table_name" id="#">
+							<i class="fas fa-plus"></i>&nbsp;ADD</button>
+						<button type="button" data-toggle="modal" data-target="#modal_edit_attack_info" class="btn btn-custom-primary table_name"
+								onclick="callEditAttackInfo()">
+							<i class="fas fa-pencil-alt"></i>&nbsp;EDIT</button>
+						<button type="button" class="btn btn-custom-primary table_name" onclick="delAttackInfo()">
+							<i class="fas fa-trash"></i>&nbsp;REMOVE</button>
+					</div>
+ 					
+					<div class="card-body collapse show" id="collapse7 data_contents">
+					
+						<table id="attack_info_table" class="table hover responsive row-border nowrap text_cen">
+							<thead>
+								<tr>
+									<th><strong>Create date</strong></th>
+									<th><strong>Attack ID</strong></th>
+									<th><strong>Attack Name</strong></th>
+									<th><strong>Description</strong></th>
+									<th><strong>AM_ID</strong></th>
+									<th><strong>AM_NAME</strong></th>
+									<th><strong>Solution</strong></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+						
+					</div>
+				</div>
+
+			  </div>
+         </div>
+      </div>
+      </div>
+
+		<div class="modal up_z" id="modal_edit_attack_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog tim-al_lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" >Edit Attack Information</h2>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="modal_body_contents attack_miti">
+							<h6 class="attack_modal_info">Attack name : </h6>
+							<input id="attack_name_edit">
+							<h6 class="attack_modal_info">Description : </h6>
+							<textarea id="attack_description_edit"></textarea>
+						</div>
+						<div class="modal_body_contents attack_miti">
+							<h6 class="attack_modal_info">Mitigation name :</h6>
+							<input id="mitigation_name_edit">
+							<h6 class="attack_modal_info">Mitigation detail : </h6>
+							<textarea id="mitigation_description_edit" ></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" id="edit_attack_id">
+						<input type="hidden" id="edit_am_id">
+						<button type="button" class="btn btn-custom-primary" data-dismiss="modal" onclick="editAttackInfo()">Edit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+      
+      <div class="modal up_z" id="modal_add_attack_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+           <div class="modal-dialog tim-al_lg" role="document">
+              <div class="modal-content">
+                 <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel_1">Add Attack Information</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                    </button>
+                 </div>
+                 <div class="modal-body">
+                    <div class="modal_body_contents attack_miti">
+                    	<h6 class="attack_modal_info">Attack name : </h6>
+                    	<input id="attack_name">
+                    	<h6 class="attack_modal_info">Description : </h6>
+                    	<textarea id="attack_description"></textarea>
+                    </div>
+                    <div class="modal_body_contents attack_miti">
+                    	<h6 class="attack_modal_info">Mitigation name :</h6>
+                    	<input id="mitigation_name">
+                    	<h6 class="attack_modal_info">Mitigiation detail : </h6>
+                    	<textarea id="mitigation_description" ></textarea>
+                    </div>
+                 </div>
+                 <div class="modal-footer">
+                       <button type="button" class="btn btn-custom-primary" data-dismiss="modal" onclick="addAttackInfo()">Save</button>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+<!--  <div th:replace="fragments/right :: right"></div> -->
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/js/parsley.js}"></script>
+	  <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/dataTables.buttons.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/jszip.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/pdfmake.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/vfs_fonts.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.html5.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.print.min.js}"></script>
+
+<script type="text/javascript">
+regEvent = function(){
+	  initTables();
+}
+
+var param = {
+		  pg: 1,
+		  pgSize: 8,
+		  data: {},
+		  totalPg: 1,
+		  draw:1,
+		  srchStartDate: '',
+		  srchEndDate: '',
+		  srchField: '',
+		  srchValue: ''
+};
+
+function tbParams(data){
+	data['pg'] = getPg(data.start, param.pgSize);
+	data['pgSize'] = param.pgSize;
+	data['totalPg'] = 1;
+	param.draw = data.draw;
+	data['srchField'] = $('#attack_info_table_filter.dataTables_filter select option:selected').val();
+	data['srchValue'] = $('#attack_info_table_filter.dataTables_filter input').val();
+
+	console.log("data['srchField'] : ", data['srchField'])
+	console.log("data['srchValue'] : ", data['srchValue'])
+}
+
+function getPg(start, pgSize){
+	  if(start === 0){return 1;}
+	  return (start / pgSize) + 1;
+}
+
+var table;
+function initTables(){
+	
+    $('#attack_info_table tbody').on( 'click', 'tr', function () {
+        // $(this).toggleClass('selected');		// multi select
+		if ( $(this).hasClass('selected') ) {	// single select
+			$(this).removeClass('selected');
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+    } );
+	
+	table = $('#attack_info_table').DataTable({
+		"processing": true,
+		"serverSide": true,
+		"pageLength": 8,
+		"scrollCollapse" : false,
+		"pagingType" : "simple_numbers",
+		ajax: {
+		        url: ctx+'attack/info/list',
+		        data: tbParams,
+		        method: 'POST',
+		        dataSrc: function(json){
+					// console.log(JSON.stringify(json))
+		        	json.recordsTotal = json.data.total;
+        			json.recordsFiltered = json.data.total;
+        			if(!json.data.list)
+        				json.data.list = [];
+        			return json.data.list;
+		        }
+		      },
+		language : {
+			searchPlaceholder : 'Search...',
+			sSearch : ''
+		},
+		dom : 'Bfrtip',
+		buttons: [],
+	    columns: [
+					{'data': 'inputDate'},
+					{'data': 'attackId'},
+					{'data': 'attackName'},
+					{'data': 'attackDescription'},
+					{'data': 'amId'},
+					{'data': 'amName'},
+					{'data': 'solution'}
+	             ],
+		order : false,
+		scrollY : "100%",
+        columnDefs: [
+        	{
+                "targets": [ 1, 4,5,6 ],		// attackId, amId, amName, solution
+                "visible": false,
+                "searchable": false
+            },
+			{		// 내용 출력 길이 줄이기
+				"targets": 3,
+				render:function(data, type, row)
+				{
+					var merResult = ''+data;
+					var result = merResult.substring(0,22);
+					return result;
+				}
+			}
+        ],
+	    initComplete : function() {
+	    	var input = $('#attack_info_table_filter.dataTables_filter input').unbind(),
+	            self = this.api(),
+	            $searchButton = $('<button class="btn btn-primary">')
+	                       .text('search')
+	                       .click(function() {
+	                          self.search(input.val()).draw();
+	                       }),
+	            $clearButton = $('<button class="btn btn-secondary">')
+	                       .text('clear')
+	                       .click(function() {
+	                          input.val('');
+	                          $searchButton.click(); 
+	                       })
+	        	$('#attack_info_table_filter.dataTables_filter').append( $searchButton, $clearButton);
+		        addSearchField($('#attack_info_table_filter.dataTables_filter'));
+		        $('#attack_info_table_filter.dataTables_filter input').bind('keyup',function(e){
+  		        	if(e.keyCode == 13){
+  		        		self.search(this.value).draw();
+  		        	}
+  		        });
+	  	}
+	});
+}
+
+function addSearchField($dom){
+	  if(!$dom){
+		  return;
+	  }
+	  var tag = '<select class="srchfield form-control form-control-sm col-md-3" data-provide="selectpicker"> \
+		              <option value="ATTACK_NAME" selected>Attack Name</option>\
+		         </select>';
+	  $dom.prepend(tag);
+}
+
+function addAttackInfo(){
+	
+		var attackNameVal = $('#attack_name').val();
+		var attackDescriptionVal = $('#attack_description').val();
+		var mitigationNameVal = $('#mitigation_name').val();
+		var mitigationDescriptionVal = $('#mitigation_description').val();
+	
+	  	var params = {
+	  					attackName: attackNameVal,
+	  					attackDescription: attackDescriptionVal,
+	  					mitigationName: mitigationNameVal,
+	  					mitigationDescription: mitigationDescriptionVal
+	  				 };
+	  	
+		var url = ctx+"attack/info/add";
+		var req = $.ajax({
+			type : "POST",
+	        async: false,
+	        url : url,
+	        data: params
+	    });
+		req.done(function(out){
+			if(out.code === 0){
+				showAlert('Attack information registration is complete.');
+			}else{
+				showAlert('Attack information registration is fail.');
+			}				
+			table.ajax.reload();
+		}).fail(function(err){
+			showAlert('Attack information registration is fail.');
+		}).always(function(){
+			
+		});
+}
+
+function callEditAttackInfo(){
+
+	$.each(table.rows('.selected').data(), function() {
+		$('#attack_name_edit').val( this["attackName"]);
+		$('#attack_description_edit').val( this["attackDescription"] );
+		$('#mitigation_name_edit').val( this["amName"]);
+		$('#mitigation_description_edit').val( this["solution"]);
+		$('#edit_attack_id').val( this["attackId"]);
+		$('#edit_am_id').val( this["amId"]);
+	});
+}
+
+function editAttackInfo(){
+
+	var attackNameVal = $('#attack_name_edit').val();
+	var attackDescriptionVal = $('#attack_description_edit').val();
+	var mitigationNameVal = $('#mitigation_name_edit').val();
+	var mitigationDescriptionVal = $('#mitigation_description_edit').val();
+	var editAttackIdVal = $('#edit_attack_id').val();
+	var editAmidVal = $('#edit_am_id').val();
+
+	var params = {
+		attackName: attackNameVal,
+		attackDescription: attackDescriptionVal,
+		mitigationName: mitigationNameVal,
+		mitigationDescription: mitigationDescriptionVal,
+		editAttackId: editAttackIdVal,
+		editAmId: editAmidVal
+	};
+
+	var url = ctx+"attack/info/edit";
+	var req = $.ajax({
+		type : "POST",
+		async: false,
+		url : url,
+		data: params
+	});
+	req.done(function(out){
+		if(out.code === 0){
+			showAlert('Attack information registration is complete.');
+		}else{
+			showAlert('Attack information registration is fail.');
+		}
+		table.ajax.reload();
+	}).fail(function(err){
+		showAlert('Attack information registration is fail.');
+	}).always(function(){
+
+	});
+}
+
+function delAttackInfo(){
+	
+	  var selectedIds = '';
+	  $.each(table.rows('.selected').data(), function() {
+		  selectedIds +=this["attackId"]+",";
+	  });
+	  
+	  var params = { attackIds: selectedIds };
+	  var url = ctx+"attack/info/del";
+	  var req = $.ajax({
+			type : "POST",
+		    async: false,
+		    url : url,
+		    data: params
+		});
+	  req.done(function(out){
+		  if(out.code === 0){
+			 showAlert('Attack information delete is complete.');
+		  }else{
+			 showAlert('Attack information delete is fail.');
+		  }				
+		  table.ajax.reload();
+	  }).fail(function(err){
+		showAlert('Attack information delete is fail.');
+	  }).always(function(){
+		
+	  });
+	
+}
+ </script>
+
+</body>
+</html>

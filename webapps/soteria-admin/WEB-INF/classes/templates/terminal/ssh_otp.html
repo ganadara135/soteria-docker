@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP 인증 페이지</title>
+    <th:block th:replace="fragments/commonHead"></th:block>
+</head>
+<body>
+<div>
+    <div class="wrapper">
+        <nav th:replace="fragments/left :: left">
+        </nav>
+        <div class="page-content">
+            <div id="content">
+                <nav th:replace="fragments/gnb :: gnb">
+                </nav>
+            </div>
+            <!-- content -->
+            <div th:fragment="modal_otp">
+                <div class="modal" id="modal_otp_auth" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title" id="exampleModalLabel_1">OTP 인증</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal_body_contents">
+                                    <p class="modal_body_contents_text">
+                                    <li>구글 OTP에 표시된 코드를 입력하세요.</li>
+                                    </p>
+
+                                    <input class="form-control" id="otpCode" placeholder="Enter OTP code" type="text">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btnOtp">인증</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input id="userId" type="hidden" th:value="${user.userId}"/>
+            <footer th:replace="fragments/footer :: footer"></footer>
+        </div>
+        <div th:replace="fragments/modals/base :: modal"></div>
+    </div>
+</div>
+<div th:replace="fragments/right :: right"></div>
+<th:block th:replace="fragments/commonScript"></th:block>
+
+<script>
+    $(document).ready(function (){
+        init();
+        $('#modal_otp_auth').modal('show');
+    });
+
+    function init() {
+        $('#btnOtp').click(function(e){
+            e.preventDefault();
+            otpAuth();
+        });
+    }
+
+    function otpAuth() {
+
+        var otpCode = $('#otpCode').val().replace(' ', '');
+        var userId = $('#userId').val();
+        if (otpCode === ''){
+            alert("OTP 코드를 입력하세요.");
+            return;
+        }
+
+        var param = {
+            userId : userId,
+            otpCode: otpCode
+        };
+        var url = ctx + "/otpauth/userId";
+        var req = $.ajax({
+            type : "GET",
+            async : false,
+            url : url,
+            data : param
+        });
+        req.done( function(out) {
+            if (out.code != 0){
+                alert("OTP 인증 실패");
+                return;
+            }
+            alert("OTP 인증 성공");
+            $('#modal_otp_auth').modal('hide');
+            location.href = ctx + "terminal/ssh";
+        }).fail(function(err) {
+            alert("OTP 인증 중 에러가 발생했습니다. 다시 시도 해 주세요.");
+        }).always(function() {
+            console.log("done");
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Attack Information Manage</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/buttons.dataTables.min.css}">
+</head>
+<body>
+	<div class="wrapper">
+		 <nav th:replace="fragments/left :: left">
+		</nav>
+		<div class="page-content">
+			<div id="content">
+				<nav th:replace="fragments/gnb :: gnb">
+				</nav>
+
+<!--			  <div class="ht-100v d-flex">-->
+				<div class="d-flex pd-l-70">
+				<div class="pageheader pd-t-25 pd-b-35 tracker_ts">
+                   <div class="pd-t-5 pd-b-5">
+                      <h1 class="pd-0 mg-0 tx-20 text-overflow">Attack category setting</h1>
+                   </div>
+                   <div class="breadcrumb pd-0 mg-0">
+					   Home / System management / Attack category setting
+<!--					<a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>-->
+<!--                      <a class="breadcrumb-item" href="/">Attack Manage</a>-->
+<!--                      <a class="breadcrumb-item" href="/">Category</a>-->
+                   </div>
+                </div>
+
+				<div class="card_dashboard shadow-none pd-20 mx-auto wd-280 text-center bd-1  data_table">
+
+					<div class="card-body collapse show row attackCate align-items-start">
+					<div class="col-md-6 border">
+						<h4>Attack Name</h4>
+						<table id="attack_info_table" class="table hover responsive row-border nowrap text_cen">
+							<thead>
+								<tr>
+									<th>Attack ID</th>
+									<th><strong>Attack Name</strong></th>
+									<th><strong>Classification</strong></th>
+									<th><strong>Severity Level</strong></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="col-md-3 border">
+						<h4>Attack Category</h4>
+						<div class="theart_cate_btn">
+							<button type="button" data-toggle="modal" data-target="#modal_add_category_info" class="btn btn-custom-primary attackCateBtn" id="#">
+								<i class="fas fa-plus"></i>&nbsp;ADD</button>
+							<button type="button" data-toggle="modal" data-target="#modal_edit_category_info" class="btn btn-custom-primary attackCateBtn"
+									onclick="callEditCategory()">
+								<i class="fas fa-pencil-alt"></i>&nbsp;EDIT</button>
+<!--							<button id="saveAttackMappingInfoBtn" onclick="saveAttackInfoCategory()" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>&nbsp;EDIT</button>-->
+						</div>
+						<table id="attack_classification_table" class="table hover responsive row-border nowrap text_cen">
+							<thead>
+								<tr>
+									<th>Classification ID</th>
+									<th><strong>Category</strong></th>
+									<th><strong>Description</strong></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+						
+					</div>
+					<div class="col-md-3 border">
+						<h4>Threat Level</h4>
+						<div class="theart_cate_btn">
+							<button type="button" data-toggle="modal" class="btn btn-custom-primary attackCateBtn invisible" disabled>
+								<i class="fas fa-plus"></i>&nbsp;ADD</button>
+						</div>
+						<table id="attack_severity_table" class="table hover responsive row-border nowrap text_cen">
+							<thead>
+								<tr>
+									<th>Threat ID</th>
+									<th><strong>Threat Level</strong></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					</div>
+					<div class="attackCateBtn">
+						<button onclick="saveAttackInfoCategory()" class="btn btn-primary">SAVE</button>
+					</div>
+				</div>
+			  </div>
+         </div>
+      </div>
+      </div>
+
+	<div class="modal up_z" id="modal_add_category_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog tim-al" role="document">
+			<div class="modal-content" style="height: 500px;">
+				<div class="modal-header">
+					<h2 class="modal-title" >Category Information</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="modal_body_contents attack_miti">
+						<h6 class="attack_modal_info">Category name </h6>
+						<input id="category_name">
+						<h6 class="attack_modal_info">Description </h6>
+						<textarea id="category_description"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+<!--					<input type="hidden" id="edit_attack_id">-->
+<!--					<input type="hidden" id="edit_am_id">-->
+					<button type="button" class="btn btn-custom-primary" data-dismiss="modal" onclick="addAttackInfoCategory()">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal up_z" id="modal_edit_category_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog tim-al" role="document">
+			<div class="modal-content" style="height: 500px;">
+				<div class="modal-header">
+					<h2 class="modal-title" >Category Information</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="modal_body_contents attack_miti">
+						<h6 class="attack_modal_info">Category name </h6>
+						<input id="category_name_edit">
+						<h6 class="attack_modal_info">Description </h6>
+						<textarea id="category_description_edit"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" id="edit_category_acid_hidden">
+					<button type="button" class="btn btn-custom-primary" data-dismiss="modal" onclick="editCategoryInfo()">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--  <div th:replace="fragments/right :: right"></div> -->
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/js/parsley.js}"></script>
+	  <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/dataTables.buttons.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/jszip.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/pdfmake.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/vfs_fonts.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.html5.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.print.min.js}"></script>
+
+<script type="text/javascript">
+var attackNameTable;
+var classificationTable;
+var severityTable;
+
+regEvent = function(){
+	
+	 initTables();
+     initClassificationTables();
+     initSeverity();
+}
+
+
+var param = {
+		  pg: 1,
+		  pgSize: 8,
+		  data: {},
+		  totalPg: 1,
+		  draw:1,
+		  srchStartDate: '',
+		  srchEndDate: '',
+		  srchField: '',
+		  srchValue: ''
+};
+
+function getPg(start, pgSize){
+	if(start === 0){return 1;}
+	return (start / pgSize) + 1;
+}
+
+function tbParams(data){
+	data['pg'] = getPg(data.start, param.pgSize);
+	data['pgSize'] = param.pgSize;
+	data['totalPg'] = 1;
+	param.draw = data.draw;
+	data['srchField'] = "ATTACK_NAME";
+	data['srchValue'] = $('#attack_info_table_filter.dataTables_filter input').val();
+
+	console.log("data['srchField'] : ", data['srchField'])
+	console.log("data['srchValue'] : ", data['srchValue'])
+}
+
+
+function initTables(){
+  attackNameTable = $('#attack_info_table').DataTable({
+		"processing": true,
+		"serverSide": true,
+		"pageLength": param.pgSize,
+		"scrollCollapse" : false,
+		"pagingType" : "simple_numbers",
+		select : {
+			items: 'row', 		// default row.   column,  cell
+		},
+		ajax: {
+		        url: ctx+'attack/category/list',
+		        data: tbParams,
+		        method: 'POST',
+		        dataSrc: function(json){
+					// console.log(JSON.stringify(json))
+		        	json.recordsTotal = json.data.total;
+					json.recordsFiltered = json.data.total;
+					if(!json.data.list)
+						json.data.list = [];
+					return json.data.list;
+		        }
+		      },
+		language : {
+			searchPlaceholder : 'Search...',
+			sSearch : ''
+		},
+		dom : 'Bfrtp',
+		buttons: [],
+	    columns: [
+					{'data': 'attackId'},
+					{'data': 'attackName'},
+					{'data': 'acName'},
+					{'data': 'asName'}
+	             ],
+		order : false,
+		scrollY : "100%",
+        columnDefs: [
+      	{
+              "targets": [ 0,   2,3 ],
+              "visible": false,
+              "searchable": false
+          }
+        ],
+		initComplete : function() {
+		  // $('#attack_info_table_filter').css({"display":"flex", "height":"34"});
+
+		  var input = $('#attack_info_table_filter.dataTables_filter input').unbind(),
+				  self = this.api(),
+				  $searchButton = $('<button title="검색" class="btn-custom-primary search_btn">')
+						  .text('search')
+						  .click(function() {
+							  self.search(input.val()).draw();
+						  });
+		  $('#attack_info_table_filter.dataTables_filter').append( $searchButton);
+		  $('#attack_info_table_filter.dataTables_filter input').bind('keyup',function(e){
+			  if(e.keyCode == 13){
+				  self.search(this.value).draw();
+			  }
+		  });
+		}
+	});
+	attackNameTable.on('select', function (e, dt, type, indexes) {
+		console.log("select", e, dt, type, indexes);
+		var sel = attackNameTable.rows({selected: true}).data()[0];
+		console.log(">>", sel);
+		console.log("sel.acName", sel.acName);
+		console.log("sel.asName", sel.asName);
+
+		// var temp = classificationTable.data().filter( function (value, index) {
+		// 	console.log("index " + index + " value : " , value)
+		// 	// 강제로 addClass() 시행
+		//
+		// 	return value.acName === sel.acName;
+		// })
+		// console.log("temp : ", temp)
+
+		// 이 부분이 유레카 부분, Dom 의 세부 영역을 조작할 수 있음.
+		// 		$(classificationTable.cells().nodes()).addClass('{background-color: whitesmoke !important;}');
+		// classificationTable.rows('.even').select();
+		// alert($('#attack_classification_table').find("td:eq(1)").text());
+
+		// $('#attack_classification_table > tbody > tr > td').each( function (index, td) {
+		// 	console.log(index)
+		// 	console.log(td)
+		// 	console.log($(this).text())
+		// })
+
+		$('#attack_classification_table > tbody > tr > td').each( function (index, td) {
+
+			classificationTable.rows(index).deselect();
+			if ($(this).text() === sel.acName){
+				classificationTable.rows(index).select();
+			}
+		})
+
+		$('#attack_severity_table > tbody > tr > td').each( function (index, td) {
+
+			severityTable.rows(index).deselect();
+			if ($(this).text() === sel.asName){
+				severityTable.rows(index).select();
+			}
+		})
+	})
+	.on('deselect', function (e, dt, type, indexes) {
+		console.log("deselect", e, dt, type, indexes);
+		// var row = null;
+		$('#attack_classification_table > tbody > tr > td').each( function (index, td) {
+			classificationTable.rows(index).deselect();
+		})
+
+		$('#attack_severity_table > tbody > tr > td').each( function (index, td) {
+			severityTable.rows(index).deselect();
+		})
+	});
+}
+
+var classParam = {
+	pg: 1,
+	pgSize: 8,
+	data: {},
+	totalPg: 1,
+	draw:1,
+	srchStartDate: '',
+	srchEndDate: '',
+	srchField: '',
+	srchValue: ''
+};
+
+function initClassificationTables(){
+	
+	classificationTable = $('#attack_classification_table').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"pageLength": classParam.pgSize,
+			"scrollCollapse" : false,
+			"pagingType" : "simple_numbers",
+			"searching" : false,
+			select : true,
+			ajax: {
+			        url: ctx+'attack/category/classification/list',
+			        data: classParam,
+			        method: 'POST',
+			        dataSrc: function(json){
+			        	console.log(json)
+			        	json.recordsTotal = json.data.total;
+		      			json.recordsFiltered = json.data.total;
+		      			if(!json.data.list)
+		      				json.data.list = [];
+		      			return json.data.list;
+			        }
+			      },
+			dom : 'Bfrtp',
+			buttons: [],
+		    columns: [
+						{'data': 'acId'},
+						{'data': 'acName'},
+						{'data': 'acDescription'}
+		             ],
+			order : false,
+			scrollY : "100%",
+	        columnDefs: [
+	      		{
+	              targets: [ 0, 2 ],
+	              visible: false,
+	              searchable: false
+	          	},
+				{
+					className: "testClass", targets: [1]
+				},
+	        ],
+		    initComplete : function() {
+		  	}
+		});
+}
+
+function initSeverity(){
+	
+	severityTable = $('#attack_severity_table').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"pageLength": classParam.pgSize,
+			"scrollCollapse" : false,
+			"pagingType" : "simple_numbers",
+			"searching" : false,
+			select : true,
+			ajax: {
+			        url: ctx+'attack/category/severity/list',
+			        data: classParam,
+			        method: 'POST',
+			        dataSrc: function(json){
+			        	// console.log(json)
+			        	json.recordsTotal = json.data.total;
+		      			json.recordsFiltered = json.data.total;
+		      			if(!json.data.list)
+		      				json.data.list = [];
+		      			return json.data.list;
+			        }
+			      },
+			language : {
+				searchPlaceholder : 'Search...',
+				sSearch : ''
+			},
+			dom : 'Bfrtp',
+			buttons: [],
+		    columns: [
+						{'data': 'asId'},
+						{'data': 'asName'}
+		             ],
+			order : false,
+			scrollY : "100%",
+	        columnDefs: [
+	      	{
+	              "targets": [ 0 ],
+	              "visible": false,
+	              "searchable": false
+	          }
+	      	
+	        ],
+		    initComplete : function() {}
+		});
+}
+
+function saveAttackInfoCategory(){
+	var selectedAttackId;
+	var selectedAcId;
+	var selectedAsId;
+	
+	$.each( $('#attack_info_table').DataTable().rows('.selected').data(), function() {
+		selectedAttackId = this["attackId"];
+	});
+	$.each( $('#attack_classification_table').DataTable().rows('.selected').data(), function() {
+		selectedAcId = this["acId"];
+	});
+	$.each( $('#attack_severity_table').DataTable().rows('.selected').data(), function() {
+		selectedAsId = this["asId"];
+	});
+
+	// console.log("selectedAttackId: ", selectedAttackId)
+	// console.log("selectedAcId: ", selectedAcId)
+	// console.log("selectedAsId: ", selectedAsId)
+	if(selectedAttackId == undefined){
+		alert("공격명이 선택되지 않았습니다.")
+		return ;
+	}else if(selectedAcId == undefined){
+		alert("공격유형이 선택되지 않았습니다.")
+		return ;
+	}else if(selectedAsId == undefined){
+		alert("공격위협도가 선택되지 않았습니다.")
+		return ;
+	}
+	
+	var params = {
+		attackId : selectedAttackId,
+		acId: selectedAcId,
+		asId: selectedAsId
+	};
+
+	var url = ctx+"attack/category/mapping/update";
+	var req = $.ajax({
+		 async: false,
+         url : url,
+         data: params
+    });
+	req.done(function(out){
+		if(out.code === 0){
+			location.reload();
+			alert('complete update');
+		}else{
+			alert('fail update');
+		}
+		// attackNameTable.ajax.reload();
+	}).fail(function(err){
+		console.log(err);
+	}).always(function(){
+
+	});
+}
+
+function addAttackInfoCategory(){
+
+	var categoryNameVal = $('#category_name').val();
+	var categoryDescriptionVal = $('#category_description').val();
+
+	console.log("categoryNameVal : ", categoryNameVal)
+	console.log("categoryDescriptionVal : ", categoryDescriptionVal)
+
+	if(categoryNameVal == undefined){
+		alert("공격유형이 선택되지 않았습니다.")
+		return ;
+	}
+
+	var params = {
+		categoryName: categoryNameVal,
+		categoryDescription: categoryDescriptionVal,
+	};
+	console.log("params : ", params);
+
+	var url = ctx+"attack/classification/add";
+	var req = $.ajax({
+		type : "POST",
+		async: false,
+		url : url,
+		data: params
+	});
+	req.done(function(out){
+		if(out.code === 0){
+			location.reload();
+			showAlert('Registration is complete.');
+		}else{
+			showAlert('Registration is fail.');
+		}
+	}).fail(function(err){
+		showAlert('Attack information registration is fail.');
+	}).always(function(){
+
+	});
+}
+
+function callEditCategory(){
+	$.each(classificationTable.rows('.selected').data(), function() {
+		$('#edit_category_acid_hidden').val( this["acId"]);
+		$('#category_name_edit').val( this["acName"]);
+		$('#category_description_edit').val( this["acDescription"] );
+		console.log("this[acDescription] : ", this["acDescription"]);
+		console.log("this[acId] : ", this["acId"]);
+	});
+
+	console.log("name : ", $('#category_name_edit').val())
+	console.log("callEditCategory() desc : ", $('#category_description_edit').val())
+}
+
+
+function editCategoryInfo(){
+
+	var acIdVal = $('#edit_category_acid_hidden').val();
+	var acNameVal = $('#category_name_edit').val();
+	var acDescriptionVal = $('#category_description_edit').val();
+
+	var params = {
+		acId: acIdVal,
+		acName: acNameVal,
+		acDescription: acDescriptionVal,
+	};
+
+	console.log("params : ", params);
+
+	// return;
+
+	var url = ctx+"attack/classification/edit";
+	var req = $.ajax({
+		type : "POST",
+		async: false,
+		url : url,
+		data: params
+	});
+	req.done(function(out){
+		if(out.code === 0){
+			location.reload();
+			showAlert('Classification is complete.');
+		}else{
+			showAlert('Classification is fail.');
+		}
+		// table.ajax.reload();
+	}).fail(function(err){
+		showAlert('Classification is fail.');
+	}).always(function(){
+
+	});
+}
+
+ </script>
+
+</body>
+</html>

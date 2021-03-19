@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Left Side Bar</title>
+</head>
+<body>
+<nav id="sidebar" th:fragment="left">
+	<div class="sidebar-header">
+		<a class="side-menu" th:href="@{/login}"><img class="sidebar-logo"
+													  th:src="@{/assets/images/small-logo.png}" alt=""></a>
+		<!-- White logo 부분 -->
+	</div>
+
+	<ul class="list-unstyled components">
+
+
+<!--		<li th:if="${user.userType != 200}"><a class="side-menu" href="#detection_left"-->
+<!--											   data-toggle="collapse" aria-expanded="false">-->
+<!--			<img id="side_con_1" class="sidebar_icon" th:src="@{/assets/images/threat.svg}" alt="Attack Manage">Detection Information-->
+<!--			<i class="fas fa-angle-left sidebar_icon-1"></i></a>-->
+<!--			<ul class="collapse list-unstyled" id="detection_left">-->
+<!--				<li th:if="${user.userType == 100}"><a th:href="@{/detection/detectiondetail}" id="menu_alarmsetting">History</a></li>-->
+<!--				<li th:if="${user.userType == 100}"><a th:href="@{/measure/detail}" id="menu_alarmsetting">Measure</a></li>-->
+<!--			</ul>-->
+<!--		</li>-->
+		<li>
+			<a class="side-menu" th:href="@{/sdashboard}" >
+				<img id="side_con" class="sidebar_icon" th:src="@{/assets/images/dashboard.svg}" alt="Dashboard">
+				Dashboard
+			</a>
+		</li>
+
+		<li>
+			<a class="side-menu" th:href="@{/detection/detectiondetail}" >
+				<img  class="sidebar_icon" th:src="@{/assets/images/threat.svg}" alt="History">
+				History
+			</a>
+		</li>
+		<li>
+			<a class="side-menu" th:href="@{/measure/detail}" >
+				<img  class="sidebar_icon" th:src="@{/assets/images/attack_manage.svg}" alt="Mitigate">
+				Mitigate
+			</a>
+		</li>
+		<li >
+			<a class="side-menu" href="#theart_sett" data-toggle="collapse" aria-expanded="false">
+			<img id="side_con_2" class="sidebar_icon" th:src="@{/assets/images/74.svg}" alt="Attack Manage">System Management
+			<i class="fas fa-angle-left sidebar_icon-1"></i></a>
+			<ul class="collapse list-unstyled" id="theart_sett">
+				<li><a th:href="@{/attack/info}" >Information</a></li>
+				<li><a th:href="@{/attack/category}" id="menu_alarmsetting">Category</a></li>
+				<li><a th:href="@{/alert/setting}" id="menu_systemsetting">Alert Policy Setting</a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+</nav>
+</body>
+</html>

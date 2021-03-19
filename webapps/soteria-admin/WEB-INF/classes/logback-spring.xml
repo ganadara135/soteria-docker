@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- setting -->
+	<springProfile name="default">
+        <property resource="logback.properties"/>
+    </springProfile>
+    <springProfile name="qa">
+        <property resource="logback-qa.properties"/>
+    </springProfile>
+    <springProfile name="dev">
+        <property resource="logback-dev.properties"/>
+    </springProfile>
+    <springProfile name="prod">
+        <property resource="logback-release.properties"/>
+    </springProfile>
+    
+    <!-- log packagename -->
+    <property name="LOG_PACKAGE_NAME" value="${log.config.packagename}"/>
+    <!-- log file path -->
+    <property name="LOG_PATH" value="${log.config.path}"/>
+    <!-- log file name -->
+    <property name="LOG_FILE_NAME" value="${log.config.filename}"/>
+    <!-- log days -->
+    <property name="LOG_DAYS" value="${log.config.days}"/>
+    <!-- log filesize log -->
+    <property name="LOG_FILESIZE_LOG" value="${log.config.filesizelog}"/>
+    <!-- log filesize zip -->
+    <property name="LOG_FILESIZE_ZIP" value="${log.config.filesizezip}"/>
+    <!-- log filesize total -->
+    <property name="LOG_TOTAL_FILESIZE" value="${log.config.totalfilesize}"/>
+    <!-- log min count -->
+    <property name="LOG_FILE_MIN" value="${log.config.min}"/>
+    <!-- log max count -->
+    <property name="LOG_FILE_MAX" value="${log.config.max}"/>
+    <!-- pattern -->
+    <!-- <property name="LOG_PATTERN"
+              value="%-5level %d{yy-MM-dd HH:mm:ss} %-40([%logger{0}:%line]) - %msg%n"/> -->
+    <property name="LOG_PATTERN"
+              value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <property name="LOG_PATTERN_LIVE"
+              value="%-5level %d{yy-MM-dd HH:mm:ss} %-40([%method:%line]) - %msg%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.soteriasys.sbb" additivity="false">
+    	<level value="DEBUG"/>
+    	<appender-ref ref="STDOUT"/>
+    	<appender-ref ref="FILE"/>
+    </logger>
+    <logger name="com.zaxxer.hikari.HikariConfig" level="DEBUG"/>
+    <logger name="com.zaxxer.hikari" level="TRACE"/>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

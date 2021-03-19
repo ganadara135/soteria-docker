@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head th:include="fragments/head :: head"></head>
+<body>
+<style>
+	input {
+		width: 500px;
+		margin-right: 10px;
+	}
+</style>
+	<div class="page-header">
+		<h1>
+			SBB
+		</h1>
+	</div>
+	
+	<div class="row">
+	<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">SBB Info</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group">
+			    <li class="list-group-item">SBB NAME: <input id="sbbName" type="text" th:value="${sbb.sbbName}" readonly></input></li>
+			    <li class="list-group-item">User Name: <input id="userName" type="text" th:value="${tmp_user.userName}" readonly></input></li>
+			    <li class="list-group-item">EMAIL: <input id="email" type="text" th:value="${tmp_user.email}" readonly></input></li>
+			    <li class="list-group-item">CONTACT: <input id="contact" type="text" th:value="${tmp_user.contact}" readonly></input></li>
+			    <li class="list-group-item">New Password: <input id="pass1" type="password" ></input></li>
+			    <li class="list-group-item">Retype New Password: <input id="pass2" type="password" ></input></li>
+			    <input id="userId" type="hidden" th:value="${tmp_user.userId}"></input>
+		  	</ul>
+		  	<div class="float-md-right"><button id="updateInfo" class="btn btn-primary">Update</button></div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+	<script th:inline="javascript">
+		var ctx = /*[[ @{/} ]]*/;
+	</script>
+	<script>
+	$(document).ready(function (){
+		$('#updateInfo').click(function(){
+			updateUserInfo();
+		});
+	});
+	
+	function updateUserInfo(){
+		var pass1 = $('#pass1').val();
+		var pass2 = $('#pass2').val();
+		if( pass1 !== pass2){
+			alert('password is incorrect.');
+			return;
+		}
+		var param = {
+			userId: $('#userId').val(),
+			newPass: $('#pass1').val(),
+		};
+		console.log(param);
+		var url = ctx+"/auth/user/changeinitpass";
+		var req = $.ajax({
+	        type : "POST",
+	        async: false,
+	        url : url,
+	        data: param
+	    });
+		req.done(function(out){
+			console.log('Success');
+			if(out.code != 0){
+				console.log('update - failed:' + out.errMsg);
+				location.href = ctx+'login';
+				return;
+			}else{
+				location.href = ctx + 'login';
+			}
+	        
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+			console.log("done");
+		});
+	}
+	</script>
+</body>
+</html>

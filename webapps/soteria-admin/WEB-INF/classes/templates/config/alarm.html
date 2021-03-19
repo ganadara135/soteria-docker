@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Alarm Settings</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+               <!-- <nav th:replace="fragments/left :: left"> -->
+               </nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+				<!--tracker 메뉴위치 start-->
+	            <div class="pageheader pd-t-25 pd-b-35 tracker">
+	                  <div class="pd-t-5 pd-b-5">
+	                     <h1 class="pd-0 mg-0 tx-20 text-overflow">Setting</h1>
+	                  </div>
+	                  <div class="breadcrumb pd-0 mg-0">
+	                     <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+	                     <a class="breadcrumb-item" href="#">Setting</a>
+	                     <span class="breadcrumb-item active">Setting</span>
+	                  </div>
+               </div>
+	         <!--tracker 메뉴위치 end-->
+				
+				<!-- Basic Accordions Start -->
+                     
+                <div class="card_sq_da_170 collapse show alarm_center" id="collapse1">
+                      <h4 class="alarm-title">
+                         <span id="alarmTitle" th:text="${firstServer != null ? firstServer.sbbName : ''}"></span> Setting
+                      </h4>
+                   <div id="accordion">
+               
+                      <div class="card-1 mb-2">
+                         <div class="card-header click_h" href="#accordion3" aria-expanded="true">
+                            <div>
+                               <a class="text-dark" >
+                               System Alarm
+                               </a>
+                            </div>
+                            <div class="alarm-head">
+                                  <button type="button" class="btn alarm-i" data-toggle="modal" data-target="#alarm_modal_3"><i class="fas fa-cog"></i></button>
+                            </div>
+                         </div>
+                         <div id="accordion3" class="collapse show" data-parent="#accordion" >
+                               <div class="card-body">
+                                     <div class="card-body alarm-4">
+                                           <div> 
+                                              <h6>Neurotron AI</h6>
+                                              <input id="btnNeurotron" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                           </div>
+                                           <div> 
+                                              <h6>System log(Linux)</h6>
+                                              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                    
+                                                    <button id="btnSyslog0" type="button" class="btn btn-primary bc-1" data-toggle="button" aria-pressed="false" autocomplete="off">0</button>
+                                                    <button id="btnSyslog1" type="button" class="btn btn-primary bc-2" data-toggle="button" aria-pressed="false" autocomplete="off">1</button>
+                                                    <button id="btnSyslog2" type="button" class="btn btn-primary bc-3" data-toggle="button" aria-pressed="false" autocomplete="off">2</button>
+                                                    <button id="btnSyslog3" type="button" class="btn btn-primary bc-4" data-toggle="button" aria-pressed="false" autocomplete="off">3</button>
+                                                    <button id="btnSyslog4" type="button" class="btn btn-primary bc-5" data-toggle="button" aria-pressed="false" autocomplete="off">4</button>
+                                                    <button id="btnSyslog5" type="button" class="btn btn-primary bc-6" data-toggle="button" aria-pressed="false" autocomplete="off">5</button>
+                                                    <button id="btnSyslog6" type="button" class="btn btn-primary bc-7" data-toggle="button" aria-pressed="false" autocomplete="off">6</button>
+                                                    <button id="btnSyslog7" type="button" class="btn btn-primary bc-8" data-toggle="button" aria-pressed="false" autocomplete="off">7</button>
+                                                 
+                                              </div>
+                                                 
+                                           </div>
+                                                
+                                           
+                                           <div> 
+                                              <h6>Event log(Windows)</h6>
+                                             
+                                              <div>
+                                                    <div class="custom-control custom-checkbox">
+                                                          <input type="checkbox" class="custom-control-input" id="customCheck5">
+                                                          <label class="custom-control-label" for="customCheck5">Warning Audit</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                          <input type="checkbox" class="custom-control-input" id="customCheck6">
+                                                          <label class="custom-control-label" for="customCheck6">Failure Audit</label>
+                                                    </div>
+                                              </div>
+                                           </div>
+                                     </div>
+                                     <hr>
+                                     <div class="card-body alarm-3">
+                                           <div> 
+                                              <h6>SBB-HOST</h6>
+                                              <input id="btnSbbHost" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                           </div>
+                                           <div> 
+                                              <h6>SBB-Manager</h6>
+                                              <input id="btnSbbManager" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                           </div>
+                                           <div> 
+                                              <h6>SBB DISK</h6>
+                                              <div class="form-group input-group number-f" >
+                                                   <input id="txtSbbDisk" class="form-control " placeholder="" type="number"><p class="input_text">%</p>
+                                              </div>
+                                           </div>
+                                     </div>
+                                     <div class="confirm_btn">
+                                        <button id="btnConfirmPopup" type="submit" class="btn btn-custom-primary btn-block tx-13" >Confirm</button>
+                                     </div>  
+                               </div>
+                         </div>
+                      </div>
+                      <div class="card-1 mb-2">
+                         <div class="card-header text-dark collapsed" href="#accordion1" aria-expanded="false">
+                            <a>
+                            SMS</a>
+                            <div class="alarm-head">
+                               <button type="button" class="btn alarm-i" data-toggle="modal" data-target="#alarm_modal_1"><i class="fas fa-cog"></i></button>		
+                            </div>
+                         </div>
+                         <div id="accordion1" class="collapse show" data-parent="#accordion">
+                            <div class="card-body">
+                                  <div class="card-body alarm-4">
+                                        <div> 
+                                           <h6>Neurotron AI</h6>
+                                           <input id="btnNeurotron" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                        </div>
+                                        <div> 
+                                           <h6>System log(Linux)</h6>
+                                           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                 
+                                                 <button id="btnSyslog0" type="button" class="btn btn-primary bc-1" data-toggle="button" aria-pressed="true" autocomplete="off">0</button>
+                                                 <button id="btnSyslog1" type="button" class="btn btn-primary bc-2" data-toggle="button" aria-pressed="false" autocomplete="off">1</button>
+                                                 <button id="btnSyslog2" type="button" class="btn btn-primary bc-3" data-toggle="button" aria-pressed="false" autocomplete="off">2</button>
+                                                 <button id="btnSyslog3" type="button" class="btn btn-primary bc-4" data-toggle="button" aria-pressed="false" autocomplete="off">3</button>
+                                                 <button id="btnSyslog4" type="button" class="btn btn-primary bc-5" data-toggle="button" aria-pressed="false" autocomplete="off">4</button>
+                                                 <button id="btnSyslog5" type="button" class="btn btn-primary bc-6" data-toggle="button" aria-pressed="false" autocomplete="off">5</button>
+                                                 <button id="btnSyslog6" type="button" class="btn btn-primary bc-7" data-toggle="button" aria-pressed="false" autocomplete="off">6</button>
+                                                 <button id="btnSyslog7" type="button" class="btn btn-primary bc-8" data-toggle="button" aria-pressed="false" autocomplete="off">7</button>
+                                              
+                                           </div>
+                                              
+                                        </div>
+                                             
+                                        
+                                        <div> 
+                                           <h6>Event log(Windows)</h6>
+                                           <div>
+                                                 <div class="custom-control custom-checkbox">
+                                                       <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                       <label class="custom-control-label" for="customCheck1">Warning Audit</label>
+                                                 </div>
+                                                 <div class="custom-control custom-checkbox">
+                                                       <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                       <label class="custom-control-label" for="customCheck2">Failure Audit</label>
+                                                 </div>
+                                           </div>
+                                        </div>
+                                  </div>
+                                  <hr>
+                                  <div class="card-body alarm-3">
+                                        <div> 
+                                           <h6>SBB-HOST</h6>
+                                           <input id="btnSbbHost" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                        </div>
+                                        <div> 
+                                           <h6>SBB-Manager</h6>
+                                           <input id="btnSbbManager" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                        </div>
+                                        <div> 
+                                           <h6>SBB DISK</h6>
+                                           <div class="form-group input-group number-f" >
+                                                <input id="txtSbbDisk" class="form-control " placeholder="" type="number" max="100" min="0"><p class="input_text">%</p>
+                                           </div>
+                                        </div>
+                                  </div>
+                                  <div class="confirm_btn">
+                                     <button id="btnConfirmSms" type="submit" class="btn btn-custom-primary btn-block tx-13" >Confirm</button>
+                                  </div>  
+                            </div>
+                         </div>
+                      </div>
+                      <div class="card-1 mb-2">
+                         <div class="card-header text-dark collapsed" href="#accordion2" aria-expanded="false" >
+                            <a>
+                            Email
+                            </a>
+                            <div class="alarm-head">
+                                  <button type="button" class="btn alarm-i" data-toggle="modal" data-target="#alarm_modal_2"><i class="fas fa-cog"></i></button>	
+                            </div>
+                         </div>
+                         <div id="accordion2" class="collapse show" data-parent="#accordion" >
+                               <div class="card-body">
+                                     <div class="card-body alarm-4">
+                                           <div> 
+                                              <h6>Neurotron AI</h6>
+                                              <input id="btnNeurotron" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                           </div>
+                                           <div> 
+                                              <h6>System log(Linux)</h6>
+                                              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                    
+                                                    <button id="btnSyslog0" type="button" class="btn btn-primary bc-1" data-toggle="button" aria-pressed="false" autocomplete="off">0</button>
+                                                    <button id="btnSyslog1" type="button" class="btn btn-primary bc-2" data-toggle="button" aria-pressed="false" autocomplete="off">1</button>
+                                                    <button id="btnSyslog2" type="button" class="btn btn-primary bc-3" data-toggle="button" aria-pressed="false" autocomplete="off">2</button>
+                                                    <button id="btnSyslog3" type="button" class="btn btn-primary bc-4" data-toggle="button" aria-pressed="false" autocomplete="off">3</button>
+                                                    <button id="btnSyslog4" type="button" class="btn btn-primary bc-5" data-toggle="button" aria-pressed="false" autocomplete="off">4</button>
+                                                    <button id="btnSyslog5" type="button" class="btn btn-primary bc-6" data-toggle="button" aria-pressed="false" autocomplete="off">5</button>
+                                                    <button id="btnSyslog6" type="button" class="btn btn-primary bc-7" data-toggle="button" aria-pressed="false" autocomplete="off">6</button>
+                                                    <button id="btnSyslog7" type="button" class="btn btn-primary bc-8" data-toggle="button" aria-pressed="false" autocomplete="off">7</button>
+                                                 
+                                              </div>
+                                                 
+                                           </div>
+                                                
+                                           
+                                           <div> 
+                                              <h6>Event log(Windows)</h6>
+                                            
+                                              <div>
+                                                    <div class="custom-control custom-checkbox">
+                                                          <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                                          <label class="custom-control-label" for="customCheck3">Warning Audit</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                          <input type="checkbox" class="custom-control-input" id="customCheck4">
+                                                          <label class="custom-control-label" for="customCheck4">Failure Audit</label>
+                                                    </div>
+                                              </div>
+                                           </div>
+                                     </div>
+                                     <hr>
+                                     <div class="card-body alarm-3">
+                                           <div> 
+                                              <h6>SBB-HOST</h6>
+                                              <input id="btnSbbHost" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                           </div>
+                                           <div> 
+                                              <h6>SBB-Manager</h6>
+                                              <input id="btnSbbManager" type="checkbox" checked data-toggle="toggle" data-on="ON" data-off="OFF" data-onstyle="success" data-offstyle="danger">
+                                           </div>
+                                           <div> 
+                                              <h6>SBB DISK</h6>
+                                              <div class="form-group input-group number-f" >
+                                                   <input id="txtSbbDisk" class="form-control " placeholder="" type="number"><p class="input_text">%</p>
+                                              </div>
+                                           </div>
+                                     </div>
+                                     <div class="confirm_btn">
+                                        <button id="btnConfirmEmail" type="submit" class="btn btn-custom-primary btn-block tx-13" >Confirm</button>
+                                     </div>  
+                               </div>
+                         </div>
+                      </div>
+                      
+                   </div>
+                   <div class="tx-10 tx-uppercase">
+				  <p class="pd-y-10 mb-0">Copyright© 2019 | All rights reserved. | Soteria.,llc</p>
+				</div>
+                </div>
+                
+                </div>  
+                <div class="modal up_z" id="alarm_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog tim-al" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h2 class="modal-title" id="exampleModalLabel_1">Alarm Setting</h2>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                           </button>
+                        </div>
+                        <div class="modal-body">
+                           <div class="modal_body_contents">
+                                 <h5 class="modal_body_contents_text-1">SMS Setting</h5>
+                                 <div class="click_g">
+                                       <div class="custom-control custom-checkbox ccheck">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckAll">
+                                             <label class="custom-control-label" for="sCustomCheckAll">All Days
+                                                   <input class="al-all fromtime" type="time" id="sFromAll">~<input type="time" class="al-all totime" id="sToAll">
+                                             </label>
+                                             
+                                       </div>
+                                       <div class="custom-control custom-checkbox ccheck">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckMon">
+                                             <label class="custom-control-label" for="sCustomCheckMon"> Mon
+                                                <input  class="al-1 fromtime" type="time" id="sFromMon">~<input type="time" class="totime" id="sToMon">
+                                             </label>
+                                       </div>
+                                       <div class="custom-control custom-checkbox ccheck">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckTue">
+                                             <label class="custom-control-label" for="sCustomCheckTue">Tue
+                                                <input  class="al-2 fromtime" type="time" id="sFromTue">~<input type="time" class="totime" id="sToTue">
+                                             </label>
+                                       </div>
+                                       <div class="custom-control custom-checkbox ccheck">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckWed">
+                                             <label class="custom-control-label" for="sCustomCheckWed">Wed
+                                                <input class="al-3 fromtime" type="time" id="sFromWed">~<input type="time" class="totime" id="sToWed">
+                                             </label>
+                                       </div>
+                                       <div class="custom-control custom-checkbox ccheck">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckThu">
+                                             <label class="custom-control-label" for="sCustomCheckThu">Thu
+                                                <input class="al-4 fromtime" type="time" id="sFromThu">~<input type="time" class="totime" id="sToThu">
+                                             </label>
+                                       </div>
+                                       <div class="custom-control custom-checkbox ccheck" style="text-align: justify;">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckFri">
+                                             <label class="custom-control-label" for="sCustomCheckFri">Fri
+                                                <input class="al-5 fromtime" type="time" id="sFromFri">~<input type="time" class="totime" id="sToFri">
+                                             </label>
+                                       </div>
+                                       <div class="custom-control custom-checkbox ccheck">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckSat">
+                                             <label class="custom-control-label" for="sCustomCheckSat">Sat
+                                                <input  class="al-6 fromtime" type="time" id="sFromSat">~<input type="time" class="totime" id="sToSat">
+                                             </label>
+                                       </div>
+                                       <div class="custom-control custom-checkbox ccheck">
+                                             <input type="checkbox" class="custom-control-input" id="sCustomCheckSun">
+                                             <label class="custom-control-label" for="sCustomCheckSun">Sun
+                                                <input  class="al-7 fromtime" type="time" id="sFromSun">~<input type="time" class="totime" id="sToSun">
+                                             </label>
+                                       </div>
+                                 </div>
+                                
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                              <button type="button" class="btn btn-primary" id="btnUpdateSms">confrim</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="modal up_z" id="alarm_modal_2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+                     <div class="modal-dialog tim-al" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h2 class="modal-title" id="exampleModalLabel_1">Alarm Setting</h2>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                              </button>
+                           </div>
+                           <div class="modal-body">
+                                 <div class="modal_body_contents">
+                                       <h5 class="modal_body_contents_text-1">Email Setting</h5>
+                                       <div class="click_g">
+                                             <div class="custom-control custom-checkbox ccheck">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckAll">
+                                                   <label class="custom-control-label" for="eCustomCheckAll">All Days
+                                                         <input class="al-all fromtime" type="time" id="eFromAll">~<input type="time" class="al-all totime" id="eToAll">
+                                                   </label>
+                                                   
+                                             </div>
+                                             <div class="custom-control custom-checkbox ccheck">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckMon">
+                                                   <label class="custom-control-label" for="eCustomCheckMon"> Mon
+                                                      <input  class="al-1 fromtime" type="time" id="eFromMon">~<input type="time" class="totime" id="eToMon">
+                                                   </label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox ccheck">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckTue">
+                                                   <label class="custom-control-label" for="eCustomCheckTue">Tue
+                                                      <input  class="al-2 fromtime" type="time" id="eFromTue">~<input type="time" class="totime" id="eToTue">
+                                                   </label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox ccheck">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckWed">
+                                                   <label class="custom-control-label" for="eCustomCheckWed">Wed
+                                                      <input class="al-3 fromtime" type="time" id="eFromWed">~<input type="time" class="totime" id="eToWed">
+                                                   </label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox ccheck">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckThu">
+                                                   <label class="custom-control-label" for="eCustomCheckThu">Thu
+                                                      <input class="al-4 fromtime" type="time" id="eFromThu">~<input type="time" class="totime" id="eToThu">
+                                                   </label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox ccheck" style="text-align: justify;">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckFri">
+                                                   <label class="custom-control-label" for="eCustomCheckFri">Fri
+                                                      <input class="al-5 fromtime" type="time" id="eFromFri">~<input type="time" class="totime" id="eToFri">
+                                                   </label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox ccheck">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckSat">
+                                                   <label class="custom-control-label" for="eCustomCheckSat">Sat
+                                                      <input  class="al-6 fromtime" type="time" id="eFromSat">~<input type="time" class="totime" id="eToSat">
+                                                   </label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox ccheck">
+                                                   <input type="checkbox" class="custom-control-input" id="eCustomCheckSun">
+                                                   <label class="custom-control-label" for="eCustomCheckSun">Sun
+                                                      <input  class="al-7 fromtime" type="time" id="eFromSun">~<input type="time" class="totime" id="eToSun">
+                                                   </label>
+                                             </div>
+                                       </div>
+                                      
+                                 </div>
+                              </div>
+                           <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                                 <button type="button" class="btn btn-primary" id="btnUpdateEmail">confrim</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal up_z" id="alarm_modal_3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog tim-al" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h2 class="modal-title" id="exampleModalLabel_1">Alarm Setting</h2>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                                 </button>
+                              </div>
+                              <div class="modal-body">
+                                    <div class="modal_body_contents">
+                                          <h5 class="modal_body_contents_text-1">Popup Setting</h5>
+                                          <div class="click_g">
+                                                <div class="custom-control custom-checkbox ccheck">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckAll">
+                                                      <label class="custom-control-label" for="pCustomCheckAll">All Days
+                                                            <input class="al-all fromtime" type="time" id="pFromAll">~<input type="time" class="al-all totime" id="pToAll">
+                                                      </label>
+                                                      
+                                                </div>
+                                                <div class="custom-control custom-checkbox ccheck">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckMon">
+                                                      <label class="custom-control-label" for="pCustomCheckMon"> Mon
+                                                         <input  class="al-1 fromtime" type="time" id="pFromMon">~<input type="time" class="totime" id="pToMon">
+                                                      </label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox ccheck">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckTue">
+                                                      <label class="custom-control-label" for="pCustomCheckTue">Tue
+                                                         <input  class="al-2 fromtime" type="time" id="pFromTue">~<input type="time" class="totime" id="pToTue">
+                                                      </label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox ccheck">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckWed">
+                                                      <label class="custom-control-label" for="pCustomCheckWed">Wed
+                                                         <input class="al-3 fromtime" type="time" id="pFromWed">~<input type="time" class="totime" id="pToWed">
+                                                      </label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox ccheck">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckThu">
+                                                      <label class="custom-control-label" for="pCustomCheckThu">Thu
+                                                         <input class="al-4 fromtime" type="time" id="pFromThu">~<input type="time" class="totime" id="pToThu">
+                                                      </label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox ccheck" style="text-align: justify;">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckFri">
+                                                      <label class="custom-control-label" for="pCustomCheckFri">Fri
+                                                         <input class="al-5 fromtime" type="time" id="pFromFri">~<input type="time" class="totime" id="pToFri">
+                                                      </label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox ccheck">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckSat">
+                                                      <label class="custom-control-label" for="pCustomCheckSat">Sat
+                                                         <input  class="al-6 fromtime" type="time" id="pFromSat">~<input type="time" class="totime" id="pToSat">
+                                                      </label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox ccheck">
+                                                      <input type="checkbox" class="custom-control-input" id="pCustomCheckSun">
+                                                      <label class="custom-control-label" for="pCustomCheckSun">Sun
+                                                         <input  class="al-7 fromtime" type="time" id="pFromSun">~<input type="time" class="totime" id="pToSun">
+                                                      </label>
+                                                </div>
+                                          </div>
+                                         
+                                    </div>
+                                 </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                                 <button type="button" class="btn btn-primary" id="btnUpdatePopup">confrim</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>  
+
+         </div>
+      </div>
+      </div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script th:inline="javascript">
+		var currSbbId = /*[[ ${firstServer != null ? firstServer.sbbId: '0'} ]]*/;
+		var uId = /*[[ ${user.userId}]]*/
+	  </script>
+	  <script>
+		var almType = 0;	
+		var emptyTime = '00:00:00';
+		/* var mySbblist = [];//전체 내 SBB
+		var activeSbbList = [];//그림 그릴 SBB */
+		var paramPop = {};//sms, email은 popup의 설정 범위를 넘을 수 없도록 해 달라는 요청에 의해 추가. 
+		var selSbb;
+	  	regEvent = function(){
+            onSbbChanged();
+	  		displayMysbbHeader(true);
+	  		regSbbBtns();
+	  		loadPersonalSbbs();
+	  		$('#accordion1').on('show.bs.collapse',function(){
+	  		    almType = SMS;//sms
+	  		    //저장방법 변경에 따라 추가필요. 
+	  		  	regSyslogLevelButtonAction(SMS);
+	  		  	regEventlogLevelButtonAction(SMS);
+ 	  		  	getAlarmSettingInfo();
+	  		});
+	  		$('#accordion2').on('show.bs.collapse',function(){
+	  			almType = EMAIL;//email
+	  			//저장방법 변경에 따라 추가필요. 
+	  		  	regSyslogLevelButtonAction(EMAIL);
+	  		  	regEventlogLevelButtonAction(EMAIL);
+	  			getAlarmSettingInfo();
+	  		});
+	  		$('#accordion3').on('show.bs.collapse',function(){
+	  			almType = POPUP;//popup
+	  			//저장방법 변경에 따라 추가필요. 
+	  		  	regSyslogLevelButtonAction(POPUP);
+	  		  	regEventlogLevelButtonAction(POPUP);
+	  			getAlarmSettingInfo();
+	  		});
+	  		$('#accordion4').on('show.bs.collapse',function(){
+	  			almType = '';//sbb setting
+	  			getSbbSettingInfo();
+	  		});
+	  		//min max setup
+	  		$('#txtSbbDiskUsage').each(function(index, el){
+	  			$(el).attr({
+	  				"max": 100,
+	  				"min": 0
+	  			})
+	  		});
+	  		//sbb setting
+	  		$('#btnConfirmSbbSetting').click(function(){
+	  			updateSbbSettingInfo();
+	  		});
+	  		//alam setting
+	  		$('#btnConfirmSms').click(function(){
+	  			updateSetting(SMS);
+	  		});
+			$('#btnConfirmEmail').click(function(){
+				updateSetting(EMAIL);  			
+	  		});
+			$('#btnConfirmPopup').click(function(){
+				updateSetting(POPUP);
+			});
+			//show modal listener
+			$('#alarm_modal_1').on('show.bs.modal', function(e){
+				almType = SMS;//sms
+				var modal = $(this);
+				setSchedule(SMS, modal);
+			});
+			$('#alarm_modal_2').on('show.bs.modal', function(e){
+				almType = EMAIL;//email
+				var modal = $(this);
+				setSchedule(EMAIL, modal);
+			});
+			$('#alarm_modal_3').on('show.bs.modal', function(e){
+				almType = POPUP;//popup
+				var modal = $(this);
+				setSchedule(POPUP, modal);
+			});
+			//update schedule
+			$('#btnUpdateSms').click(function(){
+				updateSchedule(SMS);
+			});
+			$('#btnUpdateEmail').click(function(){
+				updateSchedule(EMAIL);
+			});
+			$('#btnUpdatePopup').click(function(){
+				updateSchedule(POPUP);
+			});
+			
+			//checkbox, check all handler
+			checkWeekDayHandler('s',getModalDom(SMS));
+			checkWeekDayHandler('e',getModalDom(EMAIL));
+			checkWeekDayHandler('p',getModalDom(POPUP));
+			checkAllHandler('s',getModalDom(SMS));
+			checkAllHandler('e',getModalDom(EMAIL));
+			checkAllHandler('p',getModalDom(POPUP));
+	  	}
+	  	
+	  	//accordion이 열린상태의 sbb change 대응 
+	  	onSbbChanged = function(){
+	  		//get opend accordion
+	  		var tgt = $('#accordion div.collapse.show');
+	  		if(tgt.length == 0){
+	  			return;
+	  		}
+	  		var openId = tgt.attr('id');
+	  		var num = openId.slice(openId.length-1);
+	  		switch(num){
+	  		case '4':
+	  			almType = '';
+	  			break;
+	  		case '1':
+	  			almType = SMS;
+	  			break;
+	  		case '2':
+	  			almType = EMAIL;
+	  			break;
+	  		case '3':
+	  			almType = POPUP;
+	  			break;
+  			default:
+  				almType = '';
+  				return;
+	  		}
+	  		if(almType === ''){
+	  			//get sbb settings
+	  			getSbbSettingInfo();
+	  		}else{
+	  			getAlarmSettingInfo();
+	  		}
+	  	}
+	  	
+	  	//check box 선택에 따른 From, To 활성화 핸들링.
+	  	function checkWeekDayHandler(prefix, pModal){
+	  		$.each(weekdayList,function(idx, el){
+	  			$(pModal).find('#'+prefix+'CustomCheck'+el).change(function(){
+	  				if($('#'+prefix+'CustomCheck'+el).is(":checked")){
+	  					$('#'+prefix+'From'+el).attr('readonly', false);
+	  					$('#'+prefix+'To'+el).attr('readonly', false);
+	  					
+	  				//set init value 00:00
+	  					if($('#'+prefix+'From'+el).val()==''){
+	  						$('#'+prefix+'From'+el).val('00:00:00');
+	  					}
+	  					if($('#'+prefix+'To'+el).val()==''){
+	  						$('#'+prefix+'To'+el).val('00:00:00');
+	  					}
+	  				}else{
+	  					$('#'+prefix+'From'+el).attr('readonly', true);
+	  					$('#'+prefix+'To'+el).attr('readonly', true);
+	  					
+	  					//all days check box를 uncheck 해준다.
+		  				if($('#'+prefix+'CustomCheckAll').is(':checked')){
+		  					//all days -> uncheck
+		  					$(pModal).find('#'+prefix+'CustomCheckAll').prop('checked',false);//trigger는 하지 않는다.
+		  					//week days -> editable
+		  					$.each(weekdayList,function(idx, el){
+		  						$('#'+prefix+'From'+el).attr('readonly', false);
+			  					$('#'+prefix+'To'+el).attr('readonly', false);
+		  					});
+		  				}
+	  				}
+	  			});
+	  		});
+	  	}
+	  	//check All handler
+	  	function checkAllHandler(prefix, pModal){
+	  		$(pModal).find('#'+prefix+'CustomCheckAll').change(function(){
+	  			if($('#'+prefix+'CustomCheckAll').is(":checked")){
+	  				$.each(weekdayList,function(idx, el){
+	  					//$(pModal).find('#'+prefix+'CustomCheck'+el).prop('checked',true).change();//trigger
+	  					$(pModal).find('#'+prefix+'CustomCheck'+el).prop('checked',true);//trigger
+	  				});
+	  				$('#'+prefix+'FromAll').attr('readonly', false);
+  					$('#'+prefix+'ToAll').attr('readonly', false);
+  					//from ,to, change handler
+  					$('#'+prefix+'FromAll').on('change', function(){
+  						var from = $('#'+prefix+'FromAll').val();
+  						$.each(weekdayList,function(idx, el){
+  		  					$(pModal).find('#'+prefix+'From'+el).val(from);
+  		  				});
+  					});
+					$('#'+prefix+'ToAll').on('change', function(){
+  						var to = $('#'+prefix+'ToAll').val();
+  						$.each(weekdayList,function(idx, el){
+  		  					$(pModal).find('#'+prefix+'To'+el).val(to);
+  		  				});
+  					}); 
+  				
+  					//set init value 00:00
+  					if($('#'+prefix+'FromAll').val()==''){
+  						$('#'+prefix+'FromAll').val('00:00:00');
+  					}
+  					if($('#'+prefix+'ToAll').val()==''){
+  						$('#'+prefix+'ToAll').val('00:00:00');
+  					}
+	  			}else{
+	  				$.each(weekdayList,function(idx, el){
+	  					$(pModal).find('#'+prefix+'CustomCheck'+el).prop('checked',false).change();
+	  				});
+	  				$('#'+prefix+'FromAll').attr('readonly', true);
+  					$('#'+prefix+'ToAll').attr('readonly', true);
+	  			}
+	  		});
+	  	}
+	  	
+	  	function syncEventHandler(prefix, pDom, bSync){
+	  		var times = $(pDom).parent().find('input[type=time]');
+	  		var refFrom = times[0];
+	  		var refTo = times[1];
+	  		if(bSync){
+	  			var modal = getModalDom(almType);
+		  		$(refFrom).on('change', function(){
+		  			var val = $(this).val();
+		  			
+		  			$(modal).find('input[type=time]').each(function(idx, el){
+		  				if($(el).hasClass('fromtime') && !$(el).hasClass('al-all')){
+		  					$(this).val(val);
+		  				}
+		  			});
+		  		});
+		  		$(refTo).on('change', function(){
+		  			var val = $(this).val();
+		  			
+		  			$(modal).find('input[type=time]').each(function(idx, el){
+		  				if($(el).hasClass('totime') && !$(el).hasClass('al-all')){
+		  					$(this).val(val);
+		  				}
+		  			});
+		  		});
+	  		}else{
+				$(refFrom).on('change', function(){
+		  			//do nothing
+		  		});
+	  		}
+	  	}
+	  	
+	  	var dftSetting = {
+ 			almType: 100,
+ 			eventlog1: false,
+ 			eventlog2: false,
+ 			eventlog3: false,
+ 			eventlog4: false,
+ 			eventlogFalAuditYn: "N",
+ 			eventlogLevel: 0,
+ 			eventlogSucAuditYn: "N",
+ 			hostNetworkYn: "N",
+ 			modDate: new Date(),
+ 			modUser: 0,
+ 			naiYn: "Y",
+ 			sbbDskUsage: 80,
+ 			sbbId: 0,
+ 			sbbNetworkYn: "N",
+ 			syslog0: false,
+ 			syslog1: false,
+ 			syslog2: false,
+ 			syslog3: false,
+ 			syslog4: false,
+ 			syslog5: false,
+ 			syslog6: false,
+ 			syslog7: false,
+ 			syslogLevel: 0,	
+	  	}
+	  	
+	  	function getSbbSettingInfo(){
+	  		if(currSbbId < 1 ){
+	  			showAlert("Invalid Sbb ID");
+	  			return;
+	  		}
+	  		var dom = $('#accordion4');
+	  		var params = {
+	  					sbbId: currSbbId
+	  			};
+			var url = ctx+"setting/alarm/sbbsettings";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        url : url,
+		        data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					fillForm(out.data, dom);
+				}else{
+					showAlert(out.errMsg);
+					dftSetting.sbbId = currSbbId;
+					dftSetting.uId;
+					fillForm(dftSetting, dom);
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+	  	}
+	  	
+	  	function updateSbbSettingInfo(){
+	  		if(!showConfirm("업데이트 하시겠습니까?")){
+	  			return;
+	  		}
+	  		
+	  		var params = getSbbSettingParams();
+	  		var url = ctx+"setting/alarm/sbbsetting/update";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        dataType: "json",
+		        contentType: "application/json",
+		        url : url,
+		        data: JSON.stringify(params)
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					
+					showAlert("설정이 업데이트 되었습니다.");
+				}else{
+					showAlert("설정 업데이트에 실패 하였습니다.");
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+	  	}
+	  	
+	  	function getAlarmSettingInfo(){
+	  		getAlarmSetting(currSbbId, almType);
+	  	}
+	  	
+	  	function getSettingDom(almType){
+	  		var dom;
+	  		switch(almType){
+	  		case SMS:
+	  			dom = $('#accordion1');
+	  			break;
+	  		case EMAIL:
+	  			dom = $('#accordion2');
+	  			break;
+	  		case POPUP:
+	  			dom = $('#accordion3');
+	  			break;
+  			default:
+  				dom = $('#accordion4');
+	  		}
+	  		return dom;
+	  	}
+	  	
+	  	function getAlarmSetting(sbbId, almType){
+	  		if(sbbId < 1 || almType < 1){
+	  			showAlert("Invalid Sbb ID or Alarm Type");
+	  			return;
+	  		}
+	  		var dom = getSettingDom(almType);
+	  		var params = {
+	  					sbbId: sbbId,
+	  					almType: almType
+	  			};
+			var url = ctx+"setting/alarm/detail";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        url : url,
+		        data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					if(almType == POPUP){
+						paramPop['syslogLevel'] = out.data.syslogLevel;
+						paramPop['eventlogLevel'] = out.data.eventlogLevel;
+					}
+					fillForm(out.data, dom);
+				}else{
+					showAlert(out.errMsg);
+					dftSetting.sbbId = sbbId;
+					dftSetting.uId;
+					fillForm(dftSetting, dom);
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+	  	}
+	  	function slideBtn(sel, yn){
+	  		if(!$(sel)){
+	  			return;
+	  		}
+	  		var cmd = yn==='Y'? 'on':'off';
+	  		$(sel).bootstrapToggle(cmd);
+	  	}
+	  	function numBtn(sel, bool){
+	  		if(!$(sel)){
+	  			return;
+	  		}
+	  		if(bool){
+	  			$(sel).attr('aria-pressed', 'true');
+	  			$(sel).addClass('active');
+	  		}else{
+	  			$(sel).attr('aria-pressed', 'false');
+	  			$(sel).removeClass('active');
+	  		}
+	  	}
+	  	function fillForm(data, dom){
+	  		if(!data){
+	  			return;
+	  		}
+	  		//neurotron ai
+	  		slideBtn( $(dom).find('#btnNeurotron'), data.naiYn);
+	  		//syslog
+	  		//변경... 버튼별 지정 -> 0~현재값 까지.
+	  		for(var i=0;i<8;i++){
+	  			numBtn( $(dom).find('#btnSyslog'+i), i <= data.syslogLevel);
+	  		}
+	  		/* numBtn( $(dom).find('#btnSyslog0'), data.syslog0);
+	  		numBtn( $(dom).find('#btnSyslog1'), data.syslog1);
+	  		numBtn( $(dom).find('#btnSyslog2'), data.syslog2);
+	  		numBtn( $(dom).find('#btnSyslog3'), data.syslog3);
+	  		numBtn( $(dom).find('#btnSyslog4'), data.syslog4);
+	  		numBtn( $(dom).find('#btnSyslog5'), data.syslog5);
+	  		numBtn( $(dom).find('#btnSyslog6'), data.syslog6);
+	  		numBtn( $(dom).find('#btnSyslog7'), data.syslog7); */
+	  		//event log
+	  		//변경.. syslog와 동일.
+	  		for(var i=1;i<5;i++){
+	  			numBtn( $(dom).find('#btnEvnet'+i), i <= data.eventlogLevel);
+	  		}
+	  		/* numBtn( $(dom).find('#btnEvnet1'), data.eventlog1);
+	  		numBtn( $(dom).find('#btnEvnet2'), data.eventlog2);
+	  		numBtn( $(dom).find('#btnEvnet3'), data.eventlog3);
+	  		numBtn( $(dom).find('#btnEvnet4'), data.eventlog4); */
+	  		
+	  		//audit customCheck1, customCheck2, customCheck3, customCheck4, customCheck5, customCheck6
+	  		if( almType === SMS){
+	  			$(dom).find('#customCheck1').attr('checked', data.eventlogSucAuditYn === 'Y');
+	  			$(dom).find('#customCheck2').attr('checked', data.eventlogFalAuditYn === 'Y');
+	  		}else if( almType === EMAIL ){
+	  			$(dom).find('#customCheck3').attr('checked', data.eventlogSucAuditYn === 'Y');
+	  			$(dom).find('#customCheck4').attr('checked', data.eventlogFalAuditYn === 'Y');
+	  		}else if( almType === POPUP ){
+	  			$(dom).find('#customCheck5').attr('checked', data.eventlogSucAuditYn === 'Y');
+	  			$(dom).find('#customCheck6').attr('checked', data.eventlogFalAuditYn === 'Y');
+	  		}else{
+	  			$(dom).find('#customCheck7').attr('checked', data.eventlogSucAuditYn === 'Y');
+	  			$(dom).find('#customCheck8').attr('checked', data.eventlogFalAuditYn === 'Y');
+	  		} 
+	  		
+	  		//SBB-host
+	  		slideBtn( $(dom).find('#btnSbbHost'), data.hostNetworkYn);
+	  		slideBtn( $(dom).find('#btnSbbManager'), data.sbbNetworkYn);
+	  		$(dom).find("#txtSbbDisk").val(data.sbbDskUsage);
+	  	}
+	  	
+	  	function updateSetting(almType){
+	  		if(!showConfirm("업데이트 하시겠습니까?")){
+	  			return;
+	  		}
+	  		
+	  		var params = getUpdateParams(almType);
+	  		var url = ctx+"setting/alarm/update";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        dataType: "json",
+		        contentType: "application/json",
+		        url : url,
+		        data: JSON.stringify(params)
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					if(almType == POPUP){
+						paramPop = params;
+					}
+					showAlert("설정이 업데이트 되었습니다.");
+				}else{
+					showAlert("설정 업데이트에 실패 하였습니다.");
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+	  	}
+	  	function getUpdateParams(almType){
+	  		var pDom = getSettingDom(almType);
+	  		var params = {};
+	  		params.almType = almType;
+	  		params.sbbId = currSbbId;
+	  		params.modUser = uId;
+	  		params.naiYn = pDom.find('#btnNeurotron').bootstrapToggle()[0].checked ? 'Y':'N';
+	  		params.syslogLevel = getSyslogLevel(pDom);
+	  		params.eventlogLevel = getEventlogLevel(pDom);
+	  		params.hostNetworkYn = pDom.find('#btnSbbHost').bootstrapToggle()[0].checked ? 'Y':'N';
+	  		params.sbbNetworkYn = pDom.find('#btnSbbHost').bootstrapToggle()[0].checked ? 'Y':'N';
+	  		params.sbbDskUsage = pDom.find('#txtSbbDisk').val();
+	  		if( almType === SMS){
+	  			params.eventlogSucAuditYn = pDom.find('#customCheck1').attr('checked') === 'checked' ? 'Y':'N';
+	  			params.eventlogFalAuditYn = pDom.find('#customCheck2').attr('checked') === 'checked' ? 'Y':'N';
+	  		}else if( almType === EMAIL ){
+	  			params.eventlogSucAuditYn = pDom.find('#customCheck3').attr('checked') === 'checked' ? 'Y':'N';
+	  			params.eventlogFalAuditYn = pDom.find('#customCheck4').attr('checked') === 'checked' ? 'Y':'N';
+	  		}else if( almType === POPUP ){
+	  			params.eventlogSucAuditYn = pDom.find('#customCheck5').attr('checked') === 'checked' ? 'Y':'N';
+	  			params.eventlogFalAuditYn = pDom.find('#customCheck6').attr('checked') === 'checked' ? 'Y':'N';
+	  		}else{
+	  			params.eventlogSucAuditYn = pDom.find('#customCheck7').attr('checked') === 'checked' ? 'Y':'N';
+	  			params.eventlogFalAuditYn = pDom.find('#customCheck8').attr('checked') === 'checked' ? 'Y':'N';
+	  		} 
+	  		return params;
+	  	}
+	  	function getSbbSettingParams(){
+	  		var pDom = $('#accordion4');
+	  		var params = {};
+	  		params.sbbId = currSbbId;
+	  		params.modUser = uId;
+	  		params.naiYn = pDom.find('#btnNeurotron').bootstrapToggle()[0].checked ? 'Y':'N';
+	  		params.syslogLevel = getSyslogLevel(pDom);
+	  		params.eventlogLevel = getEventlogLevel(pDom);
+  			params.eventlogSucAuditYn = pDom.find('#customCheck7').attr('checked') === 'checked' ? 'Y':'N';
+  			params.eventlogFalAuditYn = pDom.find('#customCheck8').attr('checked') === 'checked' ? 'Y':'N';
+	  		return params;
+	  	}
+	  	function getSyslogLevel(pDom){
+	  		var val = 0, tmp = 0;
+	  		//sysloglevel 저장 방식 변경.
+	  		for(var i=7;i > -1;i--){
+	  			val = Math.max(pDom.find('#btnSyslog'+i).hasClass('active') ? i:0,val);
+	  		}
+	  		/* val = pDom.find('#btnSyslog0').hasClass('active') ? 1 << 7 : 0;
+	  		val = val | (pDom.find('#btnSyslog1').hasClass('active') ? 1 << 6:0);
+	  		val = val | (pDom.find('#btnSyslog2').hasClass('active') ? 1 << 5:0);
+	  		val = val | (pDom.find('#btnSyslog3').hasClass('active') ? 1 << 4:0);
+	  		val = val | (pDom.find('#btnSyslog4').hasClass('active') ? 1 << 3:0);
+	  		val = val | (pDom.find('#btnSyslog5').hasClass('active') ? 1 << 2:0);
+	  		val = val | (pDom.find('#btnSyslog6').hasClass('active') ? 1 << 1:0);
+	  		val = val | (pDom.find('#btnSyslog7').hasClass('active') ? 1:0); */
+	  		return val;
+	  	}
+	  	function getEventlogLevel(pDom){
+	  		var val = 0;
+	  		//eventlog 저장 방식 변경 
+	  		for(var i=4;i>0;i--){
+	  			val = Math.max(pDom.find('#btnEvnet'+i).hasClass('active') ? i:0, val);
+	  		}
+	  		/* val = pDom.find('#btnEvnet1').hasClass('active') ? 1 << 3 : 0;
+	  		val = val | (pDom.find('#btnEvnet2').hasClass('active') ? 1 << 2 : 0);
+	  		val = val | (pDom.find('#btnEvnet3').hasClass('active') ? 1 << 1 : 0);
+	  		val = val | (pDom.find('#btnEvnet4').hasClass('active') ? 1 : 0); */
+	  		return val;
+	  	}
+	  	function getModalDom(almType){
+	  		var pDom = null;
+	  		switch(almType){
+	  		case SMS:
+	  			pDom = $('#alarm_modal_1');
+	  			break;
+	  		case EMAIL:
+	  			pDom = $('#alarm_modal_2');
+	  			break;
+	  		case POPUP:
+	  			pDom = $('#alarm_modal_3');
+	  			break;
+  			default:
+	  		}
+	  		return pDom;
+	  	}
+	  	function setSchedule(almType, pModal){
+	  		resetScheduleUI(pModal);
+	  		
+	  		var dom = getModalDom(almType);
+	  		var params = {
+	  				sbbId: currSbbId,
+	  				almType: almType
+	  		}
+	  		var url = ctx+"setting/alarm/schedule";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        url : url,
+		        data: params
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					
+					setScheduleUI(dom, out.data);
+				}else{
+					
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+	  	}
+	  	function resetScheduleUI(pModal){
+	  		$(pModal).find('input[type=checkbox]').each(function(idx, el){
+	  			$(el).prop('checked',false);
+	  		});
+	  		$(pModal).find('input[type=time]').each(function(idx, el){
+	  			//$(el).val(emptyTime);
+	  			$(el).val('');
+	  		});
+	  	}
+	  	function setScheduleUI(pModal, data){
+	  		if(!data || !data.list || !pModal){
+	  			return;
+	  		}
+	  		$.each(data.list, function(index, el){
+	  			var from = getFromTimeDomById(pModal, almType, el.weekDay);
+	  			var to = getToTimeDomById(pModal, almType, el.weekDay);
+	  			var check = getCheckDomById(pModal, almType, el.weekDay);
+	  			$(from).val(el.fromTime.replace('\.000000',''));
+	  			$(to).val(el.toTime.replace('\.000000',''));
+	  			$(check).prop('checked', true);
+	  		});
+	  	}
+	  	function getFromTimeDomById(pModal, almType, serverWeekDay){
+	  		return $(pModal).find('#'+getPrefix(almType)+'From'+getWeekDayStr(serverWeekDay));
+	  	}
+	  	function getToTimeDomById(pModal, almType, serverWeekDay){
+	  		return $(pModal).find('#'+getPrefix(almType)+'To'+getWeekDayStr(serverWeekDay));
+	  	}
+	  	function getCheckDomById(pModal, almType, serverWeekDay){
+	  		return $(pModal).find('#'+getPrefix(almType)+'CustomCheck'+getWeekDayStr(serverWeekDay));
+	  	}
+	  	//class에 있는 숫자와 Weekday 숫자 맵핑 
+	  	function weekdayIdx(serverVal){
+	  		//sun: 1 ~ sat: 7 (server)
+	  		//class mon: 1 ~ sun: 7
+	  		return serverVal - 1 > 0 ? (serverVal - 1): 7;
+	  	}
+	  	function findFromTimeDom(modal, weekday){
+	  		var idx = weekdayIdx(weekday);
+	  		var el = $(modal).find('input[type=time].fromtime.al-'+idx);
+	  		return el;
+	  	}
+	  	function findToTimeDom(modal, weekday){
+	  		return $(findFromTimeDom(modal, weekday)).siblings()[0];
+	  	}
+	  	function scheduleCheckAll(prefix, pDom, bCheck){
+	  		if(!pDom){
+	  			return;
+	  		}
+	  		$.each(weekdayList, function(idx, el){
+	  			$(pDom).find('#'+prefix+'CustomCheck'+el).prop('checked', bCheck);
+	  		});
+	  	}
+	  	function syncScheduledAll(prefix, pDom, bCheck, fromVal, toVal){
+	  		//set value
+	  		$.each(weekdayList, function(idx, el){
+	  			var times = $(pDom).find('#'+prefix+'CustomCheck'+el).parent().find('input[type=time]');
+	  			$(times[0]).val(fromVal);
+	  			$(times[1]).val(toVal);
+	  		});
+	  		//set event sync
+	  		
+	  	}
+	  	function activateTimes(prefix, pDom, active){
+	  		$.each(weekdayList, function(idx, el){
+	  			var times = $(pDom).find('#'+prefix+'CustomCheck'+el).parent().find('input[type=time]');
+	  			$(times[0]).attr('readonly', active);
+	  			$(times[1]).attr('readonly', active);
+	  		});
+	  	}
+	  	function makeRequestParams(almType, pModal){
+	  		var params = {list:[]};
+	  		params.sbbId = currSbbId;
+	  		params.almType = almType;
+	  		$.each(weekdayList, function(idx, el){
+	  			if($(pModal).find('#'+getPrefix(almType)+'CustomCheck'+el).prop('checked')){
+	  				var p = {};
+	  				p.sbbId = currSbbId;
+	  				p.almType = almType;
+	  				p.weekDay = idx + 2;
+	  				p.weekDay = p.weekDay > 7 ? 1: p.weekDay;
+	  				p.fromTime = $(getFromTimeDomById(pModal,almType,p.weekDay)).val() ? 
+	  						$(getFromTimeDomById(pModal,almType,p.weekDay)).val().replace('\.000000', ''):emptyTime;
+	  				p.toTime = $(getToTimeDomById(pModal,almType,p.weekDay)).val() ?
+	  						 $(getToTimeDomById(pModal,almType,p.weekDay)).val().replace('\.000000', ''):emptyTime;
+	  				params.list.push(p);
+	  			}
+	  		});
+	  		return params;
+	  	}
+	  	function updateSchedule(almType){
+	  		if(!showConfirm("업데이트 하시겠습니까?")){
+	  			return;
+	  		}
+	  		
+	  		var params = makeRequestParams(almType, getModalDom(almType));
+	  		var url = ctx+"setting/alarm/schedule/update";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        dataType: "json",
+		        contentType: "application/json",
+		        url : url,
+		        data: JSON.stringify(params)
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					
+					showAlert("스케줄 설정이 업데이트 되었습니다.");
+				}else{
+					showAlert("스케쥴 설정 업데이트에 실패 하였습니다.");
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				/* getModalDom(almType).toggle();
+				$('.modal-backdrop').remove(); */
+				$('.close').click(); 
+			});
+	  	}
+	  	function loadPersonalSbbs(){
+	  		var url = ctx+"setting/alarm/mysbbs";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        dataType: "json",
+		        contentType: "application/json",
+		        url : url,
+		        data: JSON.stringify({})
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					mySbblist = out.data.list;
+					regMysbbSearch(mySbblist);
+					console.log('sbblist loaded.');
+				}else{
+					console.log('sbblist lading failure.');
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+			});
+	  	}
+	  	/* function regSbbBtns(){
+	  		$('div.grid-sbb').on('click', function(){
+	  			//console.log($(this).attr('data-sbbid'));
+	  			updateCurrSbb($(this).attr('data-sbbid'));
+	  			$('div.grid-sbb .sbb_view').removeClass('active');
+	  			$(this).find('.sbb_view').addClass('active');
+	  		});
+	  	}
+	  	function updateCurrSbb(sbbId){
+	  		var sbbInfo = mySbblist.find(function(el, idx, array){
+	  			return el.sbbId == sbbId;
+	  		});
+	  		selSbb = sbbInfo;
+	  		currSbbId = sbbInfo.sbbId;
+	  		$('#alarmTitle').html(sbbInfo.sbbName);
+	  	} */
+	  	
+	  	function regSyslogLevelButtonAction(almType){
+	  		
+	  		var updateSyslogBtn=function(tgt){
+	  			//limitation 설정 
+	  			var limit = tgt;
+	  			if(almType !== POPUP){
+	  				limit = Math.min(paramPop.syslogLevel,tgt);//QQQ
+	  			}
+	  			for(var i=0;i<8;i++){
+	  				numBtn(pDom.find('#btnSyslog'+i), limit>=i);
+		  		}
+  				setTimeout(()=>{numBtn(pDom.find('#btnSyslog'+tgt), tgt<=limit);},300);//설정치의 토글버튼 이벤트로 반전되는것 상쇄
+	  		}
+	  		var pDom = getSettingDom(almType);
+	  		var tgt = 7;
+	  		for(var i=7;i>=0;i--){
+	  			pDom.find('#btnSyslog'+i).off('click').on('click', function(e){
+	  				//e.preventDefault();
+	  				tgt = $(this).attr('id');
+	  				tgt = tgt[tgt.length-1];//number를 가져온다.. 마지막 자리 수 
+	  				//if(pDom.find('#btnSyslog'+tgt).hasClass('active')){
+	  					updateSyslogBtn(parseInt(tgt));
+	  				//}
+	  			});
+	  		}
+	  	}
+		function regEventlogLevelButtonAction(almType){
+	  		
+	  		var updateEventlogBtn=function(tgt){
+	  			for(var i=1;i<5;i++){
+	  				numBtn(pDom.find('#btnEvnet'+i), tgt>=i);
+		  		}
+	  			setTimeout(()=>{numBtn(pDom.find('#btnEvnet'+tgt), true);},300);//설정치의 토글버튼 이벤트로 반전되는것 상쇄 
+	  		}
+	  		var pDom = getSettingDom(almType);
+	  		var tgt = 4;
+	  		for(var i=4;i>0;i--){
+	  			pDom.find('#btnEvnet'+i).off('click').on('click', function(e){
+	  				//e.preventDefault();
+	  				tgt = $(this).attr('id');
+	  				tgt = tgt[tgt.length-1];//number를 가져온다.. 마지막 자리 수 
+	  				updateEventlogBtn(parseInt(tgt));
+	  			});
+	  		}
+	  	}
+	  </script>
+</body>
+</html>

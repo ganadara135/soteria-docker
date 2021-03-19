@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+	<title>Userlist</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+</head>
+<body>
+<div>
+	<div class="wrapper">
+		<nav th:replace="fragments/left :: left">
+		</nav>
+		<div class="page-content">
+			<div id="content">
+				<nav th:replace="fragments/gnb :: gnb">
+				</nav>
+			</div>
+			<!-- content -->
+			<div class="ht-100v d-flex">
+
+				<!--tracker 메뉴위치 start-->
+				<div class="pageheader pd-t-25 pd-b-35 tracker">
+					<div class="pd-t-5 pd-b-5">
+						<h1 class="pd-0 mg-0 tx-20 text-overflow">Account Management</h1>
+					</div>
+					<div class="breadcrumb pd-0 mg-0">
+						Home / User management / Account management
+<!--						<a class="breadcrumb-item" th:href="@{/dashboard}"><i class="icon ion-ios-home-outline"></i>HOME</a>-->
+<!--&lt;!&ndash;						<a class="breadcrumb-item" href="javascript:void(0);">Setting</a>&ndash;&gt;-->
+<!--						<span class="breadcrumb-item active">Account Management</span>-->
+					</div>
+				</div>
+				<!--tracker 메뉴위치 end-->
+				<div class="card_dashboard shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center data_table">
+<!--				<div class="card shadow-none pd-20 mx-auto wd-280 text-center bd-1 align-self-center data_table userlist_margin">-->
+					<!-- Scrollable Table Start -->
+					<!--================================-->
+
+					<div class="collapse show">
+						<div class="table_name_h row">
+							<button type="button" class="btn btn-custom-primary table_name" id="settingUserTrigger"><i
+									class="fas fa-plus"></i>ADD</button>
+							<button type="button" class="btn btn-custom-primary table_name" id="userEditTrigger"><i
+									class="fas fa-pencil-alt"></i>EDIT</button>
+						</div>
+						<table id="scrollableTable" class="table hover responsive row-border nowrap text_cen">
+							<thead>
+							<tr class="tr_header">
+								<th><strong>Create time</strong></th>
+								<th><strong>User ID</strong></th>
+								<th><strong>User name</strong></th>
+								<th><strong>SMS</strong></th>
+								<th><strong>Email</strong></th>
+								<th><strong>Status</strong></th>
+								<th><strong>Authority</strong></th>
+							</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+<!--			jQuery simpler-sidebar -->
+			<div class="settingUser" id="settingUser">
+				<div class="wrapper" id="demoSettingSidebarScroll">
+					<!--<i class="ion-ios-close-empty closed-btn"></i>-->
+
+					<div class="card_dashboard shadow-none  mx-auto  text-center bd-1 align-self-center singupPad" style="top:220px;">
+<!--						<div class="user-e-toge-gr">-->
+							<h4 class="sidebar_header">USER<span id="statTitle">Create</span></h4>
+<!--							<div class="checkbox"><input id="btnActive" type="checkbox" checked data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger">-->
+<!--							</div>-->
+							<div class="form-check" style="text-align: left;">
+								<label class="form-check-label" >
+									<input id="btnActive" type="checkbox" class="form-check-input" value="">활성화
+								</label>
+							</div>
+<!--						</div>-->
+						<h5 class="staninfo">Basic Info</h5>
+						<form id="frmRegUser" class="demo-form">
+
+							<p class ="form-control_name" >Name</p>
+							<div class="form-group input-group">
+								<input class="form-control sizz" placeholder="이름" type="text" id="userName"
+									   data-parsley-trigger="blur" required>
+							</div>
+							<!-- <button id="requestBtn">$.ajax() 메소드 실행</button> -->
+
+							<p class ="form-control_name">ID</p>
+							<div class="form-group input-group">
+<!--								<input class="form-control sizz" placeholder="아이디" type="text" id="logonName"-->
+<!--									   data-parsley-trigger="blur" required="" data-parsley-uniquelogonname="">-->
+								<input class="form-control sizz" placeholder="아이디" type="text" id="logonName"
+									   data-parsley-trigger="blur" required="">
+							</div>
+							<p class ="form-control_name">Email</p>
+							<div class="form-group input-group">
+								<input class="form-control sizz" placeholder="example@company.com" type="email" id="email"
+									   data-parsley-trigger="blur" >
+							</div>
+							<p class ="form-control_name">SMS</p>
+							<div class="form-group input-group">
+								<input class="form-control sizz" placeholder="010-XXXX-XXXX" type="text" id="contact"
+									   data-parsley-trigger="blur">
+							</div>
+							<!--
+							   <div class="form-section"> -->
+							<p class ="form-control_name">Authorization</p>
+							<div class="form-group input-group ">
+								<select class="form-control optionAO sizz" id="userType" data-parsley-trigger="blur" required>
+									<option value="100"selected>User</option>
+									<option value="200">Operator</option>
+								</select>
+							</div>
+							<!-- </div>
+                           <div class="form-section"> -->
+
+						<!-- OTP 편집하기 -->
+							<div id="otpEdit">
+								<p class ="form-control_name">OTP certification</p>
+								<div id="web_token_edit" style="text-align: left;">
+									<label class="form-check-label" >
+										<input id="btnOtptypeEdit" type="checkbox" checked class="form-check-input" value="Web">Web
+									</label>
+<!--									<input id="btnOtptypeEdit" type="checkbox" checked data-toggle="toggle" data-on="Token" data-off="Web" data-onstyle="token_otp" data-offstyle="web_otp" >-->
+								</div>
+
+								<div class="form-group input-group" id="visible_token_otp_edit">
+									<input class="form-control sizz cont_pa" placeholder="OTP" type="text" id="otpSecretEdit">
+									<button class= "form-control_otp" id="btnOtpReset">ADD</button>
+								</div>
+
+								<div class="form-group hidden_otp" id="visible_web_otp_edit">
+									<div class="QR_code_edit_view" style="color: #ffff;"><img id="otpImgEdit" th:src="@{/setting/otp/qrcode?userId=0}"/></div>
+									<div >KEY: <span id="otpSecretWeb"></span></div>
+									<div >계정: <span id="otpSecretWebUserId"></span></div>
+									<div id="btnOtpEditInit" class= "form-control_otp" data-toggle="modal" >Reset</div>
+								</div>
+							</div>
+							<!--  -->
+							<p class ="form-control_name">Password</p>
+							<div class="form-group input-group">
+								<input class="form-control sizz" placeholder="비밀번호" type="password" id="logonPwd"
+									   data-parsley-trigger="blur"
+									   data-parsley-minlength="9"
+									   data-parsley-character="1"
+									   data-parsley-number="1"
+									   data-parsley-special="1"
+									   data-parsley-required>
+							</div>
+							<p class ="form-control_name">Retype password</p>
+							<div class="form-group input-group">
+								<input class="form-control" placeholder="비밀번호 재입력" type="password" id="logonPwd2"
+									   data-parsley-trigger="blur" required data-parsley-equalto="#logonPwd" >
+							</div>
+							<div class= "form-control_otp reset_pw" id="pwdReset">Reset</div>
+
+							<h5 class="staninfo">Setting</h5>
+
+							<p class ="form-control_name">IP Restricted access</p>
+							<!-- <div class="custom-control custom-checkbox">
+                                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                  <label class="custom-control-label" for="customCheck1">사용</label>
+                               </div> -->
+							<div class="form-group input-group">
+								<input class="form-control" placeholder="허용 IP 등록" type="text" id="allowedIp">
+							</div>
+							<div class="form-group">
+								<!-- <button class="btn btn-custom-primary btn-block tx-13" id="btnRegUser1">validate</button>  -->
+								<button class="btn btn-custom-primary btn-block tx-13" id="btnRegUser"> Confirm </button>
+							</div>
+						<!-- OTP 등록하기-->
+							<div id="otpReg" style="margin-top:30px;display:none;">
+								<p class="form-control_name">OTP certification</p>
+								<div id="web_token" style="background-color: #0a6aa1; text-align: left;" >
+<!--									<input  id="btnOtptype" type="checkbox" checked data-toggle="toggle" data-on="Token" data-off="Web" data-onstyle="btn-token_otp" data-offstyle="btn-web_otp" data-height="65" >-->
+									<label class="form-check-label" >
+										<input id="btnOtptype" type="checkbox" checked class="form-check-input" value="Web">Web
+									</label>
+								</div>
+
+								<div class="form-group input-group" id="visible_token_otp">
+									<input class="form-control sizz cont_pa" placeholder="OTP" type="text" id="otpSecret">
+									<button id="btnOtpRegMobile" class="form-control_otp">ADD</button>
+								</div>
+
+								<div class="form-group hidden_otp" id="visible_web_otp">
+									<button id="btnOtpRegWeb" class="form-control_otp otp_ref_web">Create</button>
+								</div>
+							</div>
+							<input type="hidden" id="userId">
+						</form>
+			               </div>
+			            </div>
+			      </div>
+				 <div class="modal" id="m_modal_gen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+		            <div class="modal-dialog" role="document">
+		               <div class="modal-content">
+		                  <div class="modal-header">
+		                     <h2 class="modal-title" id="exampleModalLabel_1">WEB OTP</h2>
+		                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                     <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+		                     </button>
+		                  </div>
+		                  <div class="modal-body">
+		                     <div class="modal_body_contents">
+		                           <p class="modal_body_contents_text">
+		                              <li>구글 OTP앱을 다운받아주세요.</li>
+		                              <li>바코드 스캔을 클릭 후 QR코드를 스캔하세요</li>
+		                              <li>또는 수동으로 하단의 코드와 계정을 직접 입력해주세요.</li>
+		                           </p>
+
+		                          <div class="qrcode_grid">
+		                             <div class="qr_code_img"><img id="otpImgReg" th:src="@{/setting/otp/qrcode?userId=0}"/></div>
+		                             <div class="qr_key">Key Number : <span id="otpSecretWeb">120391849</span><br>계정 : <span id="otpSecretWebUserId">ruchiayeon</span></div>
+		                          </div>
+
+		                     </div>
+		                  </div>
+		                  <div class="modal-footer">
+		                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> -->
+		                     <button type="button" class="btn btn-primary" id="btnWebOtpModalRegOK">Confrim</button>
+		                  </div>
+		               </div>
+		            </div>
+		         </div>
+
+				<div class="modal" id="m_modal_gen_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+				   <div class="modal-dialog" role="document">
+				      <div class="modal-content">
+				         <div class="modal-header">
+				            <h2 class="modal-title" id="exampleModalLabel_1">WEB OTP 초기화</h2>
+				            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				            <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+				            </button>
+				         </div>
+				         <div class="modal-body">
+				            <div class="modal_body_contents">
+				               <p class="modal_body_contents_text">
+				                 <li>구글 OTP앱을 다운받아주세요.</li>
+				                 <li>바코드 스캔을 클릭 후 QR코드를 스캔하세요</li>
+				                 <li>또는 수동으로 하단의 코드와 계정을 직접 입력해주세요.</li>
+				               </p>
+
+				                 <div class="qrcode_grid">
+				                    <div class="qr_code_img"><img id="otpImgEdit" th:src="@{/setting/otp/qrcode?userId=0}"/></div>
+				                    <div class="qr_key">Key: <span id="otpSecretWeb">120391849</span><br>계정: <span id="otpSecretWebUserId">ruchiayeon</span></div>
+				                 </div>
+
+				            </div>
+				         </div>
+				         <div class="modal-footer">
+				            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> -->
+				            <button type="button" class="btn btn-primary" id="btnWebOtpModalOK">완료</button>
+				         </div>
+				      </div>
+				   </div>
+				</div>
+				<div class="modal" id="m_modal_error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+			         <div class="modal-dialog" role="document">
+			            <div class="modal-content">
+			               <div class="modal-header">
+			                  <h2 class="modal-title" id="exampleModalLabel_1">OTP Error</h2>
+			                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                  <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+			                  </button>
+			               </div>
+			               <div class="modal-body">
+			                  <div class="modal_body_contents">
+			                     <p class="modal_body_contents_text">OTP 등록에 실패했습니다.</p>
+			                  </div>
+			               </div>
+			               <div class="modal-footer">
+			                  <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+			                  <button type="button" class="btn btn-primary">완료</button>
+			               </div>
+
+			            </div>
+			         </div>
+			    </div>
+				<footer th:replace="fragments/footer :: footer"></footer>
+         </div>
+      </div>
+      </div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script th:src="@{/assets/js/parsley.js}"></script>
+<!-- for  bootstrapToggle()  -->
+<!--      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>-->
+<!--	  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.1/js/bootstrap2-toggle.js"></script>-->
+
+<!--   <script href="parsley.remote.js"></script>-->
+<script  th:inline="javascript">
+	// model.addAttribute("user", userData);   part
+
+	// var currSbbId = /*[[ ${firstServer != null ? firstServer.sbbId: '0'} ]]*/;
+	// var user = /*[[ ${user}]]*/;
+	// var userlist = /*[[ ${userlist}]]*/;
+	// // var pg = 1, pgSize = 10;
+	// // var refreshRate = 1000 * [[${refreshRate}]] * 6;
+	// console.log("user : ", user)
+	// console.log("userlist : ", userlist)
+</script>
+<script type="text/javascript">
+
+// logonName duplication checker
+window.Parsley.addValidator('uniquelogonname', {
+	validateString: function (value) {
+		var param = {
+			logonName : value
+		};
+		var url = ctx + "user/checkid";
+
+		var req = $.ajax({
+			type : "GET",
+			async: true,
+			dataType: "json",
+			contentType: "application/json",
+			url : url,
+			data: param
+		});
+
+		return req.then(function(out) {
+			if (out.code === 10100) {
+				return $.Deferred().reject("ID already exists!");
+			}
+			console.log("success", out);
+			return true;
+		})
+
+	},
+	requirementType: 'string',
+	messages: {
+		en: 'Username already exists!'
+	},
+	priority: 32
+});
+
+//has character
+window.Parsley.addValidator('character', {
+	requirementType: 'number',
+	validateString: function(value, requirement) {
+		var lowecases = value.match(/[a-zA-Z]/g) || [];
+		$('#logonPwd2').val('');
+		return lowecases.length >= requirement;
+	},
+	messages: {
+		en: 'Your password must contain at least (%s) character.'
+	}
+});
+
+//has number
+window.Parsley.addValidator('number', {
+	requirementType: 'number',
+	validateString: function(value, requirement) {
+		var numbers = value.match(/[0-9]/g) || [];
+		$('#logonPwd2').val('');
+		return numbers.length >= requirement;
+	},
+	messages: {
+		en: 'Your password must contain at least (%s) number.'
+	}
+});
+
+//has special char
+window.Parsley.addValidator('special', {
+	requirementType: 'number',
+	validateString: function(value, requirement) {
+		var specials = value.match(/[^a-zA-Z0-9]/g) || [];
+		$('#logonPwd2').val('');
+		return specials.length >= requirement;
+	},
+	messages: {
+		en: 'Your password must contain at least (%s) special characters.'
+	}
+});
+
+</script>
+
+<script type="text/javascript">
+	var actionMode = "add";//add, edit
+	var clickAdd = false;
+	var $editSidebar;
+
+	var row = null;
+	var sel = null;
+	var sel_userType = null;
+	var table;
+
+	regEvent = function(){
+
+		initDataTable();
+
+		$('#btnRegUser').click(function(e){
+				e.preventDefault();
+				//valpars();
+				doAction();
+		});
+		$('#settingUserTrigger').click(function(){
+
+			console.log("click settingUserTrigger")
+			$('#frmRegUser').parsley('reset');
+			$('#logonName').parsley({'uniquelogonname': ''})
+			$('#logonName').removeAttr('readonly');
+			mode="add";
+			clickAdd = true;
+			// console.log('add');
+			updateTitle(mode);
+			reset();
+			updateOtpUI(true, OTPTYPE_MOBILE, '', '');
+			$('#userEditTrigger').trigger('click');
+		});
+
+		$editSidebar = $( "#settingUser" );
+		$editSidebar.simplerSidebar( {
+
+			attr: "sidebar-main",
+			init: "closed",
+			selectors: {
+				trigger: "#userEditTrigger",
+				quitter: ".quitter"
+			},
+			animation: {
+				easing: "easeOutQuint"
+			},
+			sidebar: {
+				width: 600
+			},
+			events: {
+				callbacks: {
+					animation: {
+						open: function(){
+							if(!clickAdd){
+								mode = "edit";
+							}else{
+								mode = "add";
+								clickAdd = false;
+							}
+							updateTitle(mode);
+							console.log('edit open');
+						},
+						close: function(){
+							console.log('edit close');
+						}
+					}
+				}
+			}
+		} );
+
+		setupOtpUi();
+
+		// $('#scrollableTable.dataTables_filter').on('change', function () {
+		// 	console.log("변화 체크")
+		// });
+	}
+
+	 /*  	function valpars() {
+			  $('#frmRegUser').parsley().on('field:validate', function() {
+			    var ok = $('.parsley-error').length === 0;
+			    $('.bs-callout-info').toggleClass('hidden', !ok);
+			    $('.bs-callout-warning').toggleClass('hidden', ok);
+			  }).on('form:success',);
+		} */
+
+
+
+	function updateTitle(stat){
+		if(stat === 'add'){
+			$('#statTitle').html("등록")
+		}else{
+			$('#statTitle').html("수정")
+		}
+	}
+
+	function reset(){
+		$('#frmRegUser')[0].reset();
+		//otp reg reset
+		otpRegReset();
+	}
+
+	function otpRegReset(){
+		slideBtn('#btnOtptype','Y');// default mobile(token)
+		$('#otpSecretEdit').val('');
+		$(this).text('등록');
+	}
+
+	function slideBtn(sel, yn){
+		if(!$(sel) || !$(yn)){
+			return;
+		}
+		var cmd = yn === 'Y'? true: false;
+		// $(sel).bootstrapToggle(cmd);
+		$("input:checkbox[id=sel]").prop("checked", cmd);
+	}
+
+	function setupOtpUi(){
+		$("#web_token").click(function(){
+			//click 후 값이 변경되기 전임.. 이전값을 가져옴에 주의
+			// if(!$('#btnOtptype').bootstrapToggle()[0].checked){ //token
+			if($("input:checkbox[id='btnOtptype']").is(":checked")){
+				$("#visible_token_otp").show();
+				$("#visible_web_otp").hide();
+			}else{
+				$("#visible_token_otp").hide();
+				$("#visible_web_otp").show();
+			}
+			//$("#visible_token_otp").toggle();
+			//$("#visible_web_otp").toggle();
+		});
+		$('#web_token_edit').click(function(){
+			//click 후 값이 변경되기 전임.. 이전값을 가져옴에 주의
+			// if(!$('#btnOtptypeEdit').bootstrapToggle()[0].checked){
+			if($("input:checkbox[id='btnOtptypeEdit']").is(":checked")){
+				$("#visible_token_otp_edit").show();
+				$("#visible_web_otp_edit").hide();
+			}else{
+				$("#visible_token_otp_edit").hide();
+				$("#visible_web_otp_edit").show();
+			}
+			//$("#visible_token_otp_edit").toggle();
+			//$("#visible_web_otp_edit").toggle();
+		});
+		$('#btnOtpReset').click(function(e){
+			//mobile type
+			e.preventDefault();
+			var userId = $('#userId').val();
+			var otpType = OTPTYPE_MOBILE;
+
+			if($(this).text() === '초기화'){
+				if(confirm('초기화 하시겠습니까?')){
+					$('#otpSecretEdit').val('');
+					updateOtp(userId, otpType, '');
+					$(this).text('등록');
+				}
+			}else{
+				//save otp info
+				var otpSecret = $('#otpSecretEdit').val();
+				if(!otpSecret || otpSecret === ''){
+					showAlert('OTP Secret을 입력 해 주세요.');
+					return;
+				}
+				updateOtp(userId, otpType, otpSecret);
+				$(this).text('초기화');
+			}
+		});
+		$('#btnOtpEditInit').on('click', function(){
+			if(confirm('OTP를 초기화 하시겠습니까?')){
+				$('#m_modal_gen_edit').modal('show');
+			}
+		});
+		$('#btnOtpRegMobile').click(function(e){
+			e.preventDefault();
+			if(!confirm('OTP Secret을 저장 하시겠습니까?')){
+				return;
+			}
+			var otpSecret = $('#otpSecret').val();
+			var userId = $('#userId').val();
+			updateOtp(userId, OTPTYPE_MOBILE, otpSecret);
+		});
+		$('#btnOtpRegWeb').click(function(e){
+			e.preventDefault();
+			otpRegWebAction();
+		});
+
+		$('#m_modal_gen_edit').on('shown.bs.modal', function(e){
+			//web otp modal show event
+			setOtpEditImage('#otpImgEdit', true);//이때만 new
+		});
+
+		$('#btnWebOtpModalOK').on('click', function(e){
+			e.preventDefault();
+			//qrcode 생성 시 이미 저장 완료됨.
+			$('#m_modal_gen_edit').modal('hide');
+		});
+
+		$('#btnWebOtpModalRegOK').on('click', function(e){
+			e.preventDefault();
+			//otp reg modal -> 완료버큰
+			//sidebar를 닫는다.
+			//$('#m_modal_gen_edit').modal('hide');
+			//close
+			$('#m_modal_gen').modal('hide');
+			//$('#userEditTrigger').trigger('click');
+			$( "#settingUser" ).trigger("sidebar:close");
+		});
+	}
+
+	function setOtpEditImage(sel, isNew){
+		if(!sel || isNew == undefined){
+			return;
+		}
+		var userId = $('#userId').val();
+		var newYn = isNew ? 'Y':'N';
+		if(isNew){
+			$(sel).on('load', function(){
+				//get new secret
+				getInfo(userId, (data)=>{
+					$('#otpSecretWeb').html(data.otpSecret);
+					$('#otpSecretWebUserId').html(data.logonName);
+
+					$('#m_modal_gen_edit #otpSecretWeb').html(data.otpSecret);
+					$('#m_modal_gen_edit #otpSecretWebUserId').html(data.logonName);
+					setTimeout(()=>{
+						$('#m_modal_gen_edit #otpImgEdit').attr('src', ctx+'setting/otp/qrcode?userId='+userId+'&newYn=N'+'&a='+Math.random()*10000);
+						//selector에서 sidebar만 잡힌다.
+					},200);
+				})
+			});
+
+		}else{
+			$(sel).off('load');
+		}
+		$(sel).attr('src', ctx+'setting/otp/qrcode?userId='+userId+'&newYn='+newYn+'&a='+Math.random()*10000);
+	}
+
+
+	let paramList = {
+		pg: 1,
+		pgSize: 8,
+		data: {},
+		totalPg: 1,
+		draw:1,
+		srchStartDate: '',
+		srchEndDate: '',
+		srchField: '',
+		srchValue: ''
+	};
+
+	function getPg(start, pgSize){
+		if(start === 0){return 1;}
+		return (start / pgSize) + 1;
+	}
+
+	function tbParams(data){
+		data['pg'] = getPg(data.start, paramList.pgSize);
+		data['pgSize'] = paramList.pgSize;
+		data['totalPg'] = 1;
+		paramList.draw = data.draw;
+
+		// data['srchStartDate'] = $('#srchStartDate').val() ? $('#srchStartDate').val()+' 00:00:00.000' : "";
+		// data['srchEndDate'] = $('#srchEndDate').val() ? $('#srchEndDate').val()+' 23:59:59.999' : "";
+		data['srchField'] = $('#scrollableTable_filter.dataTables_filter select option:selected').val();
+		data['srchValue'] = $('#scrollableTable_filter.dataTables_filter input').val();
+	}
+
+	function addSearchField($dom){
+		if(!$dom){
+			return;
+		}
+		var tag = '<select class="srchfield form-control-sm" data-provide="selectpicker"> \
+		              <option value="USER_ID" selected>User ID</option>\
+		              <option value="USER_NAME">User Name</option>\
+		         </select>';
+		// <option value="USER_TYPE">Authority</option>
+		// <option value="USE_YN">Status</option>
+		$dom.prepend(tag);
+	}
+
+
+
+	function initDataTable( ) {
+
+		table = $('#scrollableTable').DataTable({
+			initComplete : function(settings, json) {
+				// $('#scrollableTable_filter.dataTables_filter').addClass("bg-soft-pink ");
+				// $('#scrollableTable_filter.dataTables_filter input').addClass("bg-soft-danger");
+				$('#scrollableTable_filter.dataTables_filter').addClass("  row  align-items-center align-self-middle");
+				$('#scrollableTable_filter.dataTables_filter label').addClass(" search_btn_kcod");
+				$('#scrollableTable_filter.dataTables_filter input').addClass(" search_btn_kcod ");
+
+				var input = $('#scrollableTable_filter.dataTables_filter input').unbind(),
+						self = this.api(),
+						$searchButton = $('<button title="검색" class="btn btn-custom-primary search_btn">')
+								.text('search')
+								.click(function() {
+									self.search(input.val()).draw();
+								}),
+						$clearButton = $('<button title="초기화" class="btn btn-custom-primary">')
+								.text('clear')
+								.click(function() {
+									input.val('');
+									$searchButton.click();
+								})
+				$('#scrollableTable_filter.dataTables_filter').append( $searchButton, $clearButton);
+				addSearchField($('#scrollableTable_filter.dataTables_filter'));
+				$('#scrollableTable_filter.dataTables_filter input').bind('keyup',function(e){
+					if(e.keyCode == 13){
+						self.search(this.value).draw();
+					}
+				});
+			},
+			processing: true,
+			serverSide: true,
+			pageLength: paramList.pgSize,
+			scrollCollapse : false,
+			// pagingType : "simple_numbers",
+			// responsive: true,
+			scrollY: "50vh",
+			select : {
+				items: 'row', 		// default row.   column,  cell
+			},
+
+			dom: 'Plfrtip',
+			// searchPanes: true,
+			language : {
+				searchPlaceholder : 'Search...',
+				sSearch : ''
+			},
+			ajax: {
+				url: ctx + 'setting/userlist/ajax',
+				data: tbParams,
+				type: 'POST',
+				dataSrc: function (json) {
+					// console.log(JSON.stringify(json))
+					json.recordsTotal = json.data.total;
+					json.recordsFiltered = json.data.total;
+					if (!json.data.list)
+						json.data.list = [];
+
+					return json.data.list;
+				}
+			},
+			// buttons: [],
+			columns: [
+				{'data': 'createDate'},
+				{'data': 'userId'},
+				{'data': 'userName'},
+				{'data': 'contact'},
+				{'data': 'email'},
+				{'data': 'status'},
+				{'data': 'userTypeName'}	// Authority
+			],
+			columnDefs: [
+				{
+					targets: [ 5, 6],
+					visible: true,
+					searchable: false
+				},
+			]
+		});
+
+		table.on('select', function (e, dt, type, indexes) {
+			console.log("select", e, dt, type, indexes);
+			sel = table.rows({selected: true}).data()[0];
+			console.log(">>", sel);
+
+			//getInfo(sel[0], setEdit);
+			getInfo(sel.userId, setEdit);
+		})
+		.on('deselect', function (e, dt, type, indexes) {
+			console.log("deselect", e, dt, type, indexes);
+			row = null;
+		});
+	}
+
+
+	function setEdit(){
+		$('#userId').val(row.userId);
+		$('#userName').val(row.userName);
+		$('#logonName').val(row.logonName);
+		$('#logonPwd1').val('');
+		$('#email').val(row.email);
+		$('#contact').val(row.contact);
+		var ip = row.allowedIps && row.allowedIps.length>0 ? row.allowedIps[0]:'';
+		$('#allowedIp').val(ip);
+		$('#userType').val(row.userType);
+		sel_userType = row.userType;
+		slideBtn('#btnActive',row.useYn);
+		row.otpType = row.otpType || OTPTYPE_MOBILE;
+		slideBtn('#btnOtptypeEdit',row.otpType === OTPTYPE_MOBILE ? 'Y':'N');
+		//otpSecret ??
+		updateOtpUI(false, row.otpType, row.otpSecret, row.logonName);
+	}
+
+	function doAction(){
+		if(mode == "add"){
+			doReg();
+		}else if(mode == "edit"){
+			doEdit();
+		}
+	}
+
+	function getInfo(userId, cb){
+		var param = {userId: userId};
+		var url = ctx+"user/userinfo";
+		var req = $.ajax({
+			type : "POST",
+			async: false,
+			url : url,
+			data:param
+		});
+		req.done(function(out){
+			if(out.code === 0){
+				row = out.data;
+				if(cb){
+					cb(out.data);
+				}
+			}else{
+
+			}
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+
+		});
+	}
+
+
+
+
+
+	function doReg(){
+		var ip = $('#allowedIp').val();
+		var params = {
+				userName: $('#userName').val(),
+				logonName: $('#logonName').val(),
+				logonPwd: $('#logonPwd').val(),
+				logonPwd2: $('#logonPwd2').val(),
+				email: $('#email').val(),
+				contact: $('#contact').val(),
+				userType: $('#userType').val(),
+				allowedIps:[ ip ],
+				// useYn: $('#btnActive').bootstrapToggle()[0].checked ? 'Y':'N',
+				useYn: $("input:checkbox[id='btnActive']").is(":checked") ? 'Y':'N',
+				// otpType: $('#btnOtptype').bootstrapToggle()[0].checked ? OTPTYPE_MOBILE : OTPTYPE_WEB,
+				otpType: $("input:checkbox[id='btnOtptype']").is(":checked") ? OTPTYPE_MOBILE: OTPTYPE_WEB,
+				otpSecret: ''
+		};
+
+		// console.log("param.userYn : " + params.useYn);
+		// return;
+
+
+		if(!validate(params)){
+			return;
+		}
+		var url = ctx+"user/reg";
+		var req = $.ajax({
+			type : "POST",
+			async: false,
+			dataType: "json",
+			contentType: "application/json",
+			url : url,
+			data: JSON.stringify(params)
+		});
+		req.done(function(out){
+			if(out.code === 0){
+				showAlert('신규 사용자가 정상적으로 생성 되었습니다.');
+				//reset();
+				//location.reload();
+				//reload 하지 말고 otp등록
+				$('#otpReg').show();
+				$('#otpEdit').hide();
+				//output에서 user data를 리턴하도록 수정됨.
+				$('#userId').val(out.data.userId);
+				$('#logonName').parsley().destroy();
+				$('#logonName').attr('readonly', true);
+
+				var container = $('#demoSettingSidebarScroll');
+				container.scrollTop(container[0].scrollHeight);
+			}else if(out.code != 0){
+				showAlert(out.code);
+
+				return false;
+
+			}else{
+				showAlert('신규 사용자 생성에 실패 하였습니다.\n' + out.errMsg);
+			}
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+
+		});
+	}
+
+	function doEdit(){
+
+		var ip = $('#allowedIp').val();
+		var params = {
+				userId: $('#userId').val(),
+				userName: $('#userName').val(),
+				logonName: $('#logonName').val(),
+				logonPwd: $('#logonPwd').val(),
+				logonPwd2: $('#logonPwd2').val(),
+				email: $('#email').val(),
+				contact: $('#contact').val(),
+				userType: $('#userType').val(),
+				// useYn: $('#btnActive').bootstrapToggle()[0].checked ? 'Y':'N',
+				// otpType: $('#web_token_edit').bootstrapToggle()[0].checked ? OTPTYPE_MOBILE:OTPTYPE_WEB,
+				useYn: $("input:checkbox[id='btnActive']").is(":checked") ? 'Y':'N',
+				otpType: $("input:checkbox[id='btnOtptype']").is(":checked") ? OTPTYPE_MOBILE: OTPTYPE_WEB,
+				otpSecret: '',
+				allowedIps:[ ip ]
+		};
+		if(!validate(params)){
+
+			return;
+		}
+
+		var url = ctx+"user/update";
+		var req = $.ajax({
+			type : "POST",
+			async: false,
+			dataType: "json",
+			contentType: "application/json",
+			url : url,
+			data: JSON.stringify(params)
+		});
+		req.done(function(out){
+			if(out.code === 0){
+				showAlert('사용자 정보가 정상적으로 수정 되었습니다.');
+				reset();
+				location.reload();
+			}else{
+				showAlert('사용자 정보 수정에 실패 하였습니다.\n' + out.errMsg);
+			}
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+
+		});
+	}
+
+
+
+	function validate(params){
+		//password format
+
+		//user Name
+		if(params.userName == null || $('#userName').val() === ''){
+			showAlert("이름을 입력해 주세요.");
+			return false;
+		}
+		//user logonName
+		else if(params.userName == null || $('#logonName').val() === ''){
+			showAlert("아이디 입력해 주세요.");
+			return false;
+		}
+		//password
+		else if(params.logonPwd !== params.logonPwd2){
+			showAlert('동일한 비밀번호를 입력 해 주세요.');
+			return false;
+		}else if(params.userType == null || $('#userType').val() === ''){
+			if(sel_userType == 1){
+				showAlert("Security Admin 계정은 수정할 수 없습니다.");
+				return false;
+			}
+			showAlert("권한을 선택 해 주세요.");
+			return false;
+		}
+
+		return true;
+	}
+
+
+
+	function updateOtpUI(bReg, otpType, otpSecret, logonName){
+		if(bReg){
+			//필히 유저 기본 정보 등록 후 사용 하도록 한다.
+			$('#otpReg').show();
+			$('#otpEdit').hide();
+
+			// if($('#btnOtptype').bootstrapToggle()[0].checked){ //token
+			if($("input:checkbox[id='btnOtptype']").is(":checked")){
+				$("#visible_token_otp").show();
+				$("#visible_web_otp").hide();
+			}else{
+				$("#visible_token_otp").hide();
+				$("#visible_web_otp").show();
+			}
+
+			$('#otpSecretWeb').html('');
+			$('#otpSecretWebUserId').html('');
+			$('#pwdReset').hide();
+		}else{
+			$('#otpReg').hide();
+			$('#otpEdit').show();
+			$('#pwdReset').show();
+			$('#pwdReset').off('click').on('click', function(e){
+				if(confirm(logonName+'님의 비밀번호를 초기화 하시겠습니까?')){
+					pwdReset(sel.userId);
+				}
+			});
+
+			// if($('#btnOtptypeEdit').bootstrapToggle()[0].checked){
+			if($("input:checkbox[id='btnOtptypeEdit']").is(":checked")){
+				//mobile type
+				$("#visible_token_otp_edit").show();
+				$("#visible_web_otp_edit").hide();
+			}else{
+				//web type
+				$("#visible_token_otp_edit").hide();
+				$("#visible_web_otp_edit").show();
+			}
+
+			if(otpSecret){
+				$('#otpSecretEdit').val(otpSecret);
+				$('#btnOtpReset').html('초기화');
+			}
+
+			if(otpType === OTPTYPE_WEB){
+				$('#otpSecretWeb').html(otpSecret);
+				$('#otpSecretWebUserId').html(logonName);
+
+				setOtpEditImage('#otpImgEdit', false);
+			}else{
+				$('#otpSecretWeb').html('');
+				$('#otpSecretWebUserId').html('');
+			}
+		}
+	}
+	function otpRegWebAction(){
+		if($('#logonName').val() === '' || $('#userName').val() === ''){
+			showAlert('사용자 이름 및 아이디를 입력 해 주세요.')
+			return;
+		}
+
+		var userId = $('#userId').val();
+		var logonName = '';
+		var secret = '';
+		var url = ctx+'setting/otp/qrcode?userId='+userId+'&newYn=Y&a='+Math.floor(Math.random()*10000);
+		$('#m_modal_gen').modal('show');
+
+		$('#otpImgReg').off('load').on('load', function(){
+			//get new secret
+			getInfo(userId, (data)=>{
+				$('#m_modal_gen #otpSecretWeb').html(data.otpSecret);
+				$('#m_modal_gen #otpSecretWebUserId').html(data.logonName);
+			});
+		});
+
+		$('#otpImgReg').attr('src', url);
+
+	}
+	function updateOtp(userId, otpType, otpSecret){
+		var params = {
+				userId: userId,
+				otpType: otpType,
+				otpSecret: otpSecret
+		};
+		var url = ctx+"setting/user/updateOtp";
+		var req = $.ajax({
+			type : "POST",
+			async: false,
+			url : url,
+			data: params
+		});
+		req.done(function(out){
+			if(out.code === 0){
+				showAlert('사용자 정보가 정상적으로 수정 되었습니다.');
+				reset();
+				location.reload();
+			}else{
+				showAlert('사용자 정보 수정에 실패 하였습니다.\n' + out.errMsg);
+			}
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+
+		});
+	}
+	function pwdReset(userId){
+		var params = {
+				userId: userId,
+		};
+		var url = ctx+"user/pwdreset";
+		var req = $.ajax({
+			type : "POST",
+			async: false,
+			url : url,
+			data: params
+		});
+		req.done(function(out){
+			if(out.code === 0){
+				showAlert('사용자 비밀번호가 초기화 되어 이메일이 전송 되었습니다.');
+			}else{
+				showAlert('사용자 비밀번호 초기화에 실패 하였습니다.\n' + out.errMsg);
+			}
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+
+		});
+	}
+</script>
+</body>
+</html>

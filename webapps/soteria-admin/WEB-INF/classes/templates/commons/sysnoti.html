@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	 <div>
+			<a th:each="push, index:${list}" class="dropdown-item list-group-item" href="javascript:void(0);">
+				<div class="noti_grid justify-content-between">
+	               <div class="noti-icon">
+	                  <button class="check-noti-button" onclick="updateNotiReviwed(this)" th:attr="data-push-id=${push.msgId},data-push-review=${push.reviewYn}">
+	                  	<!-- <i class="fas" th:classappend="${push.reviewYn == 'Y'? 'fa-exclamation-triangle':'fa-check'}"></i> -->
+	                  	<i th:style="${push.reviewYn == 'Y' ? 'display:block;':'display:none;'}" class="fas fa-check" id="icon01"></i>
+	                  	<i th:style="${push.reviewYn == 'Y' ? 'display:none;':'display:block;'}" class="fas fa-exclamation-triangle" id="icon02"></i>
+	                  </button> 
+	               </div>
+	               <div>
+	                  <h6 class="noti-title" th:text="${push.msg1}"></h6>
+	                  <h7 th:text="${push.regDate}"></h7>
+	                  <div class="tx-gray-600 tx-11" th:text="${push.msg2}"></div>
+	               </div>
+	            </div>
+			</a>
+		<div>
+			<a th:if="${pg != lastPg}" class="nextSysNoti dropdown-item" th:href="@{/push/sysnotilist?pg=}+${pg+1}"
+				style="width:100%;text-align: center !important;">Show More</a>
+		</div>
+	</div>
+</body>
+</html>

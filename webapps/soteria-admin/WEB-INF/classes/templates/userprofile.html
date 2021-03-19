@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>My Profile</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+               <nav th:replace="fragments/left :: left">
+               </nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+					<div class="pageheader pd-t-25 pd-b-35 tracker">
+						<div class="pd-t-5 pd-b-5">
+						   <h1 class="pd-0 mg-0 tx-20 text-overflow">User Profile</h1>
+						</div>
+						<div class="breadcrumb pd-0 mg-0">
+						   <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+						   <span class="breadcrumb-item active">User Profile</span>
+						</div>
+					 </div> 
+					<div class="card_user_profile shadow-none pd-20 mx-auto wd-280 text-center bd-1 align-self-center singupPad">
+			            <form id="frm">
+			               <p class ="form-control_name">NAME</p>
+			               <div class="form-group input-group">
+			                  <input class="form-control sizz" placeholder="이름" type="text" th:value="${user.userName}" readonly>
+			               </div>
+			               <p class ="form-control_name">ID</p>
+			               <div class="form-group input-group">
+			                     <input class="form-control sizz" placeholder="아이디" type="text" th:value="${user.logonName}" readonly>
+			               </div>
+			               <p class ="form-control_name">Email</p>
+			               <div class="form-group input-group">
+			                  <input class="form-control sizz" placeholder="example@company.com" type="email" th:value="${user.email}" readonly>
+			               </div>
+			               <p class ="form-control_name">SMS</p>
+			               <div class="form-group input-group">
+			                  <input id="sms-input" class="form-control sizz" placeholder="010-XXXX-XXXX" type="text" th:value="${user.contact}" readonly>
+			               </div>
+			               <p class ="form-control_name">Existing Password</p>
+			               <div class="form-group input-group">
+			                  <input id="oldPass" class="form-control sizz" placeholder="Existing Password" type="password">
+			               </div>
+			               <p class ="form-control_name">New Password</p>
+			               <div class="form-group input-group">
+			                  <input id="userPass1" class="form-control sizz" placeholder="New Password" type="password">
+			               </div>
+			               <p class ="form-control_name">Retyping Password</p>
+			               <div class="form-group input-group">
+			                  <input id="userPass2" class="form-control" placeholder="Retyping Password" type="password">
+			               </div>
+			               <div class="form-group">
+			                  <button id="btnSubmit" class="btn btn-custom-primary btn-block tx-13">Confirm</button>
+			               </div>
+							<div th:replace="fragments/modals/base :: modal_otp"></div>
+			               <input id="userId" type="hidden" th:value="${user.userId}"/>
+			            </form>
+			         </div>
+				</div>
+				<!-- <footer th:replace="fragments/footer :: footer"></footer> -->
+         </div>
+         <div th:replace="fragments/modals/base :: modal"></div>
+      </div>
+      </div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+<script>
+	regEvent = function regEvent(){
+		$('#btnSubmit').click(function(e){
+			e.preventDefault();
+			if(checkPass()){
+				$('#modal_otp_auth').modal('show');
+			}
+		});
+		$('#btnOtp').click(function(e){
+			e.preventDefault();
+			otpAuth();
+		});
+	};
+	
+	/* function updatePass(){
+		//toggleMenu();
+		menuOpen();
+	} */
+	function checkPass() {
+		var oldPass = $('#oldPass').val();
+		var pass1 = $('#userPass1').val();
+		var pass2 = $('#userPass2').val();
+		if (!oldPass || oldPass === ''){
+			alert("Please enter your current password.");
+			return false;
+		}
+		if (!validate(pass1, pass2)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function updatePass() {
+		
+		var oldPass = $('#oldPass').val();
+		var pass1 = $('#userPass1').val();
+		// var pass2 = $('#userPass2').val();
+		var userId = $('#userId').val();
+		// if (!oldPass || oldPass === ''){
+		// 	alert("현재 패스워드 입력해 주세요.");
+		// 	return;
+		// }
+		// if (!validate(pass1, pass2)) {
+		//
+		// 	return;
+		// }
+
+		var param = {
+			userId : userId,
+			oldPass: oldPass,
+			newPass : pass1
+		};
+		var url = ctx + "/user/changepass";
+		var req = $.ajax({
+			type : "POST",
+			async : false,
+			url : url,
+			data : param
+		});
+		req.done( function(out) {
+			// console.log('Login 성공');
+			if (out.code === 90010) {
+				//same pass in history
+				alert("The same password is not available.");
+				return;
+			}else if (out.code === 50001) {
+				// OTP not authenticated
+				alert("OTP uncertified.");
+				return;
+			}else if(out.code !== 0){
+				alert("Password change failed.");
+				return;
+			}
+			alert("Password change succeeded.");
+			$('#frm')[0].reset();
+			$('#modal_otp_auth').modal('hide');
+			 location.href = ctx + "setting/profile";
+		}).fail(function(err) {
+			// console.log(err);
+			alert("An error occurred during the change. Please try again.");
+		}).always(function() {
+			$('#otpCode').val('');
+			console.log("done");
+		});
+	}
+
+	function otpAuth() {
+
+		var otpCode = $('#otpCode').val().replace(' ', '');
+		var userId = $('#userId').val();
+		if (otpCode === ''){
+			alert("Please enter OTP code.");
+			return;
+		}
+
+		var param = {
+			userId : userId,
+			otpCode: otpCode
+		};
+		var url = ctx + "/otpauth/userId";
+		var req = $.ajax({
+			type : "GET",
+			async : false,
+			url : url,
+			data : param
+		});
+		req.done( function(out) {
+			// console.log("OTP 인증 시도");
+			if (out.code != 0){
+				alert("OTP authentication failed.");
+				return;
+			}
+			alert("OTP Authentication Successful.");
+			updatePass();
+		}).fail(function(err) {
+			// console.log(err);
+			alert("Error occurred during OTP authentication. Please try again.");
+		}).always(function() {
+			console.log("done");
+		});
+	}
+
+	function validate(pass1, pass2) {
+		if (!pass1 || pass1 === '' || !pass2 || pass2 === '') {
+			alert("Enter password to change.");
+			return false;
+		}
+		if (pass1 !== pass2) {
+			alert("Please enter the same password.");
+			return false;
+		}
+		return true;
+	}
+	function errPop(msg){
+		showModal(msg, 'tttt');
+		//alert(msg);
+	}
+	
+</script>
+</body>
+</html>

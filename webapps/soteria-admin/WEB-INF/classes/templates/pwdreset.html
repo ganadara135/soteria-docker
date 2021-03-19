@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mail Sent Form</title>
+    <style>
+        body{
+            background:#a1a1a14f;
+        }
+        h1{
+            font-weight: 800;
+            color: #382035;
+        }
+        .content>h5{
+            font-weight: 300;
+            text-align: justify;
+            line-height: 2rem;
+        }
+        body:before {
+        content: ' ';
+        background-image: url(assets/images/bg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.1;}
+
+        .card{
+            box-shadow: 0px 0px 20px 9px rgba(0, 0, 0, 0.28);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: auto;
+            max-width: 600px;
+            max-height: 600px;
+            border: outset 5px #96628f;
+            background: #ffffff;  
+        }
+        .content{
+            padding:1.5rem 0rem 2rem 0rem;
+        }
+        .ceoName{
+            text-align: right;
+        }
+        hr{
+            border: solid 0.5px #96628f;
+        }
+        .h3_div{
+            margin-top:1rem;
+            font-weight: 200;
+            color: #382035;
+        }
+        .thakeUimage>img{
+            max-width: 200px;
+        }
+        .thakborder{
+            padding: 1.5rem;
+            border: double 7px #a07b9bb9;
+        }
+        .image_logo{
+            text-align: right;
+            width: 150px;
+        }
+        h5{
+            padding: 0;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <div class='background_img'>
+    <div class="card">
+        <div class="thakborder">
+          <h1 th:text="|안녕하세요, ${userName}님|"></h1><h3>비밀번호 초기화가 완료되었습니다.</h3>
+           <div class="content">
+            <h5>본 메일은 비밀번호 초기화 완료 메일입니다.<br>본인이 요청한 사항이 아니라면 개인정보 보호를 위해 
+            아래 초기화 비밀번호로 로그인 후 비밀번호를 재변경해주시길 바랍니다.</h5>
+           </div>
+            <div style="border: solid 0.5px; color: rgba(43, 43, 43); border-right: none; border-left: none;margin-bottom: 0.5rem;">
+                <table style="width:540px">
+                    <tbody>
+                        <tr>
+                            <td  style="padding: 1rem;color:#382035; font-weight: 600;">초기화<br>요청일자</td>
+                            <td style="color: rgba(43, 43, 43);" th:text="${dateString}"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem;color:#382035; font-weight: 600;">초기화<br>비밀번호</td>
+                            <td style="color: rgba(43, 43, 43);" th:text="${tempPass}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>  
+    </div>
+</div>
+</body>
+</html>

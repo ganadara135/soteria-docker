@@ -1,0 +1,47 @@
+version: "3.6"
+services:
+    db:
+      image: mariadb/server:10.4
+      container_name: mariadb_prod
+      ports:
+        - "3307:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: "root"
+        MYSQL_DATABASE: "DB_SOTERIA_SEOUL"
+        MYSQL_USER: "soteria"
+        MYSQL_PASSWORD: "soteria"
+        MYSQL_TCP_PORT: 3307
+        TZ: "Asia/Seoul"
+      volumes:
+        - type: bind
+          source: /home/ubuntu2/mariadb/cnf
+          target: /etc/mysql/conf.d
+          read_only: true
+        - type: volume
+          source: soteria-data-prod
+          target: /var/lib/mysql
+          read_only: false
+        # - /home/ubuntu2/work/mariadb/cnf:/etc/mysql/conf.d
+        # - rdb-data:/var/lib/mysql
+      networks:
+        - soteria-net
+
+    adminer:
+      image: adminer:latest
+      container_name: adminer
+      environment: 
+          ADMINER_DEFAULT_SERVER: db
+          ADMINER_DESIGN: galkaev
+      ports: 
+        - 9990:8080
+      networks:
+        - soteria-net
+      depends_on:
+        - db
+
+networks:
+        soteria-net:
+                driver: bridge
+volumes:
+        soteria-data-prod:
+                name: soteria-data-prod

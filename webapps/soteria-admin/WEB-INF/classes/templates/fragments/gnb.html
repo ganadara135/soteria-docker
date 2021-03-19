@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<nav th:fragment="gnb">
+	<!-- <button type="button" id="sidebarCollapse" class="btn btn-info">
+			<i class="fas fa-align-justify"></i>
+		</button> -->
+		<div class="newnav-back" >
+		<a th:href="@{/detection/detectiondetail}" >
+			<img class="newlogo" th:src="@{/assets/images/ai_white.svg}" alt="logo">
+		</a>
+		<ul class="newnav">
+			<li >
+				<a class="side-menu" th:href="@{/sdashboard}" id="menu_dashboard">
+					<!-- <img id="side_con" class="sidebar_icon" th:src="@{/assets/images/dashboard.svg}" alt="ThreatStatus"> -->
+					<h5 class="detech3">대시보드</h5>
+					<p class="gnb_p">Dashboard</p>
+				</a>
+			</li>
+
+			<li >
+				<a class="side-menu"  th:href="@{/detection/detectiondetail}" >
+					<h5 class="detech3">공격탐지내역</h5>
+					<p class="gnb_p">Detection History</p>
+				</a>
+			</li>
+			<li >
+				<a class="side-menu"  th:href="@{/measure/detail}" >
+					<h5 class="detech3">공격대응내역</h5>
+					<p class="gnb_p">Mitigation History</p>
+				</a>
+			</li>
+			
+<!--			<li th:if="${user.userType != 100}">-->
+			<li >
+				<a class="side-menu" href="#theart_sett" data-toggle="collapse" aria-expanded="false">
+<!--				<a class="side-menu" data-target="#theart_sett" data-toggle="collapse" aria-expanded="false">-->
+<!--					<img id="side_con_2" class="sidebar_icon" th:src="@{/assets/images/attack_manage.svg}" alt="Attack Manage">-->
+					<h5 class="detech3 align-self-center">시스템 관리</h5>
+					<p class="gnb_p">System Management</p>
+					<!-- <i class="fas fa-angle-left sidebar_icon-1"></i> -->
+				</a>
+				<div class="">
+					<ul class="collapse list-unstyled" id="theart_sett">
+<!--						<li th:if="${user.userType != 100}">-->
+						<li>
+							<a th:href="@{/attack/info}" >
+								<h6 style="margin: 0;color:white; align-self: center">공격 정보</h6>
+<!--								 <p>Attack Information</p>-->
+							</a>
+						</li>
+<!--						<li th:if="${user.userType != 100}">-->
+						<li>
+							<a th:href="@{/attack/category}">
+								<h6 style="margin: 0;color:white; align-self: center">공격 유형</h6>
+<!--								 <p>Attack Category</p>-->
+							</a>
+						</li>
+<!--						<li th:if="${user.userType != 100}">-->
+						<li>
+							<a th:href="@{/alert/setting}" id="menu_systemsetting">
+								<h6 style="margin: 0;color:white; align-self: center">경보 정책</h6>
+<!--								 <p>Alert Policy</p>-->
+							</a>
+						</li>
+<!--						<li>-->
+<!--							<a th:href="@{/alert/setting}" >-->
+<!--								<h6 style="margin: 0;color:white; align-self: center">대시보드 설정</h6>-->
+<!--							</a>-->
+<!--						</li>-->
+					</ul>
+				</div>
+			</li>
+
+
+			<li th:if="${user.userType == 1}">
+				<a class="side-menu"  th:href="@{/setting/userlist}" >
+					<h5 class="detech3">사용자관리</h5>
+					<p class="gnb_p">Account Management</p>
+				</a>
+			</li>
+		</ul>
+	
+		<div class="gnb_user">
+				<i class="flag-icon flag-icon-kr"style="vertical-align: middle;"></i>
+				<div class="list-inline-item dropdown">
+					<a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="select-profile" th:text="${user.userName}"></span>
+						<img th:src="@{/assets/images/user_image.png}" class="img-fluid wd-35 ht-35 rounded-circle" alt="">
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-profile shadow-2">
+						<div class="user-profile-area">
+							<div class="user-profile-heading">
+								<div class="profile-thumbnail">
+									<img th:src="@{/assets/images/user_image.png}"
+										class="img-fluid wd-35 ht-35  rounded-circle" alt="사용자 이미지">
+								</div>
+								<div class="profile-text">
+									<h6 th:text="${user.userName}"></h6>
+									<span th:text="${user.email}"></span>
+								</div>
+							</div>
+							<a th:href="@{/setting/profile}" class="dropdown-item"> <i class="icon-user" aria-hidden="true"></i> My profile</a> 
+							<a th:href="@{/logout}" class="dropdown-item"><i class="icon-power" aria-hidden="true"></i> Sign-out</a>
+						</div>
+					</div>
+				</div>
+		</div>
+	
+	</div>
+
+	</nav>
+</body>
+</html>

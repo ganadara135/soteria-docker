@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Dashboard</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<script th:src="@{/script/js/sockjs.js}"></script>
+	<script th:src="@{/script/js/stomp.min.js}"></script>
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+               <nav th:replace="fragments/left :: left">
+               </nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+					<div class="pageheader pd-t-25 pd-b-35 tracker">
+                        <div class="pd-t-5 pd-b-5">
+                           <h1 class="pd-0 mg-0 tx-20 text-overflow">Dashboard</h1>
+                        </div>
+                        <div class="breadcrumb pd-0 mg-0">
+                           <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+                           
+                        </div>
+                     </div>
+                  
+               <div class="card_sq_da shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center">
+               
+                  <div class="das-total-grid">
+                     <div class ="das_grid">
+                        <div class="da_al_header">Total Anomaly Detection</div>
+                        <div class="das_pag"> 
+                           
+                            <nav>
+                                 <ul class="pagination justify-content-center">
+                                    <li class="page-item"><button id="btnNeurolog24h" class="page-link pag-nav" onClick="onlog24H('neuro');">24H</button></li>
+                                    <li class="page-item"><button id="btnNeurolog7d" class="page-link pag-nav" onClick="onlog7D('neuro');">7D</button></li>
+                                    <li class="page-item">|</li>
+                                    <li class="page-item">
+                                       <a class="page-link pag-nav" href="#" id="btnNeurologPrev" onClick="onlogPrev('neuro')">
+                                       <span class="fa fa-arrow-left"></span>
+                                       </a>
+                                    </li>
+                                    <li class="page-item">
+                                       <a class="page-link pag-nav" href="#" id="btnNeurologNext" onClick="onlogNext('neuro')">
+                                       <span class="fa fa-arrow-right"></span>
+                                       </a>
+                                    </li>
+                                 </ul>
+                              </nav>
+                        </div>
+                        <div class="neu_total das_list_box">
+                          
+                           <h5>Neurotron AI</h5> 
+                           <div>
+                              <h1 id="neuroLogTotal">0</h1>
+                           </div>
+                        </div>
+                        <div class="das_list_box">
+                           <table id="tbNeurolog" class="table anomaly-table">
+                              <thead>
+                                 <tr class="dash_list">
+                                    <th>No</th>
+                                    <th>Time</th>
+                                    <th>Host Name</th>
+                                    <th>SBB Name</th>
+                                    <th>OS</th>
+                                    <th>ABN Cnt</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                           </table>
+                        </div>
+                        <div></div>
+                        <div class="das_pag">
+                            <nav>
+                                 <ul class="pagination justify-content-center">
+                                    <li class="page-item"><button id="btnSyslog24h" class="page-link pag-nav" onClick="onlog24H('slog');">24H</button></li>
+                                    <li class="page-item"><button id="btnSyslog7d" class="page-link pag-nav" onClick="onlog7D('slog');">7D</button></li>
+                                    <li class="page-item">|</li>
+                                    <li class="page-item">
+                                       <a class="page-link pag-nav" href="#" id="btnSyslogPrev" onClick="onlogPrev('slog')">
+                                       <span class="fa fa-arrow-left"></span>
+                                       </a>
+                                    </li>
+                                    <li class="page-item">
+                                       <a class="page-link pag-nav" href="#" id="btnSyslogNext" onClick="onlogNext('slog')">
+                                       <span class="fa fa-arrow-right"></span>
+                                       </a>
+                                    </li>
+                                 </ul>
+                              </nav>
+                        </div>
+
+                        
+                        <div class="sys_total das_list_box">
+                           <h5>System log</h5> 
+                           <h1 id="sysLogTotal">0</h1>
+                        </div>
+                        <div  class="das_list_box">
+                              <table id="tbSyslog" class="table anomaly-table">
+                                    <thead>
+                                       <tr class="dash_list">
+                                          <th>No</th>
+                                          <th>Time</th>
+                                          <th>Host Name</th>
+                                          <th>SBB Name</th>
+                                          <th>OS</th>
+                                          <th>Severity Level</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                 </table>
+                        </div>
+                     
+                     </div>
+                     <div>
+                      <div class ="das_not_read">
+                            <div></div>
+                            <div class="das_pag">
+	                            <nav>
+	                                 <ul class="pagination justify-content-center">
+	                                    <li class="page-item"><button class="page-link pag-nav" onClick="onlog24H('all')">24H</button></li>
+	                                    <li class="page-item"><button class="page-link pag-nav" onClick="onlog7D('all')">7D</button></li>
+	                                    <li class="page-item">|</li>
+	                                    <li class="page-item">
+	                                       <a class="page-link pag-nav" href="#" onClick="onlogPrev('all')">
+	                                       <span class="fa fa-arrow-left"></span>
+	                                       </a>
+	                                    </li>
+	                                    <li class="page-item">
+	                                       <a class="page-link pag-nav" href="#" onClick="onlogNext('all')">
+	                                       <span class="fa fa-arrow-right"></span>
+	                                       </a>
+	                                    </li>
+	                                 </ul>
+	                              </nav>
+                        	</div>
+                        
+                           <div class="not-read-header das_list_box">
+                              <div class="read-header">
+                                 <h5>Not Read</h5> 
+                                 <h1 id='allLogTotal'>0</h1>
+                              </div>
+                           </div>
+                           <div class="das_list_box">
+                               <table id="tbAlllog" class="table not-table">
+                                   <thead>
+                                      <tr class="dash_list">
+                                         <th>No</th>
+                                         <th>Time</th>
+                                         <th>Host Name</th>
+                                         <th>SBB Name</th>
+                                         <th>OS</th>
+                                         <th>Anomaly Name</th>
+                                      </tr>
+                                   </thead>
+                                   <tbody class= "not-re-list">
+                                   </tbody>
+                                </table>
+                           </div>
+                         </div>
+                        	<div class="total-tem-sbb">
+                                 <div class="sbb_pag">
+                                       <div class="da_al_header">SBB List</div>
+                                       <div>
+                                             <nav>
+                                                   <ul class="pagination justify-content-center">
+                                                      <li class="page-item"><button class="page-link pag-nav" onClick="onlog24H('summ')">24H</button></li>
+                                                      <li class="page-item"><button class="page-link pag-nav" onClick="onlog7D('summ')">7D</button></li>
+                                                      <li class="page-item">|</li>
+                                                      <li class="page-item">
+                                                         <a class="page-link pag-nav" href="#" onClick="onlogPrev('summ')">
+                                                         <span class="fa fa-arrow-left"></span>
+                                                         </a>
+                                                      </li>
+                                                      <li class="page-item">
+                                                         <a class="page-link pag-nav" href="#" onClick="onlogNext('summ')">
+                                                         <span class="fa fa-arrow-right"></span>
+                                                         </a>
+                                                      </li>
+                                                   </ul>
+                                                </nav>
+                                    </div>
+                                 </div>
+                                 <div class="nt-re-sbb" id="summWrap">
+                                    <div class="nt-re-sbb-list">
+                                       <div class="n-r-s-l-cent">
+                                       </div>
+                                    </div>
+                                    <div class="nt-re-sbb-list">
+                                       <div class="n-r-s-l-cent">
+                                       </div>
+                                    </div>
+                                    <div class="nt-re-sbb-list">
+                                       <div class="n-r-s-l-cent">
+                                       </div>
+                                    </div>
+                                    <div class="nt-re-sbb-list">
+                                       <div class="n-r-s-l-cent">
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                       
+                     </div>
+                     <div id="dashboardGraph"></div>
+                     <div id="dashboardGraph_1"></div>
+                     <div class="grid-footer"><footer th:replace="fragments/footer :: footer"></footer></div>
+                  </div>
+               </div>
+				</div>
+				
+         </div>
+      </div>
+      </div>
+<!--      <div th:replace="fragments/right :: right"></div>-->
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script  th:inline="javascript">
+      	var currSbbId = /*[[ ${firstServer != null ? firstServer.sbbId: '0'} ]]*/;
+		var uId = /*[[ ${user.userId}]]*/;
+		var pg = 1, pgSize = 10;
+		var refreshRate = 1000 * [[${refreshRate}]] * 6;
+      </script>
+      <script>
+      var chart1_data = [];
+      var chart2_data = [];
+      
+      var options1 = {
+            chart: {
+              height: 350,
+              type: 'line',
+              id: 'chart_alarm'
+            },
+            plotOptions: {
+              bar: {
+                columnWidth: '50%'
+              }
+            },
+            colors: ['rgb(65, 1, 148)', 'rgb(69, 86, 238)'],
+            series: [{
+              name: 'System log',
+              type: 'column',
+              data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            }, {
+              name: 'Neurotron AI',
+              type: 'column',
+              data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            }],
+         
+          title: {
+            text: 'Alarm details status'},
+            fill: {
+              opacity: [0.85, 0.25],
+                      gradient: {
+                          inverseColors: false,
+                          shade: 'light',
+                          type: "vertical",
+                          opacityFrom: 0.85,
+                          opacityTo: 0.55,
+                          stops: [0, 100, 100, 100]
+                      }
+            },
+            labels: ['01/01/2003', '02/01/2003','03/01/2003','04/01/2003','05/01/2003','06/01/2003','07/01/2003','08/01/2003','09/01/2003','10/01/2003','11/01/2003','12/01/2003', '01/01/2004','02/01/2004','03/01/2004','04/01/2004','05/01/2004','06/01/2004','07/01/2004','08/01/2004','9/01/2004','10/01/2004'],
+            markers: {
+              size: 0
+            },
+            xaxis: {
+              type:'datetime'
+            },
+            yaxis: {
+              min: 0
+            },
+            tooltip: {
+              shared: true,
+              intersect: false,
+              y: {
+                formatter: function (y) {
+                  if(typeof y !== "undefined") {
+                    return  y.toFixed(0) + " views";
+                  }
+                  return y;
+                  
+                }
+              }
+            },
+            legend: {
+              labels: {
+                useSeriesColors: true
+              },
+              markers: {
+                customHTML: [
+                  function() {
+                    return ''
+                  }, function() {
+                    return ''
+                  }
+                ]
+              }
+            }
+          }
+
+          var chart1 = new ApexCharts(
+            document.querySelector("#dashboardGraph"),
+            options1
+          );
+
+          chart1.render();
+
+      var options2 = {
+        chart: {
+          height: 350,
+          type: 'area',
+          id:'chart_count'
+        },
+        stroke: {
+          width: 0,
+          curve: 'smooth'
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: '40%'
+          }
+        },
+        title: {
+          text: 'Server BlackBox log collection status',
+        },
+        colors: [],//QQQ '#3A2374', '#84A5C6','#49407F','#84B4AA', '#19659F'
+        series: [],
+        fill: {
+          opacity: [],
+          gradient: {
+              inverseColors: true,
+              shade: 'light',
+              type: "vertical",
+              opacityFrom: 0.5,
+              opacityTo: 0.5,
+              stops: [0, 100, 100, 100]
+          }
+        },
+        labels: [],
+        markers: {
+          size: 0
+        },
+        xaxis: {
+          type:'datetime'
+        },
+        yaxis: {
+          min: 0
+        },
+        tooltip: {
+          shared: true,
+          intersect: false,
+          y: {
+            formatter: function (y) {
+              if(typeof y !== "undefined") {
+                return  y.toFixed(0) + " views";
+              }
+              return y;
+              
+            }
+          }
+        },
+        legend: {
+          labels: {
+            useSeriesColors: true
+          },
+          markers: {
+        	customHTML:[]
+          }
+        }
+      }
+
+      var chart_2 = new ApexCharts(
+        document.querySelector("#dashboardGraph_1"),
+        options2
+      );
+      chart_2.render();
+
+      </script>
+      <script th:inline="javascript">
+		var currSbbId = /*[[ ${firstServer != null ? firstServer.sbbId: '0'} ]]*/;
+		var uId = /*[[ ${user.userId}]]*/;
+		var uType = /*[[ ${user.userType}]]*/;
+	  </script>
+	  <script>
+	  
+	  var slogParam = {
+		period: PERIOD_7DAYS,
+		pg: 1,
+		pgSize: 5,
+		type: 'slog'
+	  };
+	  
+	  var neuroParam = {
+	  	period: PERIOD_7DAYS,
+		pg: 1,
+		pgSize: 5,
+		type: 'neuro'
+	  }
+	  
+	  var allLogParam = {
+	  	period: PERIOD_7DAYS,
+		pg: 1,
+		pgSize: 5 ,
+		type: 'all'
+	  };
+	  var sumLogParam = {
+	  	period: PERIOD_7DAYS,
+		pg: 1,
+		pgSize: 4,
+		type: 'summ'
+	  }
+	  //ready
+	  regEvent = function(){
+		  
+		  /* loadSyslogTable();
+		  loadAllLogTable();
+		  loadSummLogTable();
+		  
+		  //chart
+		  drawChart1Data();
+		  drawChart2Data(); */
+
+		  setInterval(
+		  	refreshAll
+		  , refreshRate);
+		  refreshAll();
+		  
+		  initAlarm(uId);
+	  }
+	  
+	  function updateParamPaging(total, param){
+		  param['tot'] = total;
+		  param['lastPg'] = Math.floor(total / param.pgSize) + (total % param.pgSize > 0 ? 1 : 0);
+	  }
+	  function loadSyslogTable(){
+	    var params = slogParam;
+		var url = ctx+"dashboard/syslog/period";
+		var req = $.ajax({
+			type : "POST",
+	        async: false,
+	        url : url,
+	        data: params
+	    });
+		req.done(function(out){
+			if(out.code === 0){
+				if(params.pg === 1){
+					updateParamPaging(out.data.total, slogParam);
+				}
+				setSyslogTotal(out.data.total);
+				removeAllSyslogRows();
+				addSysLogRows(out.data.list);
+			}else{
+			}				
+		}).fail(function(err){
+			showAlert('데이터 조회에 실패하였습니다.');
+		}).always(function(){
+			
+		});
+	  }
+	  function setSyslogTotal(tot){
+		  $('#sysLogTotal').html(tot);
+	  }
+	  function removeAllSyslogRows(){
+		  $('#tbSyslog tbody').empty();
+	  }
+	  function addSysLogRows(list){
+		  if(!list || list.length == 0){
+			  $('#tbSyslog tbody').append('<tr><td colspan="6" class="graytab">No Data</td></tr>');
+			  return;
+		  }
+		  list.forEach(el=>{
+			  addSyslogRow(el);
+		  });
+		  
+		  //add click event
+		  $('#tbSyslog tbody tr').on('click', function(){
+			  clickSyslog(this);
+		  });
+	  }
+	  function addSyslogRow(data){
+		  if(!data){
+			  return;
+		  }
+		  var tbody = $('#tbSyslog tbody');
+		  var row = '<tr class="dash_list" lid="'+data.logId+'" hid="'+data.hostId+'"> \
+	          <td scope="row">'+ data.logNo +'</td> \
+	          <td>'+ dateFormat_table(data.reportedDate) +'</td> \
+	          <td>'+  data.hostName +'</td> \
+	          <td>'+ data.sbbName +'</td> \
+	          <td>'+ data.os +'</td> \
+	          <td>'+ translateSeverity(data.priority) +'</td> \
+	       </tr>';
+	       tbody.append($(row));
+	  }
+	  /*
+	  	navigation
+	  */
+	  function onlog24H(type){
+		  var param = getParam(type);
+		  if(!param){
+			  return;
+		  }
+		  param.pg = 1;
+		  if(param.period === PERIOD_24HR){
+			  return;
+		  }
+		  param.period = PERIOD_24HR;
+		  loadData(type)();
+	  }
+	  function onlog7D(type){
+		  var param = getParam(type);
+		  if(!param){
+			  return;
+		  }
+		  param.pg = 1;
+		  if(param.period === PERIOD_7DAYS){
+			  return;
+		  }
+		  param.period = PERIOD_7DAYS;
+		  loadData(type)();
+	  }
+	  function onlogPrev(type){
+		  var param = getParam(type);
+		  if(!param){
+			  return;
+		  }
+		  if(param.pg === 1){
+			  return;
+		  }
+		  param.pg = param.pg - 1;
+		  loadData(type)();
+	  }
+	  function onlogNext(type){
+		  var param = getParam(type);
+		  if(!param){
+			  return;
+		  }
+		  if(param.lastPg === param.pg){
+			  return;
+		  }
+		  param.pg = param.pg + 1;
+		  loadData(type)();
+	  }
+	  function getParam(type){
+		  switch(type){
+		  case 'slog':
+			  	return slogParam;
+		  case 'neuro':
+			 	return neuroParam;
+		  case 'all':
+		  		return allLogParam;
+		  case 'summ':
+			  	return sumLogParam;
+		  default:
+			  	return null;
+		  }
+	  }
+	  function loadData(type){
+		  switch(type){
+		  case 'slog':
+			  	return loadSyslogTable;
+		  case 'neuro':
+			 	return loadNeurologTable;
+		  case 'all':
+		  		return loadAllLogTable;
+		  case 'summ':
+			  	return loadSummLogTable;
+		  default:
+			  	return null;
+		  }
+	  }
+	  function translateSeverity(num){
+		  switch(num){
+		  case 0:
+			  return 'Emergency';
+		  case 1:
+			  return 'Alert';
+		  case 2:
+			  return 'Critical';
+		  case 3:
+			  return 'Error';
+		  case 4:
+			  return 'Warnining';
+		  case 5:
+			  return 'Notice';
+		  case 6:
+			  return 'Informational';
+		  case 7:
+			  return 'Debug';
+		  default:
+			  return '';
+		  }
+	  }
+	  function translateLogtype(type){
+		  switch(type){
+		  case 1: return 'System log';
+		  case 2: return 'Neurotron';
+		  case 3: return 'Event log';
+		  case 4: return 'System call';
+		  }
+	  }
+	  function loadAllLogTable(){
+	    var params = allLogParam;
+		var url = ctx+"dashboard/logs/period";
+		var req = $.ajax({
+			type : "POST",
+	        async: true,
+	        url : url,
+	        data: params
+	    });
+		req.done(function(out){
+			if(out.code === 0){
+				if(params.pg === 1){
+					updateParamPaging(out.data.total, allLogParam);
+				}
+				setAlllogTotal(out.data.total);
+				removeAllAlllogRows();
+				addAllLogRows(out.data.list);
+			}else{
+			}				
+		}).fail(function(err){
+			showAlert('데이터 조회에 실패하였습니다.');
+		}).always(function(){
+			
+		});
+	  }
+	  function setAlllogTotal(tot){
+		  $('#allLogTotal').html(tot);
+	  }
+	  function removeAllAlllogRows(){
+		  $('#tbAlllog tbody').empty();
+	  }
+	  function addAllLogRows(list){
+		  if(!list || list.length == 0){
+			  $('#tbAlllog tbody').append('<tr><td colspan="6" class="graytab">No Data</td></tr>');
+			  return;
+		  }
+		  list.forEach(el=>{
+			  addAlllogRow(el);
+		  });
+		  
+			//add click event
+		  $('#tbAlllog tbody tr').on('click', function(){
+			  clickSummlog(this);
+		  });
+	  }
+	  function addAlllogRow(data){
+		  if(!data){
+			  return;
+		  }
+		  var tbody = $('#tbAlllog tbody');
+		  var row = '<tr class="dash_list" lid="'+data.logId+'" hid="'+data.hostId+'" ltype="'+data.logType+'"> \
+	          <td scope="row">'+ data.logNo +'</td> \
+	          <td>'+ dateFormat_table(data.reportedDate) +'</td> \
+	          <td>'+  data.hostName +'</td> \
+	          <td>'+ data.sbbName +'</td> \
+	          <td>'+ data.os +'</th> \
+	          <td>'+ translateLogtype(data.logType) + '</td> \
+	       </tr>';
+	       tbody.append($(row));
+	  }
+	  
+	  var summServers = [];
+	  function loadSummLogTable(){
+		  
+	    var params = sumLogParam;
+	    
+	    if(params.pg > 1 && params.lastPg > 0){
+	    	//skip
+	    	loadSummNext();
+	    	return;
+	    }
+	    
+		var url = ctx+"dashboard/logs/summary";
+		var req = $.ajax({
+			type : "POST",
+	        async: true,
+	        url : url,
+	        data: params
+	    });
+		req.done(function(out){
+			if(out.code === 0){
+				if(params.pg === 1){
+					updateParamPaging(out.data.total, sumLogParam);
+					summServers = out.data.list;
+				}
+				
+				loadSummNext();
+			}else{
+			}				
+		}).fail(function(err){
+			showAlert('데이터 조회에 실패하였습니다.');
+		}).always(function(){
+			
+		});
+	  }
+	  function removeAllSummlogRows(){
+		  $('#summWrap').empty();
+	  }
+	  function addSummLogRows(list){
+		  if(!list || list.length == 0){
+			  $('#summWrap').append('<div><div class="graytab">No Data</div><div>');
+			  return;
+		  }
+		  list.forEach(el=>{
+			  addSummlogRow(el);
+		  });
+		  $('#summWrap div.nt-re-sbb-list').on('click', function(){
+			  onClickSummServer(this);
+		  });
+	  }
+	  function addSummlogRow(data){
+		  if(!data){
+			  return;
+		  }
+		  var wrapper = $('#summWrap');
+	      var elem = 
+	    	  '<div class="nt-re-sbb-list" hid="'+data.hostId+'" nlog="'+data.neuroCount+'" slog="'+data.syslogCount+'"> \
+		           <div class="n-r-s-l-cent"> \
+		              <h7>'+data.sbbName+'</h7>  \
+		              <h1>'+data.total+'</h1> \
+		           </div> \
+		       </div>';
+	      wrapper.append($(elem));
+	  }
+	  function loadSummNext(){
+		  removeAllSummlogRows();
+		  
+		  var params = sumLogParam;
+		  removeAllSummlogRows();
+		  var idx = (params.pg - 1)*params.pgSize;
+		  addSummLogRows(summServers.filter( (el,index)=>{
+			  return index >= idx && index < idx+params.pgSize;
+			})
+		  );
+	  }
+	  
+	  function drawChart1Data(){
+		  	var params = {};
+		  	var url = ctx+"dashboard/logs/chart/alarm";
+			var req = $.ajax({
+				type : "POST",
+			       async: true,
+			       url : url,
+			       data: params
+			   });
+			req.done(function(out){
+				if(out.code === 0){
+					if(out.data.total === 0){
+						return;
+					}
+					chart1_data = out.data.list;
+					refreshChart1();
+				}else{
+					chart1_data = [];
+					refreshChart1();
+				}				
+			}).fail(function(err){
+				showAlert('데이터 조회에 실패하였습니다.');
+			}).always(function(){
+				
+			});
+	  }
+	  function refreshChart1(){
+		  	options1.series[0].data = chart1_data.map(el=>el.syslogCount);
+			options1.series[1].data = chart1_data.map(el=>el.neuroCount);
+			options1.labels = chart1_data.map(el=>transformDateFmt(el.reportedDate));
+	        ApexCharts.exec('chart_alarm', 'updateOptions', options1);
+	  }
+	  /* function drawChart2Data(){
+		  	var params = {};
+		  	var url = ctx+"dashboard/logs/chart/alarmcount";
+			var req = $.ajax({
+				type : "POST",
+			       async: true,
+			       url : url,
+			       data: params
+			   });
+			req.done(function(out){
+				if(out.code === 0){
+					if(out.data.dateList.length === 0){
+						return;
+					}
+					chart2_data = out.data;
+					refreshChart2();
+				}else{
+					chart2_data = [];
+					refreshChart2();
+				}				
+			}).fail(function(err){
+				showAlert('데이터 조회에 실패하였습니다.');
+			}).always(function(){
+				
+			});
+	  } */
+	  function drawChart2Data(){
+		  	var params = {};
+		  	var url = ctx+"dashboard/logs/chart/alarmcount2";
+			var req = $.ajax({
+				type : "POST",
+			       async: false,
+			       url : url,
+			       data: params
+			   });
+			req.done(function(out){
+				if(out.code === 0){
+					if(out.data.dateList.length === 0){
+						return;
+					}
+					chart2_data = out.data;
+					refreshChart2();
+				}else{
+					chart2_data = [];
+					refreshChart2();
+				}				
+			}).fail(function(err){
+				showAlert('데이터 조회에 실패하였습니다.');
+			}).always(function(){
+				
+			});
+	  }
+	  function refreshChart2(){
+		  	if(chart2_data == null || chart2_data.length === 0){
+		  		return;
+		  	}
+		  	//QQQ
+		  	var colorRef = ['#3A2374', '#84A5C6','#49407F','#84B4AA', '#19659F'];
+		  
+		    chart2_data.serverList.forEach( (e,idx)=>{
+		    	var d = {
+		    		data: e.cnts.split(','),
+		    		name: e.sbbName,
+		    		type: 'area'
+		    	};
+		    	options2.series[idx] = d;
+		    	options2.colors[idx] = colorRef[ idx % colorRef.length ];//QQQ  파레트 이
+		    	options2.legend.markers.customHTML[idx] = ()=>{return '';};
+		    });
+		    options2.fill.opacity = new Array(chart2_data.serverList.length).fill(0.2);//opacity 0.2
+			options2.labels = chart2_data.dateList.map(el=>transformDateFmt(el));
+	        ApexCharts.exec('chart_count', 'updateOptions', options2);
+	  }
+	  
+	  function refreshAll(){
+		  
+		  //setInterval( ()=> {
+			  loadNeurologTable();
+			  loadSyslogTable();
+			  loadAllLogTable();
+			  loadSummLogTable();
+			  
+			  //chart
+			  drawChart1Data();
+			  drawChart2Data();
+		  //}, 5000);
+	  }
+	  
+	  function clickSyslog(el){
+		  if(uType === USER_SECURITYADMIN){
+			  return;
+		  }
+		  var hid = $(el).attr('hid');
+		  location.href=ctx+'audit/syslog?hostId='+hid;
+	  }
+	  
+	  function clickSummlog(el){
+		  if(uType === USER_SECURITYADMIN){
+			  return;
+		  }
+		  var hid = $(el).attr('hid');
+		  var ltype = $(el).attr('ltype');
+		  if(ltype === '1'){
+		  	location.href=ctx+'audit/syslog?hostId='+hid;
+		  }else if(ltype === '2'){
+			location.href=ctx+'audit/neurotron?hostId='+hid;
+		  }
+	  }
+	  
+	  function onClickSummServer(el){
+		  if(uType === USER_SECURITYADMIN){
+			  return;
+		  }
+		  var hid = $(el).attr('hid');
+		  var nlog = $(el).attr('nlog');//neurotron log count
+		  var slog = $(el).attr('slog');//syslog count
+		  if(nlog > 0){
+			  location.href=ctx+'audit/neurotron?hostId='+hid;
+		  }else if(slog > 0){
+			  location.href=ctx+'audit/syslog?hostId='+hid;
+		  }
+	  }
+	  
+	  function loadNeurologTable(){
+		  	var params = neuroParam;
+			var url = ctx+"dashboard/neurolog/period";
+			var req = $.ajax({
+				type : "POST",
+			       async: false,
+			       url : url,
+			       data: params
+			   });
+			req.done(function(out){
+				if(out.code === 0){
+					if(params.pg === 1){
+						updateParamPaging(out.data.total, neuroParam);
+					}
+					setNeurologTotal(out.data.total);
+					removeAllNeurologRows();
+					addNeuroLogRows(out.data.list);
+				}else{
+				}				
+			}).fail(function(err){
+				showAlert('데이터 조회에 실패하였습니다.');
+			}).always(function(){
+				
+			});
+	  }
+	  
+	  function setNeurologTotal(tot){
+		  $('#neuroLogTotal').html(tot);
+	  }
+	  function removeAllNeurologRows(){
+		  $('#tbNeurolog tbody').empty();
+	  }
+	  function addNeuroLogRows(list){
+		  if(!list || list.length == 0){
+			  $('#tbNeurolog tbody').append('<tr><td colspan="6" class="graytab">No Data</td></tr>');
+			  return;
+		  }
+		  list.forEach(el=>{
+			  addNeurologRow(el);
+		  });
+		  
+		  //add click event
+		  $('#tbNeurolog tbody tr').on('click', function(){
+			  clickNuerolog(this);
+		  });
+	  }
+	  function addNeurologRow(data){
+		  if(!data){
+			  return;
+		  }
+		  var tbody = $('#tbNeurolog tbody');
+		  var row = '<tr class="dash_list" lid="'+data.logId+'" hid="'+data.hostId+'"> \
+	          <td scope="row">'+ data.logNo +'</td> \
+	          <td>'+ dateFormat_table(data.reportedDate) +'</td> \
+	          <td>'+  data.hostName +'</td> \
+	          <td>'+ data.sbbName +'</td> \
+	          <td>'+ data.os +'</td> \
+	          <td>'+ data.abnzCnt +'</td> \
+	       </tr>';
+	       tbody.append($(row));
+	  }
+	  function clickNuerolog(el){
+		  if(uType === USER_SECURITYADMIN){
+			  return;
+		  }
+		  var hid = $(el).attr('hid');
+		  location.href=ctx+'audit/neurotron?hostId='+hid;
+	  }
+	  
+	  var sock;
+	  var client;
+	  function initAlarm(userId){
+		  sock = new SockJS(ctx+"/stomp-alarm");
+		  sock.onhearbeat = function(d){
+			  // console.log('>>>hearbeat',d);
+		  }
+	      client = Stomp.over(sock); 
+	      client.heartbeat.outgoing = 20000;
+    	  client.heartbeat.incoming = 0;
+	      client.connect({},()=>{
+	    	  client.subscribe('/subscribe/alarm/'+userId, (alarm)=>{
+	    		  var content = JSON.parse(alarm.body);
+	    		  var msg = `${content.timestamp}<br>${content.msg2}`;
+	    		  showToast('warning', msg, content.msg1);
+	    	  });
+	    	  
+	      },()=>{
+	    	  //disconnect
+	    	  // console.log('sbb alarm disconnected.');
+	    	  setTimeout(()=>{
+	    		  initAlarm(uId);
+	    	  },1000);
+	      });
+	  }
+	  </script>
+</body>
+</html>

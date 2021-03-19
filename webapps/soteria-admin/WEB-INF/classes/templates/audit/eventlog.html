@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Event log</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+</head>
+<body>
+	<div>
+         <div class="wrapper">
+               <nav th:replace="fragments/left :: left">
+               </nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+					
+					<div class="pageheader pd-t-25 pd-b-35 tracker">
+	                  <div class="pd-t-5 pd-b-5">
+	                     <h1 class="pd-0 mg-0 tx-20 text-overflow">Event log</h1>
+	                  </div>
+	                  <div class="breadcrumb pd-0 mg-0">
+	                     <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+	                     <a class="breadcrumb-item" href="#">Anomaly Detection</a>
+	                     <span class="breadcrumb-item active">Event log</span>
+	                  </div>
+	               </div>  
+	               <div class="card_sq_da_170 shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center">
+	                  <div class="anomaly_total_grid_sys">
+	                     <div class="health_status">
+	                       
+	                           <div class="statussb_ho">
+	                              <div class="sta-main"><h3 class="sta_font">HOST</h3></div>
+	                              <div class="sta-main ata-alert_neo">Neurotron<br><h4 id="neuroCount">0</h4></div>
+	                              <div class="sta-main ata-alert_sys">System log<br><h4 id="syslogCount">0</h4></div>
+	                              <div class="sta-main sta-alin">
+	                                 <div><strong>HOST NAME</strong><br>| <span id="hostName">psdbdev01</span></div>
+	                                 <div><strong>HOST IP</strong><br>| <span id="hostIp"></span></div>
+	                              </div>
+	                           </div>
+	                           <div class="sta-main sta-link">
+	                              <div class="sta-main">------------------</div>
+	                             <i id="connection" class="fas fa-link"></i>
+	                              <div class="sta-main">------------------</div>
+	                           </div>
+	                           <div class="statussb_ho">
+	                              <div class="sta-main"><h3 class="sta_font">SBB</h3></div>
+	                              
+	                              <button type="button" class="link_w"><div id="sbbHdisk"></div></button>
+	                              <button type="button" class="link_w"><div id="sbbHcpu"></div></button>
+	                              
+	                              <div class="sta-main sta-alin">
+	                                 <div><strong>SBB NAME</strong><br>| <span id="sbbName">soSSBH_06</span></div>
+	                                 <div><strong>SBB IP</strong><br>| <span id="sbbIp"></span></div>
+	                              </div>
+	                           </div>
+	                       
+	                     </div>
+	                     <div class="sys-gra-grid">
+	                        <div class="anomaly_neuro" id="anomaly_sys_sim"></div>
+	                        <div class="anomaly_neuro" id="anomaly_sys_pro"></div>
+	                     </div>
+	                     <div class="neurotron_table">
+	                           <button id="clr-button-sys" class="clr-button-sys">clear</button>
+	                        <table id="syslog-ta"  class="row-border" style="width:100%">
+	                           <thead>
+	                              <tr>
+	                                 <th>No</th>
+	                                 <th>Datetime</th>
+	                                 <th>OS</th>
+	                                 <th>Facility</th>
+	                                 <th>Severity</th>
+	                                 <th>Process</th>
+	                                 <th>HOST NAME</th>
+	                                 <th>Message</th>
+	                                 <th>Log ID</th>
+	                              </tr>
+	                           </thead>
+	                           <tbody>
+	                              <!-- <tr>
+	                                 <td>216652</td>
+	                                 <td>2019-11-15 16:32</td>
+	                                 <td>LINUX</td>
+	                                 <td>kern</td>
+	                                 <td>Notice</td>
+	                                 <td>fprintd</td>
+	                                 <td>psdbdev01</td>
+	                                 <td>D-Bus service launched with name: net.reactivated.Fprint</td>
+	                              </tr>
+	                              <tr>
+	                                 <td>216651</td>
+	                                 <td>2019-11-15 16:32</td>
+	                                 <td>LINUX</td>
+	                                 <td>kern</td>
+	                                 <td>Warning</td>
+	                                 <td>gnome-shell</td>
+	                                 <td>psdbdev01</td>
+	                                 <td width="50%">Some code accessed the property 'AuthList' on the module 'authList'. That property was defined with 'let' or 'const' inside the module. This was previously supported, but is not correct according to the ES6 standard. Any symbols to be exported from a module must be defined with 'var'. The property access will work as previously for the time being, but please fix your code anyway.</td>
+	                              </tr>
+	                              <tr>
+	                                 <td>216650</td>
+	                                 <td>2019-11-15 16:32</td>
+	                                 <td>LINUX</td>
+	                                 <td>daemon</td>
+	                                 <td>Info</td>
+	                                 <td>systemd</td>
+	                                 <td>psdbdev01</td>
+	                                 <td>Started Fingerprint Authentication Daemon.</td>
+	                              </tr>
+	                              <tr>
+	                                 <td>216649</td>
+	                                 <td>2019-11-15 16:32</td>
+	                                 <td>LINUX</td>
+	                                 <td>daemon</td>
+	                                 <td>Notice</td>
+	                                 <td>dbus</td>
+	                                 <td>psdbdev01</td>
+	                                 <td>[system] Successfully activated service 'net.reactivated.Fprint'</td>
+	                              </tr>
+	                              <tr>
+	                                 <td>216648</td>
+	                                 <td>2019-11-15 16:32</td>
+	                                 <td>LINUX</td>
+	                                 <td>daemon</td>
+	                                 <td>Info</td>
+	                                 <td>systemd</td>
+	                                 <td>psdbdev01</td>
+	                                 <td>Starting Fingerprint Authentication Daemon...</td>
+	                              </tr>
+	                              <tr>
+	                                 <td>216647</td>
+	                                 <td>2019-11-15 16:32</td>
+	                                 <td>LINUX</td>
+	                                 <td>daemon</td>
+	                                 <td>Notice</td>
+	                                 <td>dbus</td>
+	                                 <td>psdbdev01</td>
+	                                 <td>[system] Activating via systemd: service name='net.reactivated.Fprint' unit='fprintd.service'</td>
+	                              </tr>
+	                              <tr>
+	                                 <td>216638</td>
+	                                 <td>2019-11-15 16:30</td>
+	                                 <td>LINUX</td>
+	                                 <td>clock</td>
+	                                 <td>Info</td>
+	                                 <td>CROND</td>
+	                                 <td>psdbdev01</td>
+	                                 <td>(root) CMD (/usr/lib64/sa/sa1 1 1)</td>
+	                              </tr>
+	                              <tr>
+	                                 <td>216637</td>
+	                                 <td>2019-11-15 16:30</td>
+	                                 <td>LINUX</td>
+	                                 <td>daemon</td>
+	                                 <td>Info</td>
+	                                 <td>systemd</td>
+	                                 <td>psdbdev01</td>
+	                                 <td>Starting Session 176 of user root.</td>
+	                                 
+	                              </tr> -->
+	                           </tbody>
+	                     </table>
+	                  </div>
+	                  	 <div><footer th:replace="fragments/footer :: footer"></footer></div>
+	                  </div>
+	                 
+	               </div> 
+					
+				</div>
+         </div>
+         <div th:replace="fragments/modals/base :: modal"></div>
+      </div>
+      </div>
+      
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script th:inline="javascript">
+		var currSbbId = /*[[ ${firstServer != null ? firstServer.sbbId: '0'} ]]*/;
+		var uId = /*[[ ${user.userId}]]*/;
+		var pg = 1, pgSize = 10;
+		var refreshRate = 1000 * [[${refreshRate}]];
+	  </script>
+	  <script>
+		
+		var options = {
+		  chart: {
+		      height: 350,
+		      type: 'bar',
+		      stacked: true,
+		      id: 'chart_process'
+		  },
+		  plotOptions: {
+		      bar: {
+		          horizontal: true,
+		      },
+		      
+		  },
+		  stroke: {
+		      width: 1,
+		      colors: ['#fff']
+		  },
+		  series: [{
+		      name: 'fprintd',
+		      data: [3, 9, 1, 9, 10, 2, 5]
+		  },{
+		      name: 'gnome-software-service.desktop',
+		      data: [9, 32, 9, 1, 13, 19, 2]
+		  },{
+		      name: 'systemd',
+		      data: [12, 17, 11, 9, 15, 11, 20]
+		  },{
+		      name: 'dbus',
+		      data: [9, 7, 5, 8, 6, 9, 4]
+		  },{
+		      name: 'gnome-software-service.desktop',
+		      data: [14, 12, 12, 3, 9, 2, 10]
+		  },{
+		    name: 'gdm-password]',
+		    data: [11, 12, 19, 12, 17, 3, 9]
+		  },{
+		    name: 'unix_chkpwd',
+		    data: [2, 12, 19, 6, 3, 1, 1]
+		  },{
+		    name: 'rsyslogd',
+		    data: [2, 12, 19, 3, 20, 2, 10]
+		  },{
+		    name: 'CROND',
+		    data: [15, 12, 19, 12, 15, 4, 12]
+		  },{
+		    name: 'gnome-shell',
+		    data: [5, 12, 19, 2, 5, 4, 10]
+		  }],
+		  title: {
+		      text: 'Event log Event ID'
+		  },
+		  xaxis: {
+		      categories: ['11/12/2019','11/13/2019', '11/14/2019', '11/15/2019', '11/16/2019', '11/17/2019', '11/18/2019'],
+		      labels: {
+		          formatter: function(val) {
+		              return val 
+		          }
+		      }
+		  },
+		  yaxis: {
+		      title: {
+		          text: undefined
+		      },
+		      
+		  },
+		  tooltip: {
+		      y: {
+		          formatter: function(val) {
+		          return val 
+		      }
+		      }
+		  },
+		  fill: {
+		      opacity: 1,
+		      
+		  },
+		  legend: {
+		      position: 'top',
+		      horizontalAlign: 'left',
+		      offsetX: 40
+		  }
+		}
+	
+		var anomaly_sys_pro = new ApexCharts(
+		  document.querySelector("#anomaly_sys_pro"),
+		  options
+		);
+	
+		anomaly_sys_pro.render();
+		
+		
+		
+		function generateData(count, yrange) {
+		  var i = 0;
+		  var series = [];
+		  while (i < count) {
+		      var x = (i + 1).toString();
+		      var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+		      series.push({
+		          x: x,
+		          y: y
+		      });
+		      i++;
+		  }
+		  return series;
+		}
+
+		var data = [
+		  {
+		      name: 'Warning Audit',
+		      data: generateData(8, {
+		          min: 0,
+		          max: 0
+		      })
+		  },
+		  {
+		      name: 'Failure Audit',
+		      data: generateData(8, {
+		          min: 0,
+		          max: 22
+		      })
+		  }
+		  
+		]
+
+		data.reverse()
+
+		var colors = ['#FF6E6E', '#FF3434', '#B40303', "#FFFFFF"]
+
+		colors.reverse()
+
+		/**
+		* Hit map.
+		**/
+		var options_heatmap = {
+		  chart: {
+		      height: 350,
+		      type: 'heatmap',
+		      id: 'chart_heatmap'
+		  },
+		  dataLabels: {
+		      enabled: false
+		  },
+		  colors: colors,
+		  series: data,
+		  xaxis: {
+		      type: 'category',
+		      categories: ['2019-11-10', '2019-11-10', '2019-11-10', '2019-11-10', '2019-11-10','2019-11-10', '2019-11-10','2019-11-10']
+		  },
+		  title: {
+		      text: 'Event log Distribution Chart'
+		  },
+		  grid: {
+		      padding: {
+		          right: 20
+		      }
+		  }
+		}
+
+		var anomaly_sys_sim = new ApexCharts(
+		  document.querySelector("#anomaly_sys_sim"),
+		  options_heatmap
+		);
+
+		anomaly_sys_sim.render();
+			
+		var cpu_options = {
+		  chart: {
+		      height: 200,
+		      type: 'radialBar',
+		      offsetY: 0,
+		      id: 'header_cpu'
+		  },
+		  plotOptions: {
+		      radialBar: {
+		          startAngle: -135,
+		          endAngle: 135,
+		          dataLabels: {
+		              name: {
+		                  fontSize: '11px',
+		                  color: '#382035',
+		                  offsetY: -7
+		              },
+		              value: {
+		                  offsetY: -5,
+		                  fontSize: '18px',
+		                  color: '#382035',
+		                  formatter: function (val) {
+		                      return val + "%";
+		                  }
+		              }
+		          }
+		      }
+		  },
+
+		  fill: {
+		    colors: [function({ value }) {
+		        if(value < 35) {
+		            return '#0000FF'
+		        } else if (value >= 35 && value < 50) {
+		            return '#FFD700'} 
+		        else if (value >= 50 && value < 80) {
+		              return '#FF8C00'
+		        } else {
+		            return '#FF0000'
+		        }
+		    }]
+		},
+		  
+		  stroke: {
+		      dashArray: 2
+		  },
+		  series: [25],
+		  labels: ['SBB CPU'],
+		  
+		}
+
+		var sbbHcpu = new ApexCharts(
+		  document.querySelector("#sbbHcpu"),
+		  cpu_options
+		);
+
+		sbbHcpu.render();
+
+
+
+
+		var disk_options = {
+		  chart: {
+		      height: 200,
+		      type: 'radialBar',
+		      offsetY: 0,
+		      id: 'header_disk'
+		  },
+		  plotOptions: {
+		      radialBar: {
+		          startAngle: -135,
+		          endAngle: 135,
+		          dataLabels: {
+		              name: {
+		                  fontSize: '11px',
+		                  color: '#382035',
+		                  offsetY: -7
+		              },
+		              value: {
+		                  offsetY: -5,
+		                  fontSize: '18px',
+		                  color: '#382035',
+		                  formatter: function (val) {
+		                      return val + "%";
+		                  }
+		              }
+		          }
+		      }
+		  },
+		  
+		  fill: {
+		    colors: [function({ value }) {
+		        if(value < 35) {
+		            return '#0000FF'
+		        } else if (value >= 35 && value < 50) {
+		            return '#FFD700'} 
+		        else if (value >= 50 && value < 80) {
+		              return '#FF8C00'
+		        } else {
+		            return '#FF0000'
+		        }
+		    }]
+		    
+		  },
+		  stroke: {
+		      dashArray: 2
+		  },
+		  series: [80],
+		  labels: ['SBB DISK'],
+		  
+		}
+
+		var sbbHdisk = new ApexCharts(
+		  document.querySelector("#sbbHdisk"),
+		  disk_options
+		);
+
+		sbbHdisk.render();
+			
+		var sel;
+		var table;
+		function renderTable(){
+			/* if(table){
+				table.clear().destroy();
+			} */
+        	table = $('#syslog-ta').DataTable({
+	            language: {
+	                  searchPlaceholder: 'Search...',
+	                  sSearch: ''
+	            },
+	            "scrollX": true,
+	            "order" : [ [ 0, "desc" ] ],
+	            /* "order": false, */
+	    		"scrollCollapse" : false,
+	    		"paging" : true,
+	    		/* "serverSide": true, */
+	             columnDefs: [
+	               { "targets": [ 8 ], "visible": false }
+	            ], 
+	            select: {
+		            style: 'multi',
+		            blurable: true
+		        },
+	            ajax: {
+	  		        url: ctx+'audit/syslog/unreadlogs',
+	  		        type:'POST',
+	  		        //dataSrc: 'data.list',
+	  		        dataSrc: function(out){
+	  		        	if(!out.data.list){
+	  		        		return [];
+	  		        	}else{
+	  		        		return out.data.list;
+	  		        	}
+	  		        },
+	  		        /* data:{
+	  		        	sbbId: currSbbId,
+	  		        	pg: pg,
+	  		        	pgSize: 10000
+	  		        } */
+	  		      	data: setTbParam
+	  		    },
+			 	columns: [ 
+			 		{'data': 'logNo'},
+					{'data': 'reportedDate'},
+					{'data': 'os'},
+					{'data': 'facility'},
+					{'data': 'priority'},
+					{'data': 'process'},
+					{'data': 'hostName'},
+					{'data': 'message'},
+					{'data': 'logId'}
+				] ,
+				columnDefs: [
+					{ targets: 1, render: function(data,type,row){return moment(data).format(date_foramt_table)}},
+					{ targets: 3, width: '10%'},
+					{ targets: 4, render: function(data,type,row){return translateSeverity(data)}},
+					{ targets: 8, visible: false}
+				],
+				destroy: true,
+				deferRender: true
+	         });
+	
+	         /* $('#syslog-ta tbody').on( 'click', 'tr', function () {
+	            if ( $(this).hasClass('selected') ) {
+	                  $(this).removeClass('selected');
+	            }
+	            else {
+	                  table.$('tr.selected').removeClass('selected');
+	                  $(this).addClass('selected');
+	            }
+	         } ); */
+	         
+	         table.on('xhr.submitComplete', function (data) {
+		  		  //console.log('UI unblocked');
+		  		// console.log(data);
+	 		 });
+	         
+	         table
+		        .on( 'select', function ( e, dt, type, indexes ) {
+		            // console.log("select", e, dt, type, indexes );
+		            sel = table.rows({selected:true}).data();
+		            
+		        } )
+		        .on( 'deselect', function ( e, dt, type, indexes ) {
+		            // console.log("deselect", e, dt, type, indexes );
+		            sel = table.rows({selected:true}).data();
+		        } );
+		}
+		
+		function setTbParam(d){
+			d.sbbId = currSbbId;
+			d.pg = pg;
+			//d.pgSize = pgSize;
+			d.pgSize = 1000;//QQQ
+		}
+		
+        function tbReload(){
+        	table.ajax.reload(function(data){
+        		// console.log(data);
+        	}, true);
+        }
+	  
+       	//ready �뿬湲곗꽌 遺��꽣 �떆�옉 
+ 		regEvent = function(){
+ 			displayMysbbHeader(true);
+ 			regSbbBtns();
+	  		loadPersonalSbbs();
+	  		
+ 			regClearButton();
+ 			
+ 			 setInterval(
+ 				refreshContent
+ 			,refreshRate);
+ 			renderTable();
+ 			refreshContent();
+ 		}
+       	
+       	function refreshContent(){
+       		getHeaderInfo();
+ 			getHeatMapInfo();
+ 			getProcCount();
+ 			//renderTable();
+ 			tbReload();
+       	}
+       	
+ 		function loadPersonalSbbs(){
+	  		var url = ctx+"setting/alarm/mysbbs";
+			var req = $.ajax({
+				type : "POST",
+		        async: false,
+		        dataType: "json",
+		        contentType: "application/json",
+		        url : url,
+		        data: JSON.stringify({})
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					mySbblist = out.data.list;
+					regMysbbSearch(mySbblist);
+					// console.log('sbblist loaded.');
+				}else{
+					// console.log('sbblist lading failure.');
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+			});
+	  	}
+ 		
+ 		//QQQ �씠�쟾寃껉낵 媛숈쑝硫� �옱�룞�옉 諛⑹�?
+ 		onSbbChanged = function(sbbId){
+ 			//console.log(sbbId);
+ 			/* getHeaderInfo();
+ 			getHeatMapInfo();
+ 			getProcCount(); */
+ 			refreshContent();
+ 		}
+       	
+       	function regClearButton(){
+       		$('#clr-button-sys').click( function () {
+                /* table.row('.selected').remove().draw( false ); */
+                // console.log('clear');
+                clearSelRows();
+            } );
+       	}
+       	
+       	function clearSelRows(){
+       		// console.log(sel);
+       		var ids = sel.map(e=>e.logId).join(',');
+       		var params = {logIds: ids};
+    		var url = ctx+"audit/syslog/reviewed";
+    		var req = $.ajax({
+    			type : "POST",
+    	        async: false,
+    	        url : url,
+    	        data: params
+    	    });
+    		req.done(function(out){
+    			if(out.code === 0){
+    				// console.log(out.data);
+    				//remove rows
+    				var rows = table.rows( '.selected' );
+    				//rows.delete(); //not working
+    				if(out.data > 0){
+    					rows.remove().draw();
+    				}
+    			}else{
+    			}				
+    		}).fail(function(err){
+    			showAlert('�뜲�씠�꽣 �뾽�뜲�씠�듃�뿉 �떎�뙣�븯���뒿�땲�떎.');
+    		}).always(function(){
+    			
+    		});
+       	}
+       	
+       	function getHeaderInfo(){
+       		var params = {sbbId: currSbbId};
+    		var url = ctx+"audit/syslog/header";
+    		var req = $.ajax({
+    			type : "POST",
+    	        async: false,
+    	        url : url,
+    	        data: params
+    	    });
+    		req.done(function(out){
+    			if(out.code === 0){
+    				setHeaderInfo(out.data);
+    			}else{
+    			}				
+    		}).fail(function(err){
+    			showAlert('�뜲�씠�꽣 議고쉶�뿉 �떎�뙣�븯���뒿�땲�떎.');
+    		}).always(function(){
+    			
+    		});
+       	}
+       	
+       	function setHeaderInfo(data){
+       		if(data == null){
+       			data = {
+       				sbbName: '',
+       				sbbIp: '',
+       				hostName: '',
+       				hostIp: '',
+       				sbbDiskUsage: 0,
+       				sbbCpuUsage: 0,
+       				neuroCount: 0,
+       				syslogCount: 0
+       			};
+       		}
+       		$('#hostName').html(data.hostName);
+       		$('#hostIp').html(data.hostIp);
+       		$('#sbbName').html(data.sbbName);
+       		$('#sbbIp').html(data.sbbIp);
+       		
+       		disk_options.series = [data.sbbDiskUsage];
+       		ApexCharts.exec('header_disk', 'updateOptions', disk_options);
+       		
+       		cpu_options.series = [data.sbbCpuUsage];
+       		ApexCharts.exec('header_cpu', 'updateOptions', cpu_options);
+       		
+       		$('#neuroCount').html(data.neuroCount);
+       		$('#syslogCount').html(data.syslogCount);
+       		if(data.trafficYn === 'Y'){
+       			$('#connection').addClass('connect');
+       			$('#connection').parent().attr('data-content', 'HOST-SBB Connected');
+       		}else{
+       			$('#connection').removeClass('connect');
+       			$('#connection').parent().attr('data-content', 'HOST-SBB Disconnected');
+       		}
+       	}
+       	function getHeatMapInfo(){
+       		var params = {sbbId: currSbbId};
+    		var url = ctx+"audit/syslog/heatmapdata";
+    		var req = $.ajax({
+    			type : "POST",
+    	        async: false,
+    	        url : url,
+    	        data: params
+    	    });
+    		req.done(function(out){
+    			if(out.code === 0){
+    				renderHeatmap(out.data.list);
+    			}else{
+    			}				
+    		}).fail(function(err){
+    			showAlert('�뜲�씠�꽣 議고쉶�뿉 �떎�뙣�븯���뒿�땲�떎.');
+    		}).always(function(){
+    			
+    		});
+       	}
+       	function renderHeatmap(list){
+       		
+       		var xaxis = list.map(e=>transformDateFmt(e.reportedDate));
+       		
+       		var series = [
+       			{
+       				name: 'Emergency',
+       				data: []
+       			},
+       			{
+       				name: 'Alert',
+       				data: []
+       			},
+       			{
+       				name: 'Critical',
+       				data: []
+       			},
+       			{
+       				name: 'Error',
+       				data: []
+       			},
+       			{
+       				name: 'Warning',
+       				data: []
+       			},
+       			{
+       				name: 'Notice',
+       				data: []
+       			},
+       			{
+       				name: 'Information',
+       				data: []
+       			},
+       			{
+       				name: 'Debug',
+       				data: []
+       			}
+       			
+       		];
+       		list.forEach((e,idx)=>{
+       			
+       			/* var d0 = {x: idx+1, y:e.p0};
+       			var d1 = {x: idx+1, y:e.p1};
+       			var d2 = {x: idx+1, y:e.p2};
+       			var d3 = {x: idx+1, y:e.p3};
+       			var d4 = {x: idx+1, y:e.p4};
+       			var d5 = {x: idx+1, y:e.p5};
+       			var d6 = {x: idx+1, y:e.p6};
+       			var d7 = {x: idx+1, y:e.p7}; */
+       			
+       			/* series.forEach((e,i)=>{
+       				switch(e.name){
+       				case 'Debug':
+       					e.data.push(d0);
+       					return;
+       					...
+       				}
+       			}); */
+       			for(var i=0;i<8;i++){
+       				//series[i].data.push( {x: idx+1, y: e[`p${i}`]} )
+       				series[i].data.push( {x: xaxis[idx], y: e[`p${i}`]} )
+       			}
+       			
+       		});
+       		
+       		options_heatmap.xaxis.categories = xaxis;
+       		options_heatmap.series = series.reverse();
+       		ApexCharts.exec('chart_heatmap', 'updateOptions', options_heatmap);
+       	}
+       	
+       	function getProcCount(){
+       		var params = {sbbId: currSbbId};
+    		var url = ctx+"audit/syslog/processcount";
+    		var req = $.ajax({
+    			type : "POST",
+    	        async: false,
+    	        url : url,
+    	        data: params
+    	    });
+    		req.done(function(out){
+    			if(out.code === 0){
+    				renderProcCount(out.data.list);
+    			}else{
+    			}				
+    		}).fail(function(err){
+    			showAlert('�뜲�씠�꽣 議고쉶�뿉 �떎�뙣�븯���뒿�땲�떎.');
+    		}).always(function(){
+    			
+    		});
+       	}
+       	function renderProcCount(list){
+       		if(list == null || list.length == 0){
+       			//洹몃옒�봽�슜 �뜲�씠�꽣媛� �뾾�뒗 寃쎌슦 �븞�쟾�븯寃� 洹몃옒�봽瑜� 鍮꾩슦�뒗 諛⑸쾿?
+       			options.xaxis.categories = [''];
+           		options.series = [{data:[]},{data:[]}];
+           		ApexCharts.exec('chart_process', 'updateOptions', options);
+           		
+       			return;
+       		}
+       		
+       		var xaxis = list.map(e=>transformDateFmt(e.reportedDate));
+       		var series = [
+       		];
+       		//set process name
+       		var processes = list[0].ps.split(',');
+       		processes.forEach((e,idx)=>{
+				series.push({name: e, data: []});			       			
+       		});
+       		
+       		list.forEach((e,idx)=>{
+       			var counts = e.cnts.split(',');
+       			for(var i=0;i<series.length;i++){
+       				series[i].data.push(counts[i]);
+       			}
+       		});
+       		
+       		options.xaxis.categories = xaxis;
+       		options.series = series;
+       		ApexCharts.exec('chart_process', 'updateOptions', options);
+       	}
+	  </script>
+</body>
+</html>

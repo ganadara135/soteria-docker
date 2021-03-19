@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Login</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+</head>
+<body>
+
+	<div id="background" class="ht-100v d-flex">
+		<div class="back_gradiant">
+			<div
+				class="card_login shadow-none pd-20 mx-auto wd-300 text-center bd-1 align-self-center">
+				<img class="loginLogo" th:src="@{/assets/images/ai.svg}"
+					alt="Soteria Logo">
+				<form>
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text pd-x-9"> <i
+								class="fa fa-envelope"></i></span>
+						</div>
+						<input class="form-control form-control-sm" placeholder="아이디" name="userId" id="userId"
+							type="text">
+					</div>
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input class="form-control form-control-sm" placeholder="비밀번호" id="userPass" name="userPass"
+							type="password">
+					</div>
+					<!--<p class="text-center"><a href="page-password.html">Forget Password?</a></p>-->
+					<div class="form-group">
+						<button id="login"
+							class="btn btn-custom-primary btn-block tx-13 hover-white">
+							Login</button>
+					</div>
+					<button type="button" class="btn btn-custom-primary forget_pw_id" data-toggle="modal" data-target="#m_modal_1">forget Id or Password?</button>
+				</form>
+			</div>
+		</div>
+		<div class="modal" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h2 class="modal-title" id="exampleModalLabel_1">Find ID or PW</h2>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <div class="modal_body_contents">
+                        <p class="modal_body_contents_text">Have you forgot ID or password?</p>
+                        <div class="modal_body_imput_1">
+                           <div class="forget_search" id="fid-div">
+                              <p class ="form-control_name"><strong>Find ID</strong></p>
+                              <div class="form-group input-group">
+                                 <input class="form-control sizz" placeholder="Name*" type="text" maxlength=32 id="fid-name" required>
+                              </div>
+                              
+                              <div class="form-group input-group" >
+                                 <input class="form-control" placeholder="Email*" type="email" maxlength=64 id="fid-email" required>
+                              </div>
+                           	  <div class="form-group input-group">
+                                 <input class="form-control" placeholder="SMS" type="tel" pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
+                                 required id="fid-sms">
+                              </div>
+                              <button type="button" class="btn btn-primary" id="fid-confirm">Confirm</button>
+                           </div>
+                           <div id="fid-rslt" class="forget_search" style="height:420px; display:none;">
+                           		아이디는 <span id="fid-rslt-id"></span>입니다.
+                           </div>
+                           <hr>
+                           <div class="forget_search" id="fpw-div">
+                              <p class ="form-control_name"><strong>Find PW</strong></p>
+                              <div class="form-group input-group">
+                                 <input class="form-control sizz" placeholder="ID" type="text" maxlength=32 id="fpw-id">
+                              </div>
+                              
+                              <div class="form-group input-group">
+                                 <input class="form-control" placeholder="Email" type="email" maxlength=64 id="fpw-email">
+                              </div>
+                              <div class="form-group input-group">
+                                 <input class="form-control" placeholder="SMS" type="tel" pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
+                                 required id="fpw-sms">
+                              </div>
+                              <button type="button" class="btn btn-primary" id="fpw-confirm">Confirm</button>
+                           </div>
+                           <div class="forget_search" id="fpw-rslt" style="height:420px; display:none;">
+                           		등록된 메일로 비밀번호 초기화 요청이 전송 되었습니다.
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+		<div th:replace="fragments/modals/base :: modal"></div>
+		<div th:replace="fragments/modals/base :: modal_initchange"></div>
+        <div th:replace="fragments/modals/base :: modal_expchange"></div>
+        <div th:replace="fragments/modals/base :: modal_otp"></div>
+	</div>
+	<!--/ User Singin End -->
+	<!--================================-->
+	<!-- Footer Script -->
+	<!--================================-->
+	<th:block th:replace="fragments/commonScript"></th:block>
+	<!-- <script th:src="@{assets/plugins/jquery/jquery.min.js}"></script>
+	<script th:src="@{assets/plugins/jquery-ui/jquery-ui.js}"></script>
+	<script th:src="@{assets/plugins/popper/popper.js}"></script>
+	<script th:src="@{assets/css/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{assets/plugins/pace/pace.min.js}"></script>
+	<script th:src="@{assets/js/jquery.slimscroll.min.js}"></script>
+	<script th:src="@{/assets/plugins/toastr/toastr.min.js}"></script>
+	<script th:src="@{/script/common.js}"></script> -->
+
+<!--	<script th:inline="javascript">-->
+<!--		// var ctx =/*[[ @{/} ]]*/;-->
+<!--        var ctx ="\/soteria-admin\/";-->
+<!--	</script>-->
+
+	<script >
+	$(document).ready(function (){
+		 init();
+	});
+	
+	function init(){
+		$('#login').click( function(e){
+			e.preventDefault();
+			login();
+		});
+		
+		$('#fid-confirm').click(function(e){
+			e.preventDefault();
+			findId();
+		});
+		
+		$('#fpw-confirm').click(function(e){
+			e.preventDefault();
+			findPw();
+		});
+		
+		$('#m_modal_1').on('shown.bs.modal', function(e){
+			resetFindId();
+			resetFindPw();
+		});
+        $('#btnModal2Ok').click(function(e){
+            e.preventDefault();
+            changePassInit();
+        });
+
+        $('#btnModal4Ok').click(function(e){
+            e.preventDefault();
+            changePassOld();
+        });
+
+        $('#btnOtp').click(function(e){
+            e.preventDefault();
+            otpAuth();
+        });
+	}
+	
+	
+	var userId = 0;
+	var userName = '';
+	
+	function login(){
+		var id = $('#userId').val();
+		var pass = $('#userPass').val()
+		
+		/* var $form = $('#frmLogin');
+		$form.submit(); */
+		if(!validate(id,pass)){
+			errPop("User ID, Password를 입력 해 주세요.");
+			return;
+		}
+		var param = {userId: id, userPass: pass};
+		var url = ctx+"/auth/logina";
+		var req = $.ajax({
+	        type : "POST",
+	        async: false,
+	        url : url,
+	        data:param
+	    });
+		req.done(function(out){
+			 console.log('Login 성공');
+			if(out.code !== 0){
+				console.log('login - failed:' + out.errMsg);
+				if(out.data){
+					userId = out.data.userId;
+					userName = out.data.userName;
+				}
+				if(out.code === 90000){
+					errPop("해당 사용자가 존재하지 않거나 비밀번호가 맞지 않습니다.");
+				}else if(out.code === 90002){
+					//init pass change
+					showModel2();
+				}else if(out.code === 90003){
+					//exceeded max retry count
+					showModel3();
+				}else if(out.code === 90004){
+					//need to change pass
+					showModal4(out.data.userName);
+				}else{
+					
+					errPop(out.errMsg);
+				}
+				return;
+			}else{
+				
+			}
+
+            console.log("ctx ", ctx)
+			
+// 			location.href = ctx+"dashboard";
+			location.href = ctx+"detection/detectiondetail";
+	        
+		}).fail(function(err){
+			// console.log(err);
+			errPop("로그인 중 에러가 발생했습니다. 다시 시도 해 주세요.");
+		}).always(function(){
+			console.log("done");
+		});
+	}
+    function otpAuth() {
+
+        var otpCode = $('#otpCode').val().replace(' ', '');
+        var logonName = $('#userId').val();
+        if (otpCode === ''){
+            alert("OTP 코드를 입력하세요.");
+            return;
+        }
+
+        var param = {
+            logonName : logonName,
+            otpCode: otpCode
+        };
+        var url = ctx + "/otpauth/beforelogin";
+        var req = $.ajax({
+            type : "GET",
+            async : false,
+            url : url,
+            data : param
+        });
+        req.done( function(out) {
+            // console.log("OTP 인증 시도");
+            if (out.code != 0){
+                alert("OTP 인증 실패");
+                return;
+            }
+            alert("OTP 인증 성공. 완료 버튼을 다시 눌러주세요.");
+            $('#modal_otp_auth').modal('hide');
+        }).fail(function(err) {
+            console.log(err);
+            alert("OTP 인증 중 에러가 발생했습니다. 다시 시도 해 주세요.");
+        }).always(function() {
+            $('#otpCode').val('');
+            console.log("done");
+        });
+    }
+	
+	function errPop(msg){
+		showModal(msg, 'tttt');
+		//alert(msg);
+	}
+	
+	function validate(id, pass){
+		if( !id || !pass){
+			return false;
+		}
+		return true;		
+	}
+	
+	function showModel2(){
+		$('#modal_uname').html(userName);
+		$('#m_modal_2').modal('show');
+	}
+	
+ 	function validation_modal2(){
+ 		var pass1 = $('#txtModal2Pass').val();
+ 		var pass2 = $('#txtModal2Pass2').val();
+ 		if(pass1 === '' || pass2 === ''){
+ 			alert('비밀번호를 입력 해 주세요.');
+ 			return false;
+ 		}
+ 		if(pass1 !== pass2){
+ 			alert('동일한 비밀번호를 입력 해 주세요.');
+ 			return false;
+ 		}
+ 		return true;
+ 	}
+ 	function changePassInit(){
+        if(!validation_modal2()){
+            return;
+        }
+ 		var pass1 = $('#txtModal2Pass').val();
+ 		var pass2 = $('#txtModal2Pass2').val();
+ 		var param = {
+				userId: userId,
+				newPass: pass1,
+			};
+ 		var url = ctx+"/auth/user/changeinitpass";
+		var req = $.ajax({
+	        type : "POST",
+	        async: false,
+	        url : url,
+	        data: param
+	    });
+		req.done(function(out){
+			if(out.code === 50001) {
+                // OTP not authenticated
+                $('#modal_otp_auth').modal('show');
+            }else if(out.code != 0){
+				console.log('password update - failed:' + out.errMsg);
+				alert('변경에 실패 하였습니다.');
+				//location.href = ctx+'login';
+				return;
+			}else{
+				//QQQ 다시 로그인?
+				//location.href = ctx+'dashboard';
+				alert('변경되었습니다. 다시 로그인 해 주세요.');
+				location.href = ctx + 'login';
+			}
+	        
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+			console.log("done");
+		});
+ 	}
+ 	function changePassOld(){
+ 		var oldPass = $('#txtModal4OldPass').val();
+ 		var pass1 = $('#txtModal4Pass1').val();
+ 		var pass2 = $('#txtModal4Pass2').val();
+ 		if(!validateOldPass(oldPass, pass1, pass2)){
+ 			return;
+ 		}
+ 		
+ 		var param = {
+				userId: userId,
+				oldPass: oldPass,
+				newPass: pass1,
+			};
+ 		var url = ctx+"/user/changeoldpass";
+		var req = $.ajax({
+	        type : "POST",
+	        async: false,
+	        url : url,
+	        data: param
+	    });
+		req.done(function(out){
+			if(out.code === 90010){
+				showAlert("이미 사용했던 패스워드는 재사용 할 수 없습니다.");
+				//showModal("이미 사용했떤 패스워드는 재사용 할 수 없습니다.");
+				return;
+			}else if(out.code === 50001) {
+                // OTP not authenticated
+                $('#modal_otp_auth').modal('show');
+            }else if(out.code != 0){
+				console.log('password update - failed:' + out.errMsg);
+				alert('변경에 실패 하였습니다.');
+				//location.href = ctx+'login';
+				return;
+			}else{
+				//QQQ 다시 로그인?
+				//location.href = ctx+'dashboard';
+				alert('변경되었습니다. 다시 로그인 해 주세요.');
+				location.href = ctx + 'login';
+			}
+	        
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+			console.log("done");
+		});
+ 	}
+ 	function validateOldPass(old, new1, new2){
+ 		if(old === '' || new1 === '' || new2 === ''){
+ 			alert('비밀번호를 입력 해주세요.');
+ 			return false;
+ 		}
+ 		if(new1 !== new2){
+ 			alert('신규 비밀번호를 정확히 입력 해주세요.');
+ 			return false;
+ 		}
+ 		//QQQ pattern
+ 		
+ 		return true;
+ 	}
+ 	//show blocked account msg
+ 	function showModel3(){
+ 		var bodyscript = '<div class="modal_body_contents"> \
+                              <p class="modal_body_contents_text"> \
+                              <strong> <i class="fas fa-exclamation-circle"></i>로그인 횟수가 5회 초과되었습니다.</strong><br> \
+                              5초과시 해당계정은 정지됩니다.</p> \
+                          </div>';
+		showModal(bodyscript);
+ 	}
+ 	
+ 	//change old password
+ 	function showModal4(userName){
+ 		$('#modal3Uname').html(userName);
+ 		$('#m_modal_3').modal('show');
+ 	}
+ 	
+ 	function findId(){
+ 		var name = $('#fid-name').val();
+ 		var email = $('#fid-email').val();
+ 		var sms = $('#fid-sms').val();
+ 		
+ 		if(name == ''){
+ 			showAlert('Name을 입력 해 주세요.');
+ 			return;
+ 		}
+ 		
+ 		if(email == '' && sms == ''){
+ 			showAlert('Email 혹은 SMS를 입력 해 주세요.');
+ 			return;
+ 		}
+ 		
+ 		var params = {
+ 				userName: name,
+ 				email: email,
+ 				sms: sms
+ 		};
+ 		
+ 		var url = ctx + "/user/findId";
+		var req = $.ajax({
+			type : "POST",
+			async : false,
+			url : url,
+			data : params
+		});
+
+		req.done( function(out) {
+			if(out.code == 0){
+				if(out.data == undefined){
+					showModal("사용자를 찾을 수 없습니다.");
+				}
+				showFindIdResult(out);
+				
+			}else{
+				showModal("처리 중 오류가 발생 했습니다.");
+			}
+		}).fail(function(err) {
+			console.log(err);
+			errPop("처리 중 에러가 발생했습니다. 다시 시도 해 주세요.");
+		}).always(function() {
+			console.log("done");
+		});
+ 	}
+ 	
+ 	function findPw(){
+ 		var id = $('#fpw-id').val();
+ 		var email = $('#fpw-email').val();
+ 		var sms = $('#fpw-sms').val();
+ 		
+ 		var params = {
+ 				logonName: id,
+ 				email: email,
+ 				sms: sms
+ 		};
+ 		
+ 		var url = ctx + "/user/findPw";
+		var req = $.ajax({
+			type : "POST",
+			async : false,
+			url : url,
+			data : params
+		});
+		req.done( function(out) {
+			if(out.code == 0){
+				
+				showFindPwResult();
+				
+			}else{
+				console.log(out.errMsg);
+				showModal("처리 중 오류가 발생 했습니다.");
+			}
+		}).fail(function(err) {
+			console.log(err);
+			errPop("처리 중 에러가 발생했습니다. 다시 시도 해 주세요.");
+		}).always(function() {
+			console.log("done");
+		});
+ 	}
+ 	
+ 	function showFindIdResult(out){
+ 		if(!out || !out.data){
+ 			return;
+ 		}
+ 		$('#fid-div').hide();
+ 		$('#fid-rslt').show();
+ 		$('#fid-rslt-id').html(out.data.logonName);
+ 	}
+ 	function showFindPwResult(){
+ 		$('#fpw-div').hide();
+ 		$('#fpw-rslt').show();
+ 	}
+ 	function resetFindId(){
+ 		$('#fid-div').show();
+ 		$('#fid-rslt').hide();
+ 		
+ 		$('#fid-name').val('');
+ 		$('#fid-email').val('');
+ 		$('#fid-sms').val('');
+ 	}
+ 	function resetFindPw(){
+ 		$('#fpw-div').show();
+ 		$('#fpw-rslt').hide();
+ 		
+ 		$('#fpw-name').val('');
+ 		$('#fpw-email').val('');
+ 		$('#fpw-sms').val('');
+ 	}
+	</script>
+</body>
+</html>

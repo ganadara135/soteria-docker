@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head th:include="fragments/head :: head"></head>
+<body>
+<style>
+	input {
+		width: 500px;
+		margin-right: 10px;
+	}
+</style>
+	<div class="page-header">
+		<h1>
+			User Info <small>Update user info</small>
+		</h1>
+	</div>
+	<div class="row">
+	<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Logon Name: <strong th:text="${user.logonName}"></strong></h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group">
+			    <li class="list-group-item">User Type: <input id="userType" type="text" th:value="${user.userType}"></input></li>
+			    <li class="list-group-item">User Name: <input id="userName" type="text" th:value="${user.userName}"></input></li>
+			    <li class="list-group-item">EMAIL: <input id="email" type="text" th:value="${user.email}"></input></li>
+			    <li class="list-group-item">CONTACT: <input id="contact" type="text" th:value="${user.contact}"></input></li>
+			    <input id="userId" type="hidden" th:value="${user.userId}"></input>
+			    
+		  	</ul>
+		  	<div class="float-md-right"><button id="updateInfo" class="btn btn-primary">Update</button></div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+	<script th:inline="javascript">
+		var ctx = /*[[ @{/} ]]*/
+	</script>
+	<script>
+	$(document).ready(function (){
+		$('#updateInfo').click(function(){
+			updateUserInfo();
+		});
+	});
+	
+	function updateUserInfo(){
+		var param = {
+			userId: $('#userId').val(),
+			userType: $('#userType').val(),
+			userName: $('#userName').val(),
+			email: $('#email').val(),
+			contact: $('#contact').val(),
+		};
+		console.log(param);
+		var url = ctx+"user/update";
+		var req = $.ajax({
+	        type : "post",
+	        contentType: "application/json",
+	        async: false,
+	        dataType: "json",
+	        url : url,
+	        data: JSON.stringify(param)
+	    });
+		req.done(function(out){
+			console.log('�꽦怨�');
+			if(out.code != 0){
+				console.log('update - failed:' + out.errMsg);
+				return;
+			}
+	        
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+			console.log("done");
+		});
+	}
+	</script>
+</body>
+</html>

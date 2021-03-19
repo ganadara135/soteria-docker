@@ -1,0 +1,335 @@
+[
+  {
+    "ATTACK_ID": "ATTACK_0",
+    "ATTACK_NAME": "Unknown Attack",
+    "ATTACK_DESCRIPTION": "등록안된 공격 발생",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": null
+  },
+  {
+    "ATTACK_ID": "ATTACK_1",
+    "ATTACK_NAME": "Error Based SQL Injection",
+    "ATTACK_DESCRIPTION": "데이터베이스와 연동된 인터프리터에서 비정상적인 입력 데이터를 주입한 뒤 출력된 오류 내용에 기반해 데이터베이스 전체 내용을 유출시키는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_3",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_1"
+  },
+  {
+    "ATTACK_ID": "ATTACK_10",
+    "ATTACK_NAME": "Path Traversal",
+    "ATTACK_DESCRIPTION": "URL 매개 변수를 파일명 등으로 설정해 웹 서버의 파일에 접근하거나 다운로드하는 공격 기법, File Upload/File Download 공격과 상호 연결",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_2",
+    "AM_ID": "AM_10"
+  },
+  {
+    "ATTACK_ID": "ATTACK_11",
+    "ATTACK_NAME": "Null Byte Injection",
+    "ATTACK_DESCRIPTION": "Path Traversal 취약점과 유사, 널 바이트(%00)를 이용해 확장자 검사를 우회하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_2",
+    "AM_ID": "AM_11"
+  },
+  {
+    "ATTACK_ID": "ATTACK_12",
+    "ATTACK_NAME": "File Download",
+    "ATTACK_DESCRIPTION": "URL 매개 변수를 이용해 비정상적으로 웹 서버의 파일을 다운로드 받거나 권한 상승(Privileges Escalation)하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_12"
+  },
+  {
+    "ATTACK_ID": "ATTACK_13",
+    "ATTACK_NAME": "File Upload",
+    "ATTACK_DESCRIPTION": "게시판 추가 기능을 이용해 웹 서버로 악성 코드(webshell)를 주입시키는 공격 기법, File Download/Path Traversal 공격과 상호 연결",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_13"
+  },
+  {
+    "ATTACK_ID": "ATTACK_14",
+    "ATTACK_NAME": "Cross Site Request Forgery",
+    "ATTACK_DESCRIPTION": "인증된 사용자와 웹 서버 사이에 형성된 신뢰 관계 사이에서 공격자가 웹 서버를 통해 가입자의 정보를 조작하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_14"
+  },
+  {
+    "ATTACK_ID": "ATTACK_15",
+    "ATTACK_NAME": "OS Command Injection",
+    "ATTACK_DESCRIPTION": "OS 명령어를 URL 매개 변수에 주입해 서버 운영 체제에 접근하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_15"
+  },
+  {
+    "ATTACK_ID": "ATTACK_16",
+    "ATTACK_NAME": "XPath Injection",
+    "ATTACK_DESCRIPTION": "데이터베이스와 연동된 인터프리터에서 조작한 XPath 또는 XQuery 질의문을 주입해 XML 문서로부터 미인증 데이터를 열람할 수 있는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_16"
+  },
+  {
+    "ATTACK_ID": "ATTACK_17",
+    "ATTACK_NAME": "Stored XSS",
+    "ATTACK_DESCRIPTION": "웹 서버의 게시판에 악의적인 자바스크립트 코드를 저장한 게시물을 작성한 뒤 사용자의 ClickJacking을 유도해 사용자의 웹 브라우저로부터 정보를 탈취하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_17"
+  },
+  {
+    "ATTACK_ID": "ATTACK_18",
+    "ATTACK_NAME": "Reflected XSS",
+    "ATTACK_DESCRIPTION": "악의적인 자바스크립트 코드를 삽입한 URL 주소를 전송한 뒤 사용자의 ClickJacking을 유도하면 웹 서버의 응답을 통해 사용자의 정보를 탈취하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_18"
+  },
+  {
+    "ATTACK_ID": "ATTACK_19",
+    "ATTACK_NAME": "Dom Based XSS",
+    "ATTACK_DESCRIPTION": "악의적인 자바스크립트 코드를 삽입한 URL 주소를 작성한 뒤 사용자의 ClickJacking을 유도해 사용자의 정보를 탈취하는 일종의 스미싱 공격 기법, Reflected XSS 취약점에서는 경유할 서버가 필요하지만 DOM Based XSS 취약점에서는 경유할 서버가 불필요",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_19"
+  },
+  {
+    "ATTACK_ID": "ATTACK_2",
+    "ATTACK_NAME": "Union SQL Injection",
+    "ATTACK_DESCRIPTION": "데이터베이스와 연동된 인터프리터에서 union 구문을 주입해 여러 테이블의 내용을 하나의 결과로 유출시키는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_2",
+    "AS_ID": "AS_2",
+    "AM_ID": "AM_2"
+  },
+  {
+    "ATTACK_ID": "ATTACK_20",
+    "ATTACK_NAME": "HTTP Session Hijacking",
+    "ATTACK_DESCRIPTION": "스니핑 또는 무작위 대입 추측 등을 통해 타인의 HTTP Session ID를 탈취하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_20"
+  },
+  {
+    "ATTACK_ID": "ATTACK_21",
+    "ATTACK_NAME": "Brute Force",
+    "ATTACK_DESCRIPTION": "특정한 계정의 비번을 해독하기 위해 모든 경우의 수를 무작위로 대입하는 공격 기법, 반면, 사전(Dictionary) 대입은 사용 가능한 비번 목록에 기반해 순차적으로 대입하는 공격 기법을 의미",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_21"
+  },
+  {
+    "ATTACK_ID": "ATTACK_22",
+    "ATTACK_NAME": "ShellShock",
+    "ATTACK_DESCRIPTION": "GNU bash 환경에서 원격으로 OS 명령어를 실행시킬 수 있는 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_22"
+  },
+  {
+    "ATTACK_ID": "ATTACK_23",
+    "ATTACK_NAME": "Heartbleed",
+    "ATTACK_DESCRIPTION": "요청 문자열의 실제 길이와 문자열 길이 정보의 일치 여부 검사를 생략하는 문제 때문에 서버에 저장된 암호문 등이 외부에 유출되는 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_23"
+  },
+  {
+    "ATTACK_ID": "ATTACK_24",
+    "ATTACK_NAME": "SSL Flooding",
+    "ATTACK_DESCRIPTION": "SSL/TLS 통신을 시작하기 전에 수행하는 SSL/TLS Handshake 기능을 이용해 반복적으로 Client Hello 신호를 전송해 SSL 서버에 과부하를 가하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_24"
+  },
+  {
+    "ATTACK_ID": "ATTACK_25",
+    "ATTACK_NAME": "HTTP GET Flooding",
+    "ATTACK_DESCRIPTION": "웹 서버는 GET 지시자를 받으면 기본 페이지로 응답을 보내는 속성을 악용해 반복적으로 GET 지시자를 전송해 웹 서버에 과부하를 가하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_25"
+  },
+  {
+    "ATTACK_ID": "ATTACK_26",
+    "ATTACK_NAME": "Slow HTTP Header(Slowloris)",
+    "ATTACK_DESCRIPTION": "HTTP 헤더와 HTTP 바디 사이의 구분자를 조작한 뒤 반복적으로 전송해 웹 서버에 과부하를 가하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_26"
+  },
+  {
+    "ATTACK_ID": "ATTACK_27",
+    "ATTACK_NAME": "SLOW HTTP POST(Rudy)",
+    "ATTACK_DESCRIPTION": "HTTP 바디 길이 정보를 조작한 뒤 반복적으로 전송해 웹 서버에 과부하를 가하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_27"
+  },
+  {
+    "ATTACK_ID": "ATTACK_28",
+    "ATTACK_NAME": "Slow HTTP Read",
+    "ATTACK_DESCRIPTION": "TCP 헤더의 Window Size 항목을 0으로 설정한 뒤 반복적으로 전송해 웹 서버에 과부하를 가하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_28"
+  },
+  {
+    "ATTACK_ID": "ATTACK_29",
+    "ATTACK_NAME": "HTTP Response Splitting(CRLF Injection)",
+    "ATTACK_DESCRIPTION": "개행 문자(CLRF)의 속성을 이용해 HTTP 응답 헤더 안에 또 다른 HTTP 헤더를 생성하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_29"
+  },
+  {
+    "ATTACK_ID": "ATTACK_3",
+    "ATTACK_NAME": "Stored Procedure SQL Injection",
+    "ATTACK_DESCRIPTION": "데이터베이스와 연동된 인터프리터에서 저장 프로시저 구문을 주입해 테이블에 접근하거나 서버를 제어하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_3",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_3"
+  },
+  {
+    "ATTACK_ID": "ATTACK_30",
+    "ATTACK_NAME": "Stack Buffer Overflow",
+    "ATTACK_DESCRIPTION": "입력 데이터를 스택 버퍼 용량 이상으로 초과 입력해 인접한 복귀 주소 영역에서 공격자가 의도했던 악의적인 함수의 시작 번지를 덮어 쓴 뒤 해당 함수를 실행하거나 권한 상승하는 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_2",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_30"
+  },
+  {
+    "ATTACK_ID": "ATTACK_31",
+    "ATTACK_NAME": "Heap Buffer Overflow",
+    "ATTACK_DESCRIPTION": "입력 데이터를 힙 버퍼 용량 이상으로 초과 입력해 함수 포인터 등을 덮어 쓴 뒤 공격자가 설정한 악의적인 함수를 실행하거나 권한 상승하는 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_2",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_31"
+  },
+  {
+    "ATTACK_ID": "ATTACK_32",
+    "ATTACK_NAME": "Format String",
+    "ATTACK_DESCRIPTION": "C/C++ 언어 환경에서 %s 등과 같은 형식 문자열 설정 누락 때문에 메모리 번지 주소가 노출되는 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_2",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_32"
+  },
+  {
+    "ATTACK_ID": "ATTACK_33",
+    "ATTACK_NAME": "Race Condition",
+    "ATTACK_DESCRIPTION": "프로세스들이 여러 번 실행하는 과정에서 실행 순서가 뒤바뀌면서 일반 사용자가 권리자 권한을 획득하는 일종의 Privileges Escalation 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_2",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_33"
+  },
+  {
+    "ATTACK_ID": "ATTACK_34",
+    "ATTACK_NAME": "Remote Code Execution",
+    "ATTACK_DESCRIPTION": "소프트웨어 버그 또는 구조적 한계 등에 기반해 악의적인 코드를 원격에서 주입시키는 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_34"
+  },
+  {
+    "ATTACK_ID": "ATTACK_35",
+    "ATTACK_NAME": "Privileges Escalation",
+    "ATTACK_DESCRIPTION": "소프트웨어 버그 또는 구조적 한계 등에 기반해 일반 사용자가 권리자 권한을 획득할 수 있는 취약점",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_35"
+  },
+  {
+    "ATTACK_ID": "ATTACK_36",
+    "ATTACK_NAME": "Server Side Request Forgery(SSRF)",
+    "ATTACK_DESCRIPTION": "DMZ에 있는 서버의 취약점을 경유해 내부망에 있는 서버나 클라이언트로 침투하는 일련의 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_36"
+  },
+  {
+    "ATTACK_ID": "ATTACK_4",
+    "ATTACK_NAME": "Mass SQL Injection",
+    "ATTACK_DESCRIPTION": "데이터베이스와 연동된 인터프리터에서 SQL 구문에 악의적인 자바스크립트 코드를 설정해 데이터베이스의 모든 레코드에 해당 코드를 주입시키는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_3",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_4"
+  },
+  {
+    "ATTACK_ID": "ATTACK_5",
+    "ATTACK_NAME": "Blind SQL Injection",
+    "ATTACK_DESCRIPTION": "데이터베이스와 연동된 인터프리터에서 오류 메세지가 출력되지 않는 경우 SQL 질의문의 참거짓 동작으로 데이터베이스 구조를 파악하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_3",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_5"
+  },
+  {
+    "ATTACK_ID": "ATTACK_6",
+    "ATTACK_NAME": "Local File Inclusion",
+    "ATTACK_DESCRIPTION": "Path Traversal 취약점과 유사, 웹 서버 내 로컬 파일을 include() 계열의 함수를 사용해 해당 서버로 접근하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_2",
+    "AS_ID": "AS_3",
+    "AM_ID": "AM_6"
+  },
+  {
+    "ATTACK_ID": "ATTACK_7",
+    "ATTACK_NAME": "Remote File Inclusion",
+    "ATTACK_DESCRIPTION": "PHP 환경 등에서 include() 계열 함수가 포함된 파일을 작성해 원격에서 웹 서버로 주입시키는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_1",
+    "AM_ID": "AM_7"
+  },
+  {
+    "ATTACK_ID": "ATTACK_8",
+    "ATTACK_NAME": "URL Encoding",
+    "ATTACK_DESCRIPTION": "코드 난독화(Code Obfuscation)의 일환, 공격자가 보안 장비의 차단 정책을 우회하기 위해 입력 데이터를 URL 인코딩 방식으로 변환해 전송하는 공격 기법",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_3",
+    "AM_ID": "AM_8"
+  },
+  {
+    "ATTACK_ID": "ATTACK_9",
+    "ATTACK_NAME": "Directory Listing",
+    "ATTACK_DESCRIPTION": "디렉토리 색인 기능을 통해 웹 서버의 주요 정보가 노출되는 공격 기법, File Upload/File Download/Path Traversal 공격과 상호 연결",
+    "INPUT_DATE": null,
+    "AC_ID": "AC_1",
+    "AS_ID": "AS_3",
+    "AM_ID": "AM_9"
+  }
+]

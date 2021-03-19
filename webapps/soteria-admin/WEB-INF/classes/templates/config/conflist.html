@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>System Settings</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+</head>
+<body>
+      <div>
+         <div class="wrapper">
+               <nav th:replace="fragments/left :: left">
+               </nav>
+         <div class="page-content">
+            <div id="content">
+               <nav th:replace="fragments/gnb :: gnb">
+               </nav>
+            </div>
+            <!-- content -->
+				<div class="ht-100v d-flex">
+				
+				<!--tracker 메뉴위치 start-->
+	            <div class="pageheader pd-t-25 pd-b-35 tracker">
+	                  <div class="pd-t-5 pd-b-5">
+	                     <h1 class="pd-0 mg-0 tx-20 text-overflow">System Setting</h1>
+	                  </div>
+	                  <div class="breadcrumb pd-0 mg-0">
+	                     <a class="breadcrumb-item" href="/"><i class="icon ion-ios-home-outline"></i>Home</a>
+	                     <a class="breadcrumb-item" href="#">Setting</a>
+	                     <span class="breadcrumb-item active">System Setting</span>
+	                  </div>
+	               </div>
+	         <!--tracker 메뉴위치 end-->
+         
+					<div class="card shadow-none pd-20 mx-auto wd-280 text-center bd-1 align-self-center data_table userlist_margin">
+               <!-- Scrollable Table Start -->
+               <!--================================-->
+			   
+               <div class="table_name_h row">
+                  <!-- <button type="button" class="btn btn-custom-primary table_name" id="settingUserTrigger"><i
+                        class="fas fa-plus"></i> 등록</button> -->
+                  <button type="button" class="btn btn-custom-primary table_name" id="userEditTrigger"><i
+                        class="fas fa-pencil-alt"></i> Edit</button>
+               </div>
+               <div class="card-body collapse show" id="collapse7 data_contents">
+
+                  <table id="scrollableTable" class="table hover responsive row-border nowrap text_cen">
+                     <thead>
+                        <tr class="tr_header">
+                        	<th class ='white'>ID</th>
+                            <th>Setting Name</th>
+                            <th>Setting Value</th>
+                            <th>Unit</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr th:each="row:${conflist}" class="tr_hover" th:attr="data-confName=${row.confName}">
+                           <td th:text="${row.confId}"></td>
+                           <td th:text="${row.otherName}"></td>
+                           <td th:text="${row.confValue}" class='white'></td>
+                           <td th:text="${row.unit}"></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+				</div>
+				<div class="settingUser" id="settingConfig">
+			         <div class="wrapper" id="demoSettingSidebarScroll">
+			            <!--<i class="ion-ios-close-empty closed-btn"></i>-->
+			            
+			             <div class="card shadow-none pd-20 mx-auto wd-280 text-center bd-1 align-self-center singupPad">
+				            <h4 class="sidebar_header">System Setting Edit</h4>
+				            <h5 class="staninfo">Basic Information</h5>
+				               <form id="frmRegConfig">
+				                  <p class ="form-control_name">Name</p>
+				                  <div class="form-group input-group">
+				                     <input class="form-control sizz" placeholder="Name" type="text" id="otherName" readonly>
+				                  </div>
+				                  <p class ="form-control_name">Value</p>
+				                  <div class="form-group input-group">
+				                        <input class="form-control sizz" placeholder="Value" type="text" id="confValue" maxlength="128">
+				                  </div>
+				                  <p class ="form-control_name">Unit</p>
+				                  <div class="form-group input-group">
+				                     <input class="form-control sizz" placeholder="Unit" type="text" id="unit" readonly>
+				                  </div>
+				                  <input type="hidden" id="confId"></input>
+				              	  <input type="hidden" id="confName"></input>
+				               </form>
+				               <div class="form-group">
+				                     <button type="submit" class="btn btn-custom-primary btn-block tx-13" id="btnRegConf"> Confirm </button>
+				             </div>
+				            </div>
+			            </div>
+			      </div>
+				<footer th:replace="fragments/footer :: footer"></footer>
+         </div>
+      </div>
+      </div>
+      <div th:replace="fragments/right :: right"></div>
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+	  <script>
+	  	var actionMode = "add";//add, edit
+	  	var clickAdd = false;
+	  	regEvent = function(){
+	  		$('#btnRegConf').click(function(){
+	  			doAction();
+	  		});
+	  		
+	  		var $editSidebar = $( "#settingConfig" );
+	  		$editSidebar.simplerSidebar( {
+	  			attr: "sidebar-main",
+	  			init: "closed",
+	  			selectors: {
+	  				trigger: "#userEditTrigger",
+	  				quitter: ".quitter"
+	  			},
+	  			animation: {
+	  				easing: "easeOutQuint"
+	  			},
+	  			events: {
+	  				callbacks: {
+	  					animation: {
+	  						open: function(){
+	  							console.log('edit open');
+	  						},
+	  						close: function(){
+	  							console.log('edit close');
+	  						}
+	  					}
+	  				}
+	  			}
+	  		} );
+	  	}
+	  	
+	  	function reset(){
+	  		$('#frmRegConfig')[0].reset();
+	  	}
+	  	
+	  	var row = null;
+	  	var sel = null;
+		var table = $('#scrollableTable').DataTable({
+			autoWidth:true,
+			 select: {
+	            style: 'os',
+	            blurable: true
+	        },
+			responsive : true,
+			language : {
+				searchPlaceholder : 'Search...',
+				sSearch : ''
+			},
+			"order" : [ [ 0, "asc" ] ],
+			"scrollY" : "300px",
+			"scrollCollapse" : false,
+			"paging" : false, 
+		});
+		table
+	        .on( 'select', function ( e, dt, type, indexes ) {
+	            console.log("select", e, dt, type, indexes );
+	            row = table.rows({selected:true}).data()[0];
+	            if(type=='row'){
+	            	var node = dt.rows( indexes ).nodes()[0];
+	            	var confName = $(node).data('confname');
+	            	row.confName = confName;
+	            }
+	            console.log(">>",row);
+	            
+	            setEdit();
+	        } )
+	        .on( 'deselect', function ( e, dt, type, indexes ) {
+	            console.log("deselect", e, dt, type, indexes );
+	            row = null;
+	        } );
+	
+		function setEdit(){
+        	$('#confId').val(row[0]);
+			$('#confName').val(row.confName);
+			$('#otherName').val(row[1]);
+			$('#confValue').val(row[2]);
+			$('#unit').val(row[3]);
+		}
+        
+		function doAction(){
+			doEdit();
+		}
+		
+		function doEdit(){
+			var params = {
+					confName: $('#confName').val(),
+					confValue: $('#confValue').val(),
+					otherName: $('#otherName').val(),
+					unit: $('#unit').val()
+			};
+			if(!validate(params)){
+				
+				return;
+			}
+			
+			var url = ctx+"setting/updateconf";
+			var req = $.ajax({
+		        type : "POST",
+		        async: false,
+		        dataType: "json",
+		        contentType: "application/json",
+		        url : url,
+		        data: JSON.stringify(params)
+		    });
+			req.done(function(out){
+				if(out.code === 0){
+					showAlert('시스템 설값이 정상적으로 수정 되었습니다.');
+					reset();
+					location.reload();
+				}else{
+					showAlert('시스템 설정값 수정에 실패 하였습니다.\n' + out.errMsg);
+				}				
+			}).fail(function(err){
+				console.log(err);
+			}).always(function(){
+				
+			});
+		}
+		
+		function validate(params){
+			//QQQ sys conf data validation
+			
+			return true;
+		}
+	  </script>
+</body>
+</html>

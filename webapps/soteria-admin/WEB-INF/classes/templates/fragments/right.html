@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:if="${user.userType == 100}" class="sidebar_sbb" id="demoSettingSidebar" th:fragment="right">
+         <div class="wrapper_1" id="demoSettingSidebarScroll">
+            <a class="demo-settings-icon" id="demoSettingSidebarTrigger" aria-haspopup="true" aria-expanded="false">S<br>B<br>B</a>	
+            <div class="sidebar_sbb_header">
+               <h4><span th:text="${user.userName}"></span></h4>
+               <hr class="hr-st">
+               <div class="md-form mt-0 input-group" id="mySbbHeader" style="display:none;">
+                   <input id="serverSrch" class="form-control-1 input-group sear-tet" type="text" placeholder="Search" aria-label="Search">
+               </div>
+            </div>
+             <div class="sidebar_sbb_body" id="mySbbContainer">
+               <div th:each="server, index:${user.sbbList}" >
+	               <div class ="grid-sbb" th:attr="data-sbbId=${server.sbbId}"> 
+	                  <div class="sbb_view" th:classappend="${index.index} == 0 ? active:''">
+	                     <button class = "btn input-group sbbCom">HOST NAME <br><span th:text="${server.hostName}">HOSTNAME</span></button>
+	                  </div>
+	                  <div class="connectsbb">-------</div>
+	                  <div class="sbb_view" th:classappend="${index.index} == 0 ? active:''">
+	                        <button class="btn input-group sbbCom">SBB NAME<br><span th:text="${server.sbbName}">SBBNAME</span></button>
+	                  </div>
+	               </div>
+	               <hr class="sbb-hr">
+               </div>
+            </div>
+            <div id="sampleMyServer" style="display:none;">
+               <div class ="grid-sbb" data-sbbId=""> 
+                  <div class="sbb_view">
+                     <button class = "btn input-group sbbCom">HOST NAME<br><span id="hostname">HOSTNAME</span></button>
+                  </div>
+                  <div class="connectsbb">-------</div>
+                  <div class="sbb_view">
+                        <button class="btn input-group sbbCom">SBB NAME<br><span id="sbbname">SBBNAME</span></button>
+                  </div>
+               </div>
+               <hr class="sbb-hr">
+            </div>
+         </div>
+      </div>
+      
+      
+      
+      
+      
+      <div th:if="${user.userType == 200}" class="sidebar_sbb" id="demoSettingSidebar" th:fragment="right">
+         <div class="wrapper_1" id="demoSettingSidebarScroll">
+            <a class="demo-settings-icon" id="demoSettingSidebarTrigger" aria-haspopup="true" aria-expanded="false">S<br>B<br>B</a>	
+            <div class="sidebar_sbb_header">
+               <h4><span th:text="${user.userName}"></span></h4>
+               <hr class="hr-st">
+               <div class="md-form mt-0 input-group" id="mySbbHeader" style="display:none;">
+                   <input id="serverSrch" class="form-control-1 input-group sear-tet" type="text" placeholder="Search" aria-label="Search">
+               </div>
+            </div>
+             <div class="sidebar_sbb_body" id="mySbbContainer">
+               <div th:each="server, index:${user.sbbList}" >
+	               <div class ="grid-sbb" th:attr="data-sbbId=${server.sbbId}"> 
+	                  <div class="sbb_view" th:classappend="${index.index} == 0 ? active:''">
+	                     <button class = "btn input-group sbbCom">HOST NAME <br><span th:text="${server.hostName}">HOSTNAME</span></button>
+	                  </div>
+	                  <div class="connect">-------</div>
+	                  <div class="sbb_view" th:classappend="${index.index} == 0 ? active:''">
+	                        <button class="btn input-group sbbCom">SBB NAME<br><span th:text="${server.sbbName}">SBBNAME</span></button>
+	                  </div>
+	               </div>
+	               <hr class="sbb-hr">
+               </div>
+            </div>
+            <div id="sampleMyServer" style="display:none;">
+               <div class ="grid-sbb" data-sbbId=""> 
+                  <div class="sbb_view">
+                     <button class = "btn input-group sbbCom">HOST NAME<br><span id="hostname">HOSTNAME</span></button>
+                  </div>
+                  <div class="connect">-------</div>
+                  <div class="sbb_view">
+                        <button class="btn input-group sbbCom">SBB NAME<br><span id="sbbname">SBBNAME</span></button>
+                  </div>
+               </div>
+               <hr class="sbb-hr">
+            </div>
+         </div>
+      </div>
+</body>
+</html>

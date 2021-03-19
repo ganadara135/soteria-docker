@@ -1,0 +1,56 @@
+version: "3.6"
+services:
+    tomcat:
+      image: tomcat:8.5
+      container_name: tomcat85
+      ports:
+        - "8888:8080"
+      volumes:
+        - type: bind
+          source: /home/ubuntu2/soteria/conf
+          target: /usr/local/tomcat/conf
+        - type: bind
+          source: /home/ubuntu2/soteria/webapps
+          target: /usr/local/tomcat/webapps
+        - type: bind
+          source: /home/ubuntu2/soteria/logs
+          target: /soteria/ManagerFiles/log        
+      networks:
+        - soteria-net
+      # depends_on:        
+      #   - adminer      
+
+    # db:
+    #   image: mariadb/server:10.4
+    #   container_name: mariadb_prod
+    #   ports:
+    #     - "3307:3307"
+    #   environment:
+    #     MYSQL_ROOT_PASSWORD: "root"
+    #     MYSQL_DATABASE: "DB_SOTERIA_SEOUL"
+    #     MYSQL_USER: "soteria"
+    #     MYSQL_PASSWORD: "soteria"
+    #     MYSQL_TCP_PORT: 3307
+    #     TZ: "Asia/Seoul"
+    #   volumes:
+    #     - type: bind
+    #       source: /home/ubuntu2/soteria/mariadb/cnf
+    #       target: /etc/mysql/conf.d
+    #       read_only: true
+    #     - type: volume
+    #       source: soteria-data-prod2
+    #       target: /var/lib/mysql
+    #       read_only: false
+    #     # - /home/ubuntu2/work/mariadb/cnf:/etc/mysql/conf.d
+    #     # - rdb-data:/var/lib/mysql
+    #   networks:
+    #     - soteria-net      
+
+
+
+networks:
+        soteria-net:
+                driver: bridge
+# volumes:
+#         soteria-data-prod2:
+#                 name: soteria-data-prod2

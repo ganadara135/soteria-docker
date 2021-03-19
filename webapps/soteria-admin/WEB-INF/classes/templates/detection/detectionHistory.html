@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Detection History</title>
+	<th:block th:replace="fragments/commonHead"></th:block>
+	<script th:src="@{/script/js/sockjs.js}"></script>
+	<script th:src="@{/script/js/stomp.min.js}"></script>
+
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/jquery.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/buttons.dataTables.min.css}">
+</head>
+<body>
+<div>
+	<div class="wrapper">
+		<nav th:replace="fragments/left :: left"></nav>
+		<div class="page-content">
+			<div id="content">
+				<nav th:replace="fragments/gnb :: gnb"></nav>
+			</div>
+			<!-- content -->
+			<div class="pd-l-70 d-flex">
+<!--			<div class="ht-100v d-flex">-->
+
+				<div class="tracker_ts">
+                   <div class="pd-t-5 pd-b-5">
+                      <h1 class="pd-0 mg-0 tx-20 text-overflow">Attack detection history</h1>
+                   </div>
+                   <div class="breadcrumb pd-0 mg-0">
+					   Home / Attack detection history
+                   </div>
+                   <div style="display:none;">
+                   <button id="playAudio" type="button" onClick="audio.play();" value="PLAY">play</button>
+	   			   <button type="button" onClick="audio.pause();" value="PAUSE">pause</button>
+	   			   </div>
+                 </div>
+
+				<div class="card_dashboard shadow-none mx-auto text-center bd-transparent bg-transparent align-self-center data_table">
+<!--				<div class="card shadow-none pd-20 mx-auto wd-280 text-center bd-1 align-self-center data_table">-->
+					<div class="collapse show" id="collapse7 data_contents">
+						<div  class="srchDate">
+							<input type="text" id="srchStartDate" name="srchStartDate" placeholder="년-월-일"  />
+							<span class="">~</span>
+							<input type="text" id="srchEndDate" name="srchEndDate" placeholder="년-월-일"  />
+						</div>
+						<table id="threat_table" class="table hover responsive row-border nowrap text_cen">
+							<thead>
+								<tr class="table_detect">
+									<th><strong>Log Id</strong></th>
+									<th><strong>Threat level</strong></th>
+									<th><strong>Attack Type</strong></th>
+									<th><strong>Attack Time</strong></th>
+									<th><strong>Attack Name</strong></th>
+									<th><strong>Src IP</strong></th>
+									<th><strong>Dst IP</strong></th>
+									<th><strong>Dst Port</strong></th>
+									<th><strong>Protocol</strong></th>
+									<th><strong>Payload</strong></th>
+									<th><strong>Description</strong></th>
+									<th><strong>Mitigation</strong></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			  </div>
+			      	
+ 			 <div class="modal up_z" id="modal_Mitigation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_1" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog tim-al" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h2 class="modal-title" id="exampleModalLabel_1">Attack Mitigation</h2>
+                           <button title="닫기" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true"><i class="ion-ios-close-empty"></i></span>
+                           </button>
+                        </div>
+                        <div class="modal-body" id="modal_body_print">
+                     
+                            <div class="modal_body_contents attack_miti">
+		                    	<h5 class="attack_modal_info line-color">공격 정보</h5>
+		                    	<p>Attack Information</p>
+                                 <table class="table hover responsive row-border nowrap text_cen">
+									<thead>
+										<tr class="attack_info_modal ">
+											<th style="font-weight:bold;">공격 위험도</th>
+											<th style="font-weight:bold;">탐지시간</th>
+											<th style="font-weight:bold;">공격명</th>
+											<th style="font-weight:bold;">공격 분류</th>
+										</tr>
+										<tr>
+											<td id="attackSeverityText"></td>
+											<td id="attackTimeText"></td>
+											<td id="attackNameText"></td>
+											<td id="attackClassificationText"></td>
+										</tr>
+									</thead>
+								</table>
+		                    	
+								<table id="measure_history_table" class="table hover responsive row-border nowrap text_cen">
+									<thead>
+										<tr class="attack_info_modal">
+											<th style="font-weight:bold;">출발지 IP주소</th>
+											<th style="font-weight:bold;">목적지 IP주소</th>
+											<th style="font-weight:bold;">익스플로잇</th>
+											<th style="font-weight:bold;">목적지 Port 번호</th>
+											<th>&nbsp;</th>
+										</tr>
+										<tr>
+											<td id="srcIpText"></td>
+											<td id="destIpText"></td>
+											<td id="protocolText"></td>
+											<td id="destPortText"></td>
+											<td>&nbsp;&nbsp;&nbsp;</td>
+										</tr>
+									</thead>
+								</table>
+								
+								<table id="payLoad_table" class="table hover responsive row-border nowrap text_cen">
+									<thead>
+										<tr class="attack_info_modal">
+											<th style="font-weight:bold;">전송데이터</th>
+										</tr>
+										<tr>
+											<td id="payLoadText"></td>
+										</tr>
+									</thead>
+								</table>
+								
+								<hr>
+								
+								<h5 class="attack_modal_info line-color">공격 설명</h5>
+								<p>Attack Explanation</p>
+		                    	<h6 id="attackDescriptionText" style="white-space:pre-line;line-height: 2rem; text-align: justify;"></h6>
+		                    	<h5 id="mitigation_name" class="modal_body_contents_text-1"></h5>
+	                            <h6 id="mitigation_discription"></h6>
+		                    	<hr>
+		                    	
+		                    	<h5 class="attack_modal_info line-color">공격 대응 방안</h5>
+		                    	<p>Attack Mitigation</p>
+		                    
+								<h6 id="attackMitigationText" style="white-space:pre-line;line-height: 2rem; text-align: justify;"></h6>
+		                    	
+		                    	
+                                 
+		                    </div>
+                        </div>
+                        <div class="modal-footer">
+                              <button title="저장" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download</button>
+                        	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							    <a class="dropdown-item" href="javascript:exportPdfFile();">PDF</a>
+							    <a class="dropdown-item" href="#">Excel</a>
+							    
+							  </div>
+                        	  
+                        	  <button title="인쇄" type="button" class="btn btn-primary" data-dismiss="modal" onclick="printPage()">Print</button>
+                        	  <button title="조치 페이지로 이동" type="button" class="btn btn-primary" data-dismiss="modal" id="measureBtn">Measure</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               
+         </div>
+      </div>
+      </div>
+	    
+	    
+     <!--  <audio autoplay controls class="sound_hide" style="opacity:0;" id='sound_play' th:src="@{/assets/sound/alertSound.MP3}"></audio>  --> 
+
+      <th:block th:replace="fragments/commonScript"></th:block>
+      <script th:src="@{/assets/js/parsley.js}"></script>
+	  <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/extensions/dataTables.jqueryui.min.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/responsive/dataTables.responsive.js}"></script>
+      <script th:src="@{/assets/plugins/datatables/select/dataTables.select.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/dataTables.buttons.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/jszip.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/pdfmake.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/vfs_fonts.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.html5.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/plugins/datatables/filemaker/buttons.print.min.js}"></script>
+
+<script type="text/javascript">
+var audio = new Audio();
+audio.src="../assets/sound/alertSound.MP3"
+
+regEvent = function(){
+	  initTables();
+	  initDatePicker();
+	  initAlarm();
+	  /* soundPlay(); */
+	  
+	  $('#measureBtn').click(function(){
+		  moveMeasurePage();
+	  });
+
+	// 날짜 검색기능 및 MEASURE_STATUS 처리
+	$('.srchDate').hide();
+
+	$('#threat_table_filter.dataTables_filter').on('change', function () {
+		console.log("변화 체크")
+		console.log($('#threat_table_filter.dataTables_filter select option:selected').val());
+		let selectedVal = $('#threat_table_filter.dataTables_filter select option:selected').val();
+		let inputedVal = $('#threat_table_filter.dataTables_filter input').val();
+		console.log(inputedVal)
+		if(selectedVal == "ATTACK_TIME"){
+			$('.srchDate').show();
+		}else{
+			$('.srchDate').hide();
+			$('#srchStartDate').val('');
+			$('#srchEndDate').val('');
+		}
+	});
+}
+
+function initDatePicker(){
+	$('#srchStartDate, #srchEndDate').datepicker({
+		autoclose: true,
+		dateFormat: 'yy-mm-dd',
+	});
+}
+
+var param = {
+		  pg: 1,
+		  pgSize: 8,
+		  data: {},
+		  totalPg: 1,
+		  draw:1,
+		  srchStartDate: '',
+		  srchEndDate: '',
+		  srchField: '',
+		  srchValue: ''
+};
+
+function tbParams(data){
+ 	data['pg'] = getPg(data.start, param.pgSize);
+	data['pgSize'] = param.pgSize;
+	data['totalPg'] = 1;
+	param.draw = data.draw;
+	data['srchStartDate'] = $('#srchStartDate').val() ? $('#srchStartDate').val()+' 00:00:00.000' : "";
+	data['srchEndDate'] = $('#srchEndDate').val() ? $('#srchEndDate').val()+' 23:59:59.999' : "";
+	data['srchField'] = $('#threat_table_filter.dataTables_filter select option:selected').val();
+	data['srchValue'] = $('#threat_table_filter.dataTables_filter input').val();
+}
+
+function getPg(start, pgSize){
+	  if(start === 0){return 1;}
+	  return (start / pgSize) + 1;
+}
+
+function addSearchField($dom){
+	  if(!$dom){
+		  return;
+	  }
+	  var tag = '<select class="srchfield form-control form-control-sm col-md-4" data-provide="selectpicker"> \
+	  				 <option value="AS_NAME" selected>Threat Level</option>\
+					  <option value="AC_NAME" >Attack Type</option>\
+					  <option value="ATTACK_TIME" >Attack Time</option>\
+		              <option value="ATTACK_NAME" >Attack Name</option>\
+		              <option value="SRC_IP">Source IP</option>\
+		              <option value="DST_IP">Destination IP</option>\
+		              <option value="DST_PORT">Destination Port</option>\
+		              <option value="PROTOCOL">Protocol</option>\
+		         </select></div>';
+	  $dom.prepend(tag);
+}
+
+var table;
+function initTables(){
+	
+	table = $('#threat_table').DataTable({
+		 // "searching": false,
+		"processing": true,
+		"serverSide": true,
+		"pageLength": 8,
+		"scrollCollapse" : false,
+		"pagingType" : "simple_numbers",
+		ajax: {
+		        url: ctx+'detection/detectiondetail/list',
+		        data: tbParams,
+		        method: 'POST',
+		        dataSrc: function(json){
+					// console.log(JSON.stringify(json))
+		        	json.recordsTotal = json.data.total;
+        			json.recordsFiltered = json.data.total;
+        			if(!json.data.list)
+        				json.data.list = [];
+        			
+        			return json.data.list;
+		        }
+		      },
+		language : {
+			searchPlaceholder : 'Search...',
+			sSearch : ''
+		},
+		dom : 'Bfrtip',
+		// buttons: ['csv','pdf'],
+		buttons: [],
+	    columns: [
+	    			{'data': 'logId'},
+	    			{'data': 'asName'},		// 공격 위험도
+					{'data': 'acName'},		// 공격 분류 , DB, OS, APP  == ATTACK_TYPE
+					{'data': 'attackTime'},
+					{'data': 'attackName'},
+					{'data': 'srcIp'},
+					{'data': 'dstIp'},
+					{'data': 'dstPort'},
+					{'data': 'protocol'},
+					{'data': 'payLoad'},
+					{'data': 'attackDescription'},
+					{'data': null}						//  대응방안 입력 부분
+	             ],
+		order : false,
+		scrollY : "100%",
+        columnDefs: [
+	        	{
+	                "targets": [ 0, 9, 10, 11 ],		//logId, payLoad, attackDescription
+	                "visible": false,
+	                "searchable": false
+	            },
+	            {
+	                "targets": [ 4],		// acName
+	                "visible": true,
+	                "searchable": false
+	            },
+
+				// {
+				// 	"targets": [-1],
+				// 	render:function(data, type, row)
+				// 	{
+				// 		var param = data;
+				// 		delete param.payLoad;
+				// 		return "<button title='조치방법 보기' data-toggle='modal' class='btn btn-custom-primary' data-target='#modal_Mitigation' onclick='getMitigationByAmId("+JSON.stringify(param)+")\'><i class='icons ion-ios-plus-empty'></i></button>";
+				// 	}
+				// },
+				{		// 이름 줄이기
+					"targets": 4,
+					render:function(data, type, row)
+					{
+						var merResult = ''+data;
+						var result = merResult.substring(0,16);
+						return result;
+					}
+				}
+
+        	],
+	    initComplete : function() {
+
+	    	var input = $('#threat_table_filter.dataTables_filter input').unbind(),
+	            self = this.api(),
+	            $searchButton = $('<button title="검색" class="btn btn-custom-primary search_btn">')
+	                       .text('search')
+	                       .click(function() {
+	                          self.search(input.val()).draw();
+	                       }),
+	            $clearButton = $('<button title="초기화" class="btn btn-custom-primary">')
+	                       .text('clear')
+	                       .click(function() {
+	                          input.val('');
+	                          $searchButton.click();
+	                       })
+	        	$('#threat_table_filter.dataTables_filter').append( $searchButton, $clearButton);
+		        addSearchField($('#threat_table_filter.dataTables_filter'));
+		        $('#threat_table_filter.dataTables_filter input').bind('keyup',function(e){
+  		        	if(e.keyCode == 13){
+  		        		self.search(this.value).draw();
+  		        	}
+  		        });
+	  	},
+	  	rowCallback: function( row, data ) {
+	  	    
+		  	  if ( data.asName == "HIGH" )
+	          {
+	              $('td:eq(0)', row).html( '<div class="mb-2 bg-danger text-white">HIGH</div>' );
+	          }else if(data.asName == "MEDIUM"){
+	        	  $('td:eq(0)', row).html( '<div class="mb-2 bg-info text-white">MEDIUM</div>' );
+	          } else if(data.asName == "LOW"){
+	        	  $('td:eq(0)', row).html( '<div class="mb-2 bg-success text-white">LOW</div>' );
+	          }
+		 }
+		      
+	});
+}
+
+function getMitigationByAmId(param){
+
+	_selectedLogId = param.logId;
+	
+	var params = {amId : param.amId};
+	
+	var url = ctx+"mitigation/getmitigationbyamid";
+	var req = $.ajax({
+		type : "POST",
+        async: false,
+        url : url,
+        data: params
+    });
+	req.done(function(out){
+		if(out.code === 0){
+		
+			   $('#attackDescriptionText').text(param.attackDescription);
+			   $('#attackSeverityText').text(param.asName);
+			   $('#attackNameText').text(param.attackName);
+			   $('#attackTimeText').text(param.attackTime);
+			   $('#attackClassificationText').text(param.acName);
+			   $('#srcIpText').text(param.srcIp);
+			   $('#destIpText').text(param.dstIp);
+			   $('#protocolText').text(param.protocol);
+			   $('#destPortText').text(param.dstPort);
+			   $('#attackMitigationText').text(out.data.description);
+			   
+			   getPayLoadByLogId();
+			   
+		}else{
+			console.log('Fail Load Attack Mitigation.')
+		}
+	}).fail(function(err){
+		console.log(err);
+	}).always(function(){
+	});
+	
+}
+
+function getPayLoadByLogId(){
+	
+	
+	 var url = ctx+"detection/detectiondetail/payload";
+	   var params = { logId : _selectedLogId };
+	   console.log(JSON.stringify(params));
+		var req = $.ajax({
+			type : "POST",
+	        async: false,
+	        url : url,
+	        data: params
+	    });
+		
+		req.done(function(out){
+			console.log(JSON.stringify(out));
+			if(out.code === 0){
+			   $('#payLoadText').text(out.data.PAYLOAD);
+			}
+		}).fail(function(err){
+			console.log(err);
+		}).always(function(){
+		});
+		
+}
+
+
+function printPage(){
+ var initBody;
+ 
+ window.onbeforeprint = function(){
+  initBody = document.body.innerHTML;
+  document.body.innerHTML =  document.getElementById('modal_body_print').innerHTML;
+ };
+ 
+ window.onafterprint = function(){
+  document.body.innerHTML = initBody;
+ };
+ 
+ window.print();
+ window.location.href=ctx + "detection/detectiondetail";
+}
+
+function exportPdfFile(){
+	
+	var params = { logId : _selectedLogId };
+	
+	var url = ctx+"detection/download/detection/report/create/pdf";
+	var req = $.ajax({
+		type : "POST",
+        async: false,
+        url : url,
+        data: params
+    });
+	req.done(function(out){
+		if(out.code === 0){
+			downloadPdfFile(out.data.fileName);
+		}else{
+			console.log('Fail Create Pdf File.')
+		}
+	}).fail(function(err){
+		console.log(err);
+	}).always(function(){
+	});
+}
+
+function downloadPdfFile(param){
+	var url = ctx+"detection/download/detection/report/down/pdf?fileName="+param;
+	window.location.href = url;
+}
+
+function moveMeasurePage(){
+	var url = ctx+"/measure/detail";
+	window.location.href = url;
+}
+
+/* function soundPlay() {
+    var sound = document.getElementById('sound_play');  
+    sound.play();
+} */
+
+var sock;
+var client;
+
+function initAlarm(){
+	  sock = new SockJS(ctx+"/stomp-alarm");
+	  sock.onhearbeat = function(d){
+		  console.log('>>>hearbeat',d);
+	  }
+	  
+	client = Stomp.over(sock);
+	client.heartbeat.outgoing = 20000;
+	client.heartbeat.incoming = 0;
+	client.connect({},()=>{
+  	  client.subscribe('/subscribe/alarm/detection', (alarm)=>{
+  		  /* $("#sound_play").toggleClass("sound_hide",false);
+  		 
+  		  soundPlay(); */
+  		$('#playAudio').click();
+  		  var content = JSON.parse(alarm.body);
+  		  var msg = `${content.attackTime}<br>${content.attackName} 공격이 발생하였습니다.`;
+  		  showToast('error', msg);
+  		  table.ajax.reload();
+  		  
+   		  if(content.amId){
+  		    $('#modal_Mitigation').modal();
+  		    getMitigationByAmId(content);
+  		  	setModalDetectionInfo();
+   		  }
+   		  
+  	  });
+    },()=>{
+  	  setTimeout(()=>{
+  		  initAlarm();
+  	  },1000);
+    });
+}
+function setModalDetectionInfo(){
+	
+    var rowData = table.row(0).data();
+    $('#attackDescriptionText').text(rowData.attackDescription);
+    $('#attackSeverityText').text(rowData.asName);
+    $('#attackNameText').text(rowData.attackName);
+    $('#attackTimeText').text(rowData.attackTime);
+    $('#attackClassificationText').text(rowData.acName);
+ 	$('#srcIpText').text(rowData.srcIp);
+	$('#destIpText').text(rowData.dstIp);
+	$('#protocolText').text(rowData.protocol);
+	$('#destPortText').text(rowData.dstPort);
+		
+}
+ </script>
+
+</body>
+</html>
