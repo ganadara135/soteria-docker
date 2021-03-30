@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Dashboard</title>
@@ -12,6 +12,91 @@
 	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/select.dataTables.min.css}">
 	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/datatables/select/buttons.dataTables.min.css}">
 	<link type="text/css" rel="stylesheet" th:href="@{/assets/plugins/n3chart/build/nv.d3.css}">
+	<!--		4k 해상도 + 150% 확장에 최적화 와  FHD 화면으로 대시보드 분류  -->
+	<style>
+		@media (min-width: 500px) and (max-width: 2290px) {
+			.viewport_external_line {
+				color: black;
+				height: 83vh;
+				font-size: large;
+			}
+			.viewport_data_contents_first_row {
+				height: 29vh;
+				font-size: large;
+			}
+			.viewport_data_contents_second_row {
+				height: 22vh;
+				padding-top: 22px;
+				/*margin-top: 10px;*/
+				font-size: large;
+			}
+			.viewport_data_contents_third_row {
+				height: 28vh;
+				font-size: large;
+			}
+			.viewport_global_map_size {
+				overflow:visible;
+				height: 23vh;
+				width: 100%;
+			}
+			.viewport_font_data {
+				font-weight: bold;
+				font-size: medium;
+				text-align: left;
+			}
+			.viewport_font_data_table{
+				font-weight: bold;
+				font-size: medium;
+				text-align: center;
+				/*text-justify: auto;*/
+				/*align-self: end;*/
+				align-items: end;
+				align-content: end;
+			}
+		}
+
+		@media (min-width: 2200px)  {
+			.viewport_external_line {
+				/*color: red;*/
+				height: 87vh;
+				font-size: x-large;
+			}
+			.viewport_data_contents_first_row {
+				height: 30vh;
+				font-size: x-large;
+			}
+			.viewport_data_contents_second_row {
+				height: 22vh;
+				padding-top: 30px;
+				font-size: x-large;
+			}
+			.viewport_data_contents_third_row {
+				height: 33vh;
+				font-size: x-large;
+			}
+			.viewport_global_map_size {
+				overflow:visible;
+				height: 28vh;
+				width: 100%;
+			}
+			.viewport_font_data {
+				font-weight: bold;
+				font-size: x-large;
+				text-align: left;
+				color: red;
+			}
+			.viewport_font_data_table{
+				font-weight: bold;
+				font-size: medium;
+				text-align: center;
+				/*text-justify: auto;*/
+				/*align-self: end;*/
+				/*align-items: end;*/
+				/*align-content: end;*/
+				/*justify-content: end;*/
+			}
+		}
+	</style>
 	
 </head>
 <body>
@@ -24,63 +109,61 @@
 			</div>
 			 <!-- content -->
 			<div class="pd-l-70 d-flex">
-<!--               <div class="ht-100v d-flex"> w-100 -->
-			<!--			<div class="pd-l-70 w-100">-->
-<!--			<div style="padding-left:70px; padding-right:10px;">-->
-<!--				<div class="pd-t-25 pd-b-35 tracker_ts">-->
-<!--					<div >-->
-<!--&lt;!&ndash;						class="pd-t-5 pd-b-5"  &ndash;&gt;-->
+
 			<div class="tracker_ts">
 				<div class="pd-t-5 pd-b-5">
-					   <h1 class="pd-0 mg-0 tx-20 text-overflow">Dashboard</h1>
+					   <h2 class="pd-0 mg-0 tx-20 text-overflow">Dashboard</h2>
 					</div>
 					<div class="breadcrumb pd-0 mg-0">
 						Home / Dashboard
 					</div>
 				</div>
 
-				<div class="card_dashboard shadow-none data_table mx-0" style="height: 85vh;">
+				<div class="card_dashboard shadow-none data_table mx-0 viewport_external_line">
+<!--					style="height: 85vh;">-->
 					<div class="data_contents">
-						<div class="row" style="height: 30vh; ">
+						<div class="row viewport_data_contents_first_row" >
+<!--							style="height: 30vh; ">-->
 							<div class="col-md-6  border" >
-								<h4 style="text-align: left;">Attack detection status</h4>
+								<p class="viewport_font_data">Attack detection status</p>
 								<div id="attackClassification_chart" ></div>
 							</div>
 
 							<div class="col-md-6  border" >
-								<h4 style="text-align: left;">Attack type Top 5</h4>
+								<p class="viewport_font_data">Attack type Top 5</p>
 								<div id="attackTop_chart"></div>
 							</div>
 						</div>
 
-						<div class="row border "  style="height: 19vh;">
+						<div class="row  viewport_data_contents_second_row">
 							<table id="detection_info_table" class="col-md-12 table-striped hover table-responsive-md table-bordered nowrap text_cen">
-								<thead>
-									<tr>
+								<thead class="viewport_font_data">
+									<tr >
 	<!--									<th><strong>Log ID</strong></th>-->
-										<th><strong>Level</strong></th>
-										<th><strong>Attack detection</strong></th>
-										<th><strong>Attack mitigation</strong></th>
-										<th><strong>Mitigation</strong></th>
+										<th><p class="viewport_font_data_table">Level</p></th>
+										<th><p class="viewport_font_data_table">Attack detection</p></th>
+										<th><p class="viewport_font_data_table">Attack mitigation</p></th>
+										<th><p class="viewport_font_data_table">Mitigation</p></th>
 									</tr>
 								</thead>
 							</table>
 						</div>
 
-						<div class="row border" style="height: 33vh;">
-<!--							<div class="col-md-6 mr-md-auto divMargin  " >-->
+						<div class="row border viewport_data_contents_third_row" >
+<!--							style="height: 33vh;">-->
 							<div class="col-md-6 ">
-								<h4 style="text-align: left;">Attack Threat level</h4>
+								<p class="viewport_font_data">Attack Threat level</p>
 								<div id="threatLevel_chart" ></div>
 							</div>
 
 							<div class="col-md-6 border-left"  >
-								<h4 style="text-align: left;">Global Attack Status</h4>
+								<p class="viewport_font_data">Global Attack Status</p>
 <!--								이 모듈은 인터넷 연결 상태에서만 작동, 해당 모듈만 추출이 안됨 -->
 <!--								<div id="iembed" style="position: relative;width:100%; ;    padding-bottom:58%;overflow-y:hidden; ">-->
 
 								<iframe id="iembedframe" src="http://metrocosm.com/world-migration.html"  scrolling="no"
-										style="overflow:visible;height: 30vh;width: 100%;"></iframe>
+										class="viewport_global_map_size"></iframe>
+<!--										style="overflow:visible;height: 30vh;width: 100%;"></iframe>-->
 <!--											style="position:absolute;left:0;top:0;transform-origin:top left;overflow-y:hidden;height: 33vh;width: 100%;"></iframe>-->
 
 <!--								<h4 class="graph_title ">글로벌 공격</h4>-->
@@ -91,6 +174,8 @@
 
 	             	</div>
 				</div>
+
+
             </div>
 		</div>
 	</div>
@@ -178,6 +263,8 @@
 	<script type="text/javascript">
 		var innerViewPortHeight = window.innerHeight;		// ViewPort 값 얻기
 
+		// alert("max-width : " + $(this).css("max-width"));
+		// alert("min-width : " + $(this).css("min-width"));
 		var dataTableHandler;
 
 		regEvent = function(){
@@ -444,7 +531,8 @@
 						data: mapAPPSeries
 					}],
 				  chart: {
-					  height: innerViewPortHeight/3.9,
+					  // height: innerViewPortHeight/4.2,
+					  height: '86%',
 					  type: 'line',
 					  toolbar: {
 						// show: true
@@ -525,7 +613,8 @@
 					data: mapSeries
 				}],
 				chart: {
-				  height: innerViewPortHeight/3.9,
+				  // height: innerViewPortHeight/4.2,
+					height: '86%',
 				  type: 'bar',
 				  events: {
 					click: function(chart, w, e) {
@@ -565,7 +654,7 @@
 					labels: {
 						style: {
 						  colors: ["#000"],
-						  fontSize: '12px'
+						  fontSize: '10px'
 						}
 					}
 				}
@@ -619,8 +708,8 @@
 				 // }],
 				 series: mapSeries,
 				 chart: {
-					// height: 300,
-					 height: innerViewPortHeight/3.0,
+					height: '85%',
+					//  height: innerViewPortHeight/3.6,
 					type: 'pie',
 					toolbar: {
 						show: true

@@ -301,7 +301,8 @@ body {
 .newlogo{
 	margin-top: 0.7rem;
 	width: 3rem;
-    margin-left: 2rem;
+	margin-left: 1rem;
+    /*margin-left: 2rem;*/
 }
 .btn-custom-primary_dash {
 	color: rgb(172, 130, 166);
@@ -1959,8 +1960,7 @@ input[type="checkbox"].form-control {
 	background-clip: border-box;
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
+	/*-ms-flex-direction: column;*/
 }
 .card_user_profile{
 	position: absolute;
@@ -4887,7 +4887,8 @@ button:active {
 	transition: all 0.3s;
 }
 .modal-body p{
-	font-weight: 400!important;
+	font-weight: 600!important;
+	font-size: large;
 }
 .modal-body{
 	text-align: left;
@@ -7934,10 +7935,15 @@ div>#history_table_wrapper{
 .forget_pw_id{
 	background: none!important;
     color: #fff;
-    position: absolute;
-	top: 260px;
-	right:7px;	
-    box-shadow:none!important;
+    /*position: absolute;*/
+	/*top: 260px;*/
+	/*right:7px;	*/
+	/*justify-content: right;*/
+	/*justify-items: end;*/
+	/*justify-self: end;*/
+	text-align: right;
+    box-shadow:none;
+	border: none;
 }
 .forget_search{
 	margin-bottom: 2rem;

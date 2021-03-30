@@ -1,0 +1,439 @@
+01:10:41.612 [http-nio-8080-exec-10] INFO  c.s.s.a.controller.AuthController - index.html
+01:10:44.242 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - /login
+01:10:44.243 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+01:18:43.732 [http-nio-8080-exec-10] INFO  c.s.s.a.controller.AuthController - index.html
+01:18:46.688 [http-nio-8080-exec-7] INFO  c.s.s.a.controller.AuthController - /login
+01:18:46.689 [http-nio-8080-exec-7] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+01:28:36.066 [http-nio-8080-exec-8] INFO  c.s.s.a.controller.AuthController - index.html
+01:28:39.074 [http-nio-8080-exec-7] INFO  c.s.s.a.controller.AuthController - /login
+01:28:39.075 [http-nio-8080-exec-7] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+01:28:59.190 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - /login
+01:28:59.190 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+01:29:02.793 [http-nio-8080-exec-5] INFO  c.s.s.a.controller.AuthController - /login
+01:29:02.793 [http-nio-8080-exec-5] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+01:29:03.899 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - /login
+01:29:03.899 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+01:30:05.873 [http-nio-8080-exec-8] INFO  c.s.s.a.controller.AuthController - /login
+01:30:05.874 [http-nio-8080-exec-8] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+01:31:01.831 [http-nio-8080-exec-5] INFO  c.s.s.a.controller.AuthController - /login
+01:31:01.831 [http-nio-8080-exec-5] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+04:37:36.652 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - /login
+04:37:36.652 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+04:37:43.033 [http-nio-8080-exec-8] INFO  c.s.s.a.controller.AuthController - /auth/logina/admin,*****,172.26.0.1
+04:37:43.048 [http-nio-8080-exec-8] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==>  Preparing: SELECT USER_ID , LOGON_NAME , LOGON_PWD , USER_NAME , USER_TYPE , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , TOKEN , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , OTP_SECRET FROM USERS WHERE LOGON_NAME = ? AND LOGON_PWD = password(?) AND USE_YN = ? 
+04:37:43.048 [http-nio-8080-exec-8] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==> Parameters: admin(String), admin(String), Y(String)
+04:37:43.050 [http-nio-8080-exec-8] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - <==      Total: 1
+04:37:43.050 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==>  Preparing: SELECT EXT_ID , USER_ID , IP , MOD_USER , MOD_DATE FROM USER_IPS WHERE USER_ID = ? 
+04:37:43.050 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==> Parameters: 1(Integer)
+04:37:43.052 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - <==      Total: 0
+04:37:43.054 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserAction - ==>  Preparing: INSERT INTO USERS_ACTION_HIS (USER_ID, ACTION_TYPE, ACTION_SUB_TYPE, ACTION_RSLT, REMOTE_IP, REASON, REG_DATE) VALUES (?, ?, ?, ?, ?, ?, NOW()) 
+04:37:43.054 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserAction - ==> Parameters: 1(Integer), 100(Integer), 101(Integer), S(String), 172.26.0.1(String), USER LOGIN(String)
+04:37:43.062 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.s.S.getUserServerList - ==>  Preparing: SELECT U.USER_ID , SBB.SBB_ID , SBB.SBB_NAME , SBB.ALIAS , SBB.IP IP , HOST.HOST_NAME , HOST.IP HOST_IP , HOST.HOST_ID FROM USERS U INNER JOIN USER_SBB_REL SBBREL ON U.USER_ID = SBBREL.USER_ID INNER JOIN SBBS SBB ON SBBREL.SBB_ID = SBB.SBB_ID INNER JOIN SBB_HOST_REL SBBHOST ON SBB.SBB_ID = SBBHOST.SBB_ID INNER JOIN HOSTS HOST ON HOST.HOST_ID = SBBHOST.HOST_ID WHERE U.USER_ID = ? ORDER BY SBB.SBB_ID ASC 
+04:37:43.062 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.s.S.getUserServerList - ==> Parameters: 1(Integer)
+04:37:43.064 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.s.S.getUserServerList - <==      Total: 0
+04:37:43.070 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.getUserSession - ==>  Preparing: SELECT USER_ID , SESSION_ID , MOD_DATE FROM USER_SESSION WHERE USER_ID = ? 
+04:37:43.070 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.getUserSession - ==> Parameters: 1(Integer)
+04:37:43.072 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.getUserSession - <==      Total: 1
+04:37:43.072 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==>  Preparing: DELETE FROM SPRING_SESSION_ATTRIBUTES WHERE SESSION_ID = ? 
+04:37:43.072 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==> Parameters: 606785A52A231047408677F40899FBF5(String)
+04:37:43.074 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - <==    Updates: 0
+04:37:43.074 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==>  Preparing: DELETE FROM SPRING_SESSION WHERE SESSION_ID = ? 
+04:37:43.074 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==> Parameters: 606785A52A231047408677F40899FBF5(String)
+04:37:43.076 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - <==    Updates: 0
+04:37:43.076 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserSession - ==>  Preparing: INSERT INTO USER_SESSION ( USER_ID , SESSION_ID , MOD_DATE ) VALUES ( ? , ? , NOW() ) ON DUPLICATE KEY UPDATE SESSION_ID = ? , MOD_DATE = NOW() 
+04:37:43.076 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserSession - ==> Parameters: 1(String), A43FF64A0E56793185AD5E6016BC7937(String), A43FF64A0E56793185AD5E6016BC7937(String)
+04:37:43.078 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserSession - <==    Updates: 2
+04:37:44.015 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+04:37:44.015 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+04:37:44.018 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+04:37:44.018 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+04:37:44.018 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+04:37:44.020 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+04:37:44.021 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+04:37:44.021 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+04:37:44.023 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+04:37:44.024 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+04:37:44.024 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+04:37:44.025 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:11:58.028 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackInfoByAttackId - ==>  Preparing: SELECT * FROM ATTACK_INFO WHERE ATTACK_ID = ? 
+05:11:58.028 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackInfoByAttackId - ==> Parameters: ATTACK_17(String)
+05:11:58.030 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackInfoByAttackId - <==      Total: 1
+05:11:58.030 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.logs.IDGenMapper.getNextId - ==>  Preparing: SELECT NEXT_ID FROM ATTACK_IDS WHERE NAME = ? 
+05:11:58.031 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.logs.IDGenMapper.getNextId - ==> Parameters: LOG_(String)
+05:11:58.033 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.logs.IDGenMapper.getNextId - <==      Total: 1
+05:11:58.037 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.selectAlertType - ==>  Preparing: SELECT ID , PUSH , EMAIL , SMS , AS_ID , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO ASI WHERE ASI.AS_ID = AAS.AS_ID) AS SEVERITY_LEVEL FROM ATTACK_ALERT_SETTING AAS 
+05:11:58.037 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.selectAlertType - ==> Parameters: 
+05:11:58.039 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.selectAlertType - <==      Total: 1
+05:11:58.041 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.saveAttackDetectionLog - ==>  Preparing: INSERT INTO ATTACK_DETECTION_LOG ( `LOG_ID` , `ATTACK_ID` , `PROTOCOL` , `SRC_IP` , `DST_IP` , `DST_PORT` , `ATTACK_TIME` , `PAYLOAD` ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+05:11:58.041 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.saveAttackDetectionLog - ==> Parameters: LOG_54(String), ATTACK_17(String), TCP(String), 192.168.95.1(String), 192.168.95.138(String), 443(Integer), 20210217181326(String), ['/vulTest/add_bbs.do', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8', '[EMAIL=admin]', '[<script>alert(dowcument.cookie);</script>]'](String)
+05:11:58.043 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.saveAttackDetectionLog - <==    Updates: 1
+05:11:58.053 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.IDGenMapper.updateNextId - ==>  Preparing: UPDATE ATTACK_IDS SET NEXT_ID = NEXT_ID + 1 WHERE NAME = ? 
+05:11:58.053 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.IDGenMapper.updateNextId - ==> Parameters: LOG_(String)
+05:11:58.057 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.IDGenMapper.updateNextId - <==    Updates: 1
+05:11:58.079 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 81 
+05:11:58.079 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==> Parameters: 
+05:11:58.086 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - <==      Total: 37
+05:11:58.146 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:11:58.146 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:11:58.149 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:11:58.149 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:11:58.150 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:11:58.152 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:32:17.728 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackInfoByAttackId - ==>  Preparing: SELECT * FROM ATTACK_INFO WHERE ATTACK_ID = ? 
+05:32:17.728 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackInfoByAttackId - ==> Parameters: ATTACK_17(String)
+05:32:17.730 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackInfoByAttackId - <==      Total: 1
+05:32:17.731 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.logs.IDGenMapper.getNextId - ==>  Preparing: SELECT NEXT_ID FROM ATTACK_IDS WHERE NAME = ? 
+05:32:17.731 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.logs.IDGenMapper.getNextId - ==> Parameters: LOG_(String)
+05:32:17.733 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.logs.IDGenMapper.getNextId - <==      Total: 1
+05:32:17.734 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.selectAlertType - ==>  Preparing: SELECT ID , PUSH , EMAIL , SMS , AS_ID , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO ASI WHERE ASI.AS_ID = AAS.AS_ID) AS SEVERITY_LEVEL FROM ATTACK_ALERT_SETTING AAS 
+05:32:17.734 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.selectAlertType - ==> Parameters: 
+05:32:17.735 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.selectAlertType - <==      Total: 1
+05:32:17.737 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.saveAttackDetectionLog - ==>  Preparing: INSERT INTO ATTACK_DETECTION_LOG ( `LOG_ID` , `ATTACK_ID` , `PROTOCOL` , `SRC_IP` , `DST_IP` , `DST_PORT` , `ATTACK_TIME` , `PAYLOAD` ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+05:32:17.738 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.saveAttackDetectionLog - ==> Parameters: LOG_55(String), ATTACK_17(String), TCP(String), 192.168.95.1(String), 192.168.95.138(String), 443(Integer), 20210217181326(String), ['/vulTest/add_bbs.do', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8', '[EMAIL=admin]', '[<script>alert(dowcument.cookie);</script>]'](String)
+05:32:17.739 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.saveAttackDetectionLog - <==    Updates: 1
+05:32:17.749 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.IDGenMapper.updateNextId - ==>  Preparing: UPDATE ATTACK_IDS SET NEXT_ID = NEXT_ID + 1 WHERE NAME = ? 
+05:32:17.749 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.IDGenMapper.updateNextId - ==> Parameters: LOG_(String)
+05:32:17.752 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.IDGenMapper.updateNextId - <==    Updates: 1
+05:32:17.762 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 81 
+05:32:17.762 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==> Parameters: 
+05:32:17.767 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - <==      Total: 38
+05:32:17.773 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:32:17.774 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:32:17.788 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:32:17.788 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:32:17.788 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:32:17.790 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:32:17.822 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:32:17.822 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:32:17.825 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:32:17.825 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:32:17.825 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:32:17.827 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:32:24.395 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - /login
+05:32:24.395 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+05:32:28.514 [http-nio-8080-exec-10] INFO  c.s.s.a.controller.AuthController - /auth/logina/admin,*****,172.26.0.1
+05:32:28.518 [http-nio-8080-exec-10] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==>  Preparing: SELECT USER_ID , LOGON_NAME , LOGON_PWD , USER_NAME , USER_TYPE , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , TOKEN , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , OTP_SECRET FROM USERS WHERE LOGON_NAME = ? AND LOGON_PWD = password(?) AND USE_YN = ? 
+05:32:28.519 [http-nio-8080-exec-10] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==> Parameters: admin(String), 1234(String), Y(String)
+05:32:28.520 [http-nio-8080-exec-10] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - <==      Total: 0
+05:32:28.521 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.getUserInfo - ==>  Preparing: SELECT USER_ID , LOGON_NAME , LOGON_PWD , USER_TYPE , USER_NAME , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , TOKEN , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , OTP_SECRET FROM USERS WHERE LOGON_NAME = ? 
+05:32:28.521 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.getUserInfo - ==> Parameters: admin(String)
+05:32:28.523 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.getUserInfo - <==      Total: 1
+05:32:28.527 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.insertUserAction - ==>  Preparing: INSERT INTO USERS_ACTION_HIS (USER_ID, ACTION_TYPE, ACTION_SUB_TYPE, ACTION_RSLT, REMOTE_IP, REASON, REG_DATE) VALUES (?, ?, ?, ?, ?, ?, NOW()) 
+05:32:28.527 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.insertUserAction - ==> Parameters: 1(Integer), 100(Integer), 101(Integer), F(String), 172.26.0.1(String), USER LOGIN(String)
+05:32:28.534 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.increaseRetryCnt - ==>  Preparing: UPDATE USERS SET RETRY_CNT = RETRY_CNT + 1 WHERE LOGON_NAME = ? 
+05:32:28.534 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.increaseRetryCnt - ==> Parameters: admin(String)
+05:32:28.537 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.increaseRetryCnt - <==    Updates: 1
+05:32:36.816 [http-nio-8080-exec-8] INFO  c.s.s.a.controller.AuthController - /auth/logina/admin,*****,172.26.0.1
+05:32:36.824 [http-nio-8080-exec-8] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==>  Preparing: SELECT USER_ID , LOGON_NAME , LOGON_PWD , USER_NAME , USER_TYPE , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , TOKEN , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , OTP_SECRET FROM USERS WHERE LOGON_NAME = ? AND LOGON_PWD = password(?) AND USE_YN = ? 
+05:32:36.824 [http-nio-8080-exec-8] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==> Parameters: admin(String), admin(String), Y(String)
+05:32:36.826 [http-nio-8080-exec-8] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - <==      Total: 1
+05:32:36.826 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==>  Preparing: SELECT EXT_ID , USER_ID , IP , MOD_USER , MOD_DATE FROM USER_IPS WHERE USER_ID = ? 
+05:32:36.826 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==> Parameters: 1(Integer)
+05:32:36.827 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - <==      Total: 0
+05:32:36.830 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserAction - ==>  Preparing: INSERT INTO USERS_ACTION_HIS (USER_ID, ACTION_TYPE, ACTION_SUB_TYPE, ACTION_RSLT, REMOTE_IP, REASON, REG_DATE) VALUES (?, ?, ?, ?, ?, ?, NOW()) 
+05:32:36.831 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserAction - ==> Parameters: 1(Integer), 100(Integer), 101(Integer), S(String), 172.26.0.1(String), USER LOGIN(String)
+05:32:36.836 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.updateUser - ==>  Preparing: UPDATE USERS SET RETRY_CNT = ? , LAST_ACC_DATE = ? , MOD_DATE = NOW() WHERE USER_ID = ? 
+05:32:36.839 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.updateUser - ==> Parameters: 0(Integer), 2021-03-25 05:32:36.835(Timestamp), 1(Integer)
+05:32:36.840 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.updateUser - <==    Updates: 1
+05:32:36.850 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.s.S.getUserServerList - ==>  Preparing: SELECT U.USER_ID , SBB.SBB_ID , SBB.SBB_NAME , SBB.ALIAS , SBB.IP IP , HOST.HOST_NAME , HOST.IP HOST_IP , HOST.HOST_ID FROM USERS U INNER JOIN USER_SBB_REL SBBREL ON U.USER_ID = SBBREL.USER_ID INNER JOIN SBBS SBB ON SBBREL.SBB_ID = SBB.SBB_ID INNER JOIN SBB_HOST_REL SBBHOST ON SBB.SBB_ID = SBBHOST.SBB_ID INNER JOIN HOSTS HOST ON HOST.HOST_ID = SBBHOST.HOST_ID WHERE U.USER_ID = ? ORDER BY SBB.SBB_ID ASC 
+05:32:36.850 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.s.S.getUserServerList - ==> Parameters: 1(Integer)
+05:32:36.852 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.s.S.getUserServerList - <==      Total: 0
+05:32:36.853 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.getUserSession - ==>  Preparing: SELECT USER_ID , SESSION_ID , MOD_DATE FROM USER_SESSION WHERE USER_ID = ? 
+05:32:36.853 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.getUserSession - ==> Parameters: 1(Integer)
+05:32:36.855 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.getUserSession - <==      Total: 1
+05:32:36.855 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==>  Preparing: DELETE FROM SPRING_SESSION_ATTRIBUTES WHERE SESSION_ID = ? 
+05:32:36.855 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==> Parameters: A43FF64A0E56793185AD5E6016BC7937(String)
+05:32:36.857 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - <==    Updates: 0
+05:32:36.857 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==>  Preparing: DELETE FROM SPRING_SESSION WHERE SESSION_ID = ? 
+05:32:36.857 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==> Parameters: A43FF64A0E56793185AD5E6016BC7937(String)
+05:32:36.858 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - <==    Updates: 0
+05:32:36.858 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserSession - ==>  Preparing: INSERT INTO USER_SESSION ( USER_ID , SESSION_ID , MOD_DATE ) VALUES ( ? , ? , NOW() ) ON DUPLICATE KEY UPDATE SESSION_ID = ? , MOD_DATE = NOW() 
+05:32:36.858 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserSession - ==> Parameters: 1(String), E48A54F450ADC982912D2059146B27F5(String), E48A54F450ADC982912D2059146B27F5(String)
+05:32:36.860 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.a.U.insertUserSession - <==    Updates: 2
+05:32:37.410 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:32:37.410 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:32:37.411 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:32:37.411 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:32:37.412 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:32:37.413 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:32:37.413 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:32:37.413 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:32:37.414 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:32:37.414 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:32:37.415 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:32:37.416 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:35:23.136 [http-nio-8080-exec-9] DEBUG c.s.s.a.controller.AuthController - /auth/logout/Login required. invalid session.
+05:35:26.513 [http-nio-8080-exec-4] INFO  c.s.s.a.controller.AuthController - /login
+05:35:26.513 [http-nio-8080-exec-4] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+05:37:30.286 [http-nio-8080-exec-10] INFO  c.s.s.a.controller.AuthController - /auth/logina/admin,*****,172.26.0.1
+05:37:30.293 [http-nio-8080-exec-10] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==>  Preparing: SELECT USER_ID , LOGON_NAME , LOGON_PWD , USER_NAME , USER_TYPE , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , TOKEN , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , OTP_SECRET FROM USERS WHERE LOGON_NAME = ? AND LOGON_PWD = password(?) AND USE_YN = ? 
+05:37:30.293 [http-nio-8080-exec-10] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==> Parameters: admin(String), admin(String), Y(String)
+05:37:30.295 [http-nio-8080-exec-10] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - <==      Total: 1
+05:37:30.296 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==>  Preparing: SELECT EXT_ID , USER_ID , IP , MOD_USER , MOD_DATE FROM USER_IPS WHERE USER_ID = ? 
+05:37:30.296 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==> Parameters: 1(Integer)
+05:37:30.297 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - <==      Total: 0
+05:37:30.300 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.insertUserAction - ==>  Preparing: INSERT INTO USERS_ACTION_HIS (USER_ID, ACTION_TYPE, ACTION_SUB_TYPE, ACTION_RSLT, REMOTE_IP, REASON, REG_DATE) VALUES (?, ?, ?, ?, ?, ?, NOW()) 
+05:37:30.300 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.insertUserAction - ==> Parameters: 1(Integer), 100(Integer), 101(Integer), S(String), 172.26.0.1(String), USER LOGIN(String)
+05:37:30.311 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.getUserSession - ==>  Preparing: SELECT USER_ID , SESSION_ID , MOD_DATE FROM USER_SESSION WHERE USER_ID = ? 
+05:37:30.311 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.getUserSession - ==> Parameters: 1(Integer)
+05:37:30.313 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.getUserSession - <==      Total: 1
+05:37:30.313 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==>  Preparing: DELETE FROM SPRING_SESSION_ATTRIBUTES WHERE SESSION_ID = ? 
+05:37:30.313 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==> Parameters: E48A54F450ADC982912D2059146B27F5(String)
+05:37:30.315 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - <==    Updates: 0
+05:37:30.315 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==>  Preparing: DELETE FROM SPRING_SESSION WHERE SESSION_ID = ? 
+05:37:30.315 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==> Parameters: E48A54F450ADC982912D2059146B27F5(String)
+05:37:30.316 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - <==    Updates: 0
+05:37:30.317 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.insertUserSession - ==>  Preparing: INSERT INTO USER_SESSION ( USER_ID , SESSION_ID , MOD_DATE ) VALUES ( ? , ? , NOW() ) ON DUPLICATE KEY UPDATE SESSION_ID = ? , MOD_DATE = NOW() 
+05:37:30.317 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.insertUserSession - ==> Parameters: 1(String), 189194D4526F705C0BD124AD0E394068(String), 189194D4526F705C0BD124AD0E394068(String)
+05:37:30.318 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.a.U.insertUserSession - <==    Updates: 2
+05:37:31.462 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:37:31.462 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:37:31.465 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:37:31.465 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:37:31.465 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:37:31.465 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:37:31.465 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:37:31.467 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:37:31.467 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:37:31.467 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:37:31.468 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:37:31.469 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:37:34.661 [http-nio-8080-exec-6] INFO  c.s.s.a.controller.AuthController - /sdashboard/UserData [userId=1, logonName=admin, logonPwd=*4ACFE3202A5FF5CF467898FC58AAB1D615029441, userType=1, email=admin@soteria-sys.com, contact=01011112222, lastAccIp=172.26.0.1, lastAccDate=Thu Mar 25 05:32:36 UTC 2021, token=null, retryCnt=0, lastPassModDate=Fri Mar 19 17:03:51 UTC 2021, userName=시큐리티어드민 사용자, initPassYn=Y, useYn=Y, allowedIps=[], modUser=0, modDate=null, userTypeName=null, status=null, sbbList=[]]
+05:37:34.670 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.s.S.getConfData - ==>  Preparing: SELECT CONF_ID , CONF_NAME , CONF_VALUE , OTHER_NAME , UNIT , MOD_USER , MOD_DATE FROM SYSTEM_CONFIG WHERE CONF_NAME = ? 
+05:37:34.670 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.s.S.getConfData - ==> Parameters: REFRESH_RATE(String)
+05:37:34.674 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.s.S.getConfData - <==      Total: 1
+05:37:35.532 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==>  Preparing: SELECT LOG_ID, ATTACK_TIME, DATE(ATTACK_TIME) AS DATEORD, HOUR(ATTACK_TIME) AS HOURORD, COUNT(AC_ID) AS CNT, AC_ID, (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO ACI WHERE ACI.AC_ID=AI.AC_ID) AS AC_NAME FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AC_ID, DATEORD, HOURORD ORDER BY ATTACK_TIME DESC LIMIT 30; 
+05:37:35.533 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==> Parameters: 
+05:37:35.536 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - <==      Total: 13
+05:37:35.654 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==>  Preparing: SELECT CNT, (SELECT ATTACK_NAME FROM ATTACK_INFO WHERE ATTACK_ID = ADL.ATTACK_ID ) AS ATTACK_NAME FROM ( SELECT COUNT(*) CNT, ATTACK_ID FROM ATTACK_DETECTION_LOG GROUP BY ATTACK_ID ORDER BY CNT DESC LIMIT 5 ) AS ADL 
+05:37:35.654 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==> Parameters: 
+05:37:35.662 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - <==      Total: 5
+05:37:35.769 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==>  Preparing: SELECT AS_ID, COUNT(AS_ID) as TOTAL FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AS_ID ORDER BY AS_ID ASC; 
+05:37:35.769 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==> Parameters: 
+05:37:35.772 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - <==      Total: 3
+05:37:35.882 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 117 
+05:37:35.883 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==> Parameters: 
+05:37:35.887 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - <==      Total: 38
+05:38:49.564 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:38:49.564 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:38:49.564 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:38:49.564 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:38:49.567 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:38:49.567 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:38:49.568 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:38:49.568 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:38:49.568 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:38:49.568 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:38:49.570 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:38:49.570 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:38:50.810 [http-nio-8080-exec-1] INFO  c.s.s.a.controller.AuthController - /sdashboard/UserData [userId=1, logonName=admin, logonPwd=*4ACFE3202A5FF5CF467898FC58AAB1D615029441, userType=1, email=admin@soteria-sys.com, contact=01011112222, lastAccIp=172.26.0.1, lastAccDate=Thu Mar 25 14:32:28 UTC 2021, token=null, retryCnt=0, lastPassModDate=Fri Mar 19 17:03:51 UTC 2021, userName=시큐리티어드민 사용자, initPassYn=Y, useYn=Y, allowedIps=[], modUser=0, modDate=null, userTypeName=null, status=null, sbbList=[]]
+05:38:50.819 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.s.S.getConfData - ==>  Preparing: SELECT CONF_ID , CONF_NAME , CONF_VALUE , OTHER_NAME , UNIT , MOD_USER , MOD_DATE FROM SYSTEM_CONFIG WHERE CONF_NAME = ? 
+05:38:50.819 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.s.S.getConfData - ==> Parameters: REFRESH_RATE(String)
+05:38:50.822 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.s.S.getConfData - <==      Total: 1
+05:38:51.265 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==>  Preparing: SELECT LOG_ID, ATTACK_TIME, DATE(ATTACK_TIME) AS DATEORD, HOUR(ATTACK_TIME) AS HOURORD, COUNT(AC_ID) AS CNT, AC_ID, (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO ACI WHERE ACI.AC_ID=AI.AC_ID) AS AC_NAME FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AC_ID, DATEORD, HOURORD ORDER BY ATTACK_TIME DESC LIMIT 30; 
+05:38:51.265 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==> Parameters: 
+05:38:51.274 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - <==      Total: 13
+05:38:51.343 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==>  Preparing: SELECT CNT, (SELECT ATTACK_NAME FROM ATTACK_INFO WHERE ATTACK_ID = ADL.ATTACK_ID ) AS ATTACK_NAME FROM ( SELECT COUNT(*) CNT, ATTACK_ID FROM ATTACK_DETECTION_LOG GROUP BY ATTACK_ID ORDER BY CNT DESC LIMIT 5 ) AS ADL 
+05:38:51.343 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==> Parameters: 
+05:38:51.345 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - <==      Total: 5
+05:38:51.418 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==>  Preparing: SELECT AS_ID, COUNT(AS_ID) as TOTAL FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AS_ID ORDER BY AS_ID ASC; 
+05:38:51.418 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==> Parameters: 
+05:38:51.421 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - <==      Total: 3
+05:38:51.502 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 108 
+05:38:51.502 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==> Parameters: 
+05:38:51.506 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - <==      Total: 38
+05:38:57.010 [http-nio-8080-exec-1] INFO  c.s.s.a.controller.AuthController - /login
+05:38:57.011 [http-nio-8080-exec-1] INFO  c.s.s.a.controller.AuthController - check session.isLogin() : false
+05:39:09.244 [http-nio-8080-exec-7] INFO  c.s.s.a.controller.AuthController - /auth/logina/admin,*****,172.26.0.1
+05:39:09.253 [http-nio-8080-exec-7] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==>  Preparing: SELECT USER_ID , LOGON_NAME , LOGON_PWD , USER_NAME , USER_TYPE , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , TOKEN , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , OTP_SECRET FROM USERS WHERE LOGON_NAME = ? AND LOGON_PWD = password(?) AND USE_YN = ? 
+05:39:09.253 [http-nio-8080-exec-7] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - ==> Parameters: admin(String), admin(String), Y(String)
+05:39:09.255 [http-nio-8080-exec-7] DEBUG c.s.s.c.dao.admin.UserMapper.getUser - <==      Total: 1
+05:39:09.255 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==>  Preparing: SELECT EXT_ID , USER_ID , IP , MOD_USER , MOD_DATE FROM USER_IPS WHERE USER_ID = ? 
+05:39:09.255 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - ==> Parameters: 1(Integer)
+05:39:09.256 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.UserMapper.getAllowedIps - <==      Total: 0
+05:39:09.259 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.insertUserAction - ==>  Preparing: INSERT INTO USERS_ACTION_HIS (USER_ID, ACTION_TYPE, ACTION_SUB_TYPE, ACTION_RSLT, REMOTE_IP, REASON, REG_DATE) VALUES (?, ?, ?, ?, ?, ?, NOW()) 
+05:39:09.259 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.insertUserAction - ==> Parameters: 1(Integer), 100(Integer), 101(Integer), S(String), 172.26.0.1(String), USER LOGIN(String)
+05:39:09.266 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.s.S.getUserServerList - ==>  Preparing: SELECT U.USER_ID , SBB.SBB_ID , SBB.SBB_NAME , SBB.ALIAS , SBB.IP IP , HOST.HOST_NAME , HOST.IP HOST_IP , HOST.HOST_ID FROM USERS U INNER JOIN USER_SBB_REL SBBREL ON U.USER_ID = SBBREL.USER_ID INNER JOIN SBBS SBB ON SBBREL.SBB_ID = SBB.SBB_ID INNER JOIN SBB_HOST_REL SBBHOST ON SBB.SBB_ID = SBBHOST.SBB_ID INNER JOIN HOSTS HOST ON HOST.HOST_ID = SBBHOST.HOST_ID WHERE U.USER_ID = ? ORDER BY SBB.SBB_ID ASC 
+05:39:09.266 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.s.S.getUserServerList - ==> Parameters: 1(Integer)
+05:39:09.267 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.s.S.getUserServerList - <==      Total: 0
+05:39:09.268 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.getUserSession - ==>  Preparing: SELECT USER_ID , SESSION_ID , MOD_DATE FROM USER_SESSION WHERE USER_ID = ? 
+05:39:09.268 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.getUserSession - ==> Parameters: 1(Integer)
+05:39:09.270 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.getUserSession - <==      Total: 1
+05:39:09.270 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==>  Preparing: DELETE FROM SPRING_SESSION_ATTRIBUTES WHERE SESSION_ID = ? 
+05:39:09.270 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - ==> Parameters: 189194D4526F705C0BD124AD0E394068(String)
+05:39:09.271 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.deleteSessionAttributes - <==    Updates: 0
+05:39:09.271 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==>  Preparing: DELETE FROM SPRING_SESSION WHERE SESSION_ID = ? 
+05:39:09.272 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - ==> Parameters: 189194D4526F705C0BD124AD0E394068(String)
+05:39:09.273 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.UserMapper.deleteSession - <==    Updates: 0
+05:39:09.273 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.insertUserSession - ==>  Preparing: INSERT INTO USER_SESSION ( USER_ID , SESSION_ID , MOD_DATE ) VALUES ( ? , ? , NOW() ) ON DUPLICATE KEY UPDATE SESSION_ID = ? , MOD_DATE = NOW() 
+05:39:09.273 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.insertUserSession - ==> Parameters: 1(String), A6DCE7328050DF8D630B05E4928BD63D(String), A6DCE7328050DF8D630B05E4928BD63D(String)
+05:39:09.274 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.a.U.insertUserSession - <==    Updates: 2
+05:39:12.679 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:39:12.679 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:39:12.681 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:39:12.682 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:39:12.682 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:39:12.683 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:39:12.683 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:39:12.684 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:39:12.686 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:39:12.686 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:39:12.686 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:39:12.687 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:39:20.322 [http-nio-8080-exec-10] INFO  c.s.s.a.controller.AuthController - /sdashboard/UserData [userId=1, logonName=admin, logonPwd=*4ACFE3202A5FF5CF467898FC58AAB1D615029441, userType=1, email=admin@soteria-sys.com, contact=01011112222, lastAccIp=172.26.0.1, lastAccDate=Thu Mar 25 05:32:36 UTC 2021, token=null, retryCnt=0, lastPassModDate=Fri Mar 19 17:03:51 UTC 2021, userName=시큐리티어드민 사용자, initPassYn=Y, useYn=Y, allowedIps=[], modUser=0, modDate=null, userTypeName=null, status=null, sbbList=[]]
+05:39:20.330 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.s.S.getConfData - ==>  Preparing: SELECT CONF_ID , CONF_NAME , CONF_VALUE , OTHER_NAME , UNIT , MOD_USER , MOD_DATE FROM SYSTEM_CONFIG WHERE CONF_NAME = ? 
+05:39:20.330 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.s.S.getConfData - ==> Parameters: REFRESH_RATE(String)
+05:39:20.336 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.s.S.getConfData - <==      Total: 1
+05:39:23.724 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==>  Preparing: SELECT LOG_ID, ATTACK_TIME, DATE(ATTACK_TIME) AS DATEORD, HOUR(ATTACK_TIME) AS HOURORD, COUNT(AC_ID) AS CNT, AC_ID, (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO ACI WHERE ACI.AC_ID=AI.AC_ID) AS AC_NAME FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AC_ID, DATEORD, HOURORD ORDER BY ATTACK_TIME DESC LIMIT 30; 
+05:39:23.724 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==> Parameters: 
+05:39:23.727 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - <==      Total: 13
+05:39:24.239 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==>  Preparing: SELECT CNT, (SELECT ATTACK_NAME FROM ATTACK_INFO WHERE ATTACK_ID = ADL.ATTACK_ID ) AS ATTACK_NAME FROM ( SELECT COUNT(*) CNT, ATTACK_ID FROM ATTACK_DETECTION_LOG GROUP BY ATTACK_ID ORDER BY CNT DESC LIMIT 5 ) AS ADL 
+05:39:24.239 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==> Parameters: 
+05:39:24.243 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - <==      Total: 5
+05:39:24.583 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==>  Preparing: SELECT AS_ID, COUNT(AS_ID) as TOTAL FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AS_ID ORDER BY AS_ID ASC; 
+05:39:24.583 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==> Parameters: 
+05:39:24.587 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - <==      Total: 3
+05:39:25.088 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 108 
+05:39:25.088 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==> Parameters: 
+05:39:25.096 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - <==      Total: 38
+05:41:03.876 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:03.876 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:03.878 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:03.879 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:03.879 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:03.880 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:41:03.888 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:03.888 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:03.890 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:03.890 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:03.890 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:03.892 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:41:26.405 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:26.405 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:26.405 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:26.405 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:26.407 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:26.407 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:26.407 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:26.407 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:26.408 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:26.408 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:26.408 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:26.408 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:26.410 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:41:26.410 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:41:26.410 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:26.410 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:26.410 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:26.410 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:26.410 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:26.412 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:41:26.412 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:26.413 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:26.413 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:26.415 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:41:38.499 [http-nio-8080-exec-10] INFO  c.s.s.a.controller.AuthController - /sdashboard/UserData [userId=1, logonName=admin, logonPwd=*4ACFE3202A5FF5CF467898FC58AAB1D615029441, userType=1, email=admin@soteria-sys.com, contact=01011112222, lastAccIp=172.26.0.1, lastAccDate=Thu Mar 25 05:32:36 UTC 2021, token=null, retryCnt=0, lastPassModDate=Fri Mar 19 17:03:51 UTC 2021, userName=시큐리티어드민 사용자, initPassYn=Y, useYn=Y, allowedIps=[], modUser=0, modDate=null, userTypeName=null, status=null, sbbList=[]]
+05:41:38.502 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.s.S.getConfData - ==>  Preparing: SELECT CONF_ID , CONF_NAME , CONF_VALUE , OTHER_NAME , UNIT , MOD_USER , MOD_DATE FROM SYSTEM_CONFIG WHERE CONF_NAME = ? 
+05:41:38.502 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.s.S.getConfData - ==> Parameters: REFRESH_RATE(String)
+05:41:38.504 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.s.S.getConfData - <==      Total: 1
+05:41:39.439 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==>  Preparing: SELECT LOG_ID, ATTACK_TIME, DATE(ATTACK_TIME) AS DATEORD, HOUR(ATTACK_TIME) AS HOURORD, COUNT(AC_ID) AS CNT, AC_ID, (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO ACI WHERE ACI.AC_ID=AI.AC_ID) AS AC_NAME FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AC_ID, DATEORD, HOURORD ORDER BY ATTACK_TIME DESC LIMIT 30; 
+05:41:39.440 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==> Parameters: 
+05:41:39.445 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - <==      Total: 13
+05:41:39.547 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==>  Preparing: SELECT CNT, (SELECT ATTACK_NAME FROM ATTACK_INFO WHERE ATTACK_ID = ADL.ATTACK_ID ) AS ATTACK_NAME FROM ( SELECT COUNT(*) CNT, ATTACK_ID FROM ATTACK_DETECTION_LOG GROUP BY ATTACK_ID ORDER BY CNT DESC LIMIT 5 ) AS ADL 
+05:41:39.547 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==> Parameters: 
+05:41:39.549 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - <==      Total: 5
+05:41:39.682 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==>  Preparing: SELECT AS_ID, COUNT(AS_ID) as TOTAL FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AS_ID ORDER BY AS_ID ASC; 
+05:41:39.682 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==> Parameters: 
+05:41:39.690 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - <==      Total: 3
+05:41:39.886 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 117 
+05:41:39.886 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==> Parameters: 
+05:41:39.891 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - <==      Total: 38
+05:41:59.061 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:59.061 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:59.061 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 8 
+05:41:59.061 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - ==> Parameters: 
+05:41:59.064 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:59.064 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailList - <==      Total: 8
+05:41:59.064 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:59.064 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==>  Preparing: SELECT COUNT(*) CNT FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 
+05:41:59.064 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:59.064 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - ==> Parameters: 
+05:41:59.066 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:41:59.066 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.D.getDetectionDetailCount - <==      Total: 1
+05:42:05.333 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.A.getAttackNameCount - ==>  Preparing: SELECT COUNT(*) CNT FROM ATTACK_INFO 
+05:42:05.333 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackNameCount - ==>  Preparing: SELECT COUNT(*) CNT FROM ATTACK_INFO 
+05:42:05.333 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.A.getAttackNameCount - ==> Parameters: 
+05:42:05.333 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackNameCount - ==> Parameters: 
+05:42:05.335 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackNameCount - <==      Total: 1
+05:42:05.335 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.A.getAttackNameCount - <==      Total: 1
+05:42:05.335 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackNameList - ==>  Preparing: SELECT * FROM (SELECT ATTACK_ID , ATTACK_NAME , ATTACK_DESCRIPTION , AI.INPUT_DATE , AI.AM_ID , AM_NAME , SOLUTION FROM ATTACK_INFO AI LEFT JOIN ATTACK_MITIGATION_INFO AM ON AI.AM_ID = AM.AM_ID) AI2 ORDER BY AI2.INPUT_DATE DESC LIMIT 0, 8 
+05:42:05.335 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.A.getAttackNameList - ==>  Preparing: SELECT * FROM (SELECT ATTACK_ID , ATTACK_NAME , ATTACK_DESCRIPTION , AI.INPUT_DATE , AI.AM_ID , AM_NAME , SOLUTION FROM ATTACK_INFO AI LEFT JOIN ATTACK_MITIGATION_INFO AM ON AI.AM_ID = AM.AM_ID) AI2 ORDER BY AI2.INPUT_DATE DESC LIMIT 0, 8 
+05:42:05.335 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackNameList - ==> Parameters: 
+05:42:05.335 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.A.getAttackNameList - ==> Parameters: 
+05:42:05.339 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.l.A.getAttackNameList - <==      Total: 8
+05:42:05.339 [http-nio-8080-exec-10] DEBUG c.s.s.c.d.l.A.getAttackNameList - <==      Total: 8
+05:42:08.124 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.A.getAttackClassificationCount - ==>  Preparing: SELECT COUNT(*) FROM ATTACK_CLASSIFICATION_INFO 
+05:42:08.124 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.A.getAttackClassificationCount - ==>  Preparing: SELECT COUNT(*) FROM ATTACK_CLASSIFICATION_INFO 
+05:42:08.124 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.A.getAttackClassificationCount - ==> Parameters: 
+05:42:08.124 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.A.getAttackClassificationCount - ==> Parameters: 
+05:42:08.126 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.A.getAttackClassificationCount - <==      Total: 1
+05:42:08.126 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.A.getAttackClassificationCount - <==      Total: 1
+05:42:08.127 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.A.getAttackClassificationList - ==>  Preparing: SELECT AC_ID , AC_NAME , AC_DESCRIPTION FROM ATTACK_CLASSIFICATION_INFO ORDER BY AC_ID DESC LIMIT 0, 8 
+05:42:08.127 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.A.getAttackClassificationList - ==> Parameters: 
+05:42:08.127 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.A.getAttackClassificationList - ==>  Preparing: SELECT AC_ID , AC_NAME , AC_DESCRIPTION FROM ATTACK_CLASSIFICATION_INFO ORDER BY AC_ID DESC LIMIT 0, 8 
+05:42:08.127 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.A.getAttackClassificationList - ==> Parameters: 
+05:42:08.128 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackSeverityCount - ==>  Preparing: SELECT COUNT(*) FROM ATTACK_SEVERITY_INFO 
+05:42:08.128 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackSeverityCount - ==> Parameters: 
+05:42:08.131 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.A.getAttackSeverityCount - ==>  Preparing: SELECT COUNT(*) FROM ATTACK_SEVERITY_INFO 
+05:42:08.131 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.l.A.getAttackClassificationList - <==      Total: 3
+05:42:08.131 [http-nio-8080-exec-4] DEBUG c.s.s.c.d.l.A.getAttackClassificationList - <==      Total: 3
+05:42:08.131 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.A.getAttackSeverityCount - ==> Parameters: 
+05:42:08.131 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackSeverityCount - <==      Total: 1
+05:42:08.132 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackSeverityList - ==>  Preparing: SELECT AS_ID , AS_NAME FROM ATTACK_SEVERITY_INFO ORDER BY AS_ID DESC LIMIT 0, 8 
+05:42:08.132 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackSeverityList - ==> Parameters: 
+05:42:08.133 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.A.getAttackSeverityCount - <==      Total: 1
+05:42:08.133 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.A.getAttackSeverityList - ==>  Preparing: SELECT AS_ID , AS_NAME FROM ATTACK_SEVERITY_INFO ORDER BY AS_ID DESC LIMIT 0, 8 
+05:42:08.133 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.A.getAttackSeverityList - ==> Parameters: 
+05:42:08.134 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.l.A.getAttackSeverityList - <==      Total: 3
+05:42:08.135 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.A.getAttackSeverityList - <==      Total: 3
+05:42:08.159 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.A.getAttackCategoryCount - ==>  Preparing: SELECT COUNT(*) CNT FROM ATTACK_INFO 
+05:42:08.159 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.A.getAttackCategoryCount - ==>  Preparing: SELECT COUNT(*) CNT FROM ATTACK_INFO 
+05:42:08.159 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.A.getAttackCategoryCount - ==> Parameters: 
+05:42:08.159 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.A.getAttackCategoryCount - ==> Parameters: 
+05:42:08.162 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.A.getAttackCategoryCount - <==      Total: 1
+05:42:08.162 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.A.getAttackCategoryCount - <==      Total: 1
+05:42:08.162 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.A.getAttackCategoryList - ==>  Preparing: SELECT ATTACK_ID , ATTACK_NAME , ATTACK_DESCRIPTION , INPUT_DATE , AC_ID , (select AC_NAME from ATTACK_CLASSIFICATION_INFO where AC_ID = AI.AC_ID) AS AC_NAME , AS_ID , (select AS_NAME from ATTACK_SEVERITY_INFO where AS_ID = AI.AS_ID) AS AS_NAME FROM ATTACK_INFO AI ORDER BY INPUT_DATE DESC LIMIT 0, 8 
+05:42:08.162 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.A.getAttackCategoryList - ==>  Preparing: SELECT ATTACK_ID , ATTACK_NAME , ATTACK_DESCRIPTION , INPUT_DATE , AC_ID , (select AC_NAME from ATTACK_CLASSIFICATION_INFO where AC_ID = AI.AC_ID) AS AC_NAME , AS_ID , (select AS_NAME from ATTACK_SEVERITY_INFO where AS_ID = AI.AS_ID) AS AS_NAME FROM ATTACK_INFO AI ORDER BY INPUT_DATE DESC LIMIT 0, 8 
+05:42:08.162 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.A.getAttackCategoryList - ==> Parameters: 
+05:42:08.162 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.A.getAttackCategoryList - ==> Parameters: 
+05:42:08.165 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.A.getAttackCategoryList - <==      Total: 8
+05:42:08.166 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.A.getAttackCategoryList - <==      Total: 8
+05:42:11.448 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.selectAlertType - ==>  Preparing: SELECT ID , PUSH , EMAIL , SMS , AS_ID , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO ASI WHERE ASI.AS_ID = AAS.AS_ID) AS SEVERITY_LEVEL FROM ATTACK_ALERT_SETTING AAS 
+05:42:11.448 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.selectAlertType - ==> Parameters: 
+05:42:11.451 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.selectAlertType - <==      Total: 1
+05:42:15.784 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.a.UserMapper.getUserList - ==>  Preparing: SELECT USER_ID , CREATE_DATE , LOGON_NAME , USER_NAME , USER_TYPE , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , CASE USER_TYPE WHEN 1 THEN 'Security Admin' WHEN 100 THEN 'User' WHEN 200 THEN 'Operator' ELSE 'User' END userTypeName, CASE USE_YN WHEN 'Y' THEN 'Active' WHEN 'N' THEN 'Inactive' END 'status' FROM USERS WHERE USER_TYPE != 1 ORDER BY USER_ID ASC LIMIT 0, 8 
+05:42:15.784 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.a.UserMapper.getUserList - ==> Parameters: 
+05:42:15.786 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.a.UserMapper.getUserList - ==>  Preparing: SELECT USER_ID , CREATE_DATE , LOGON_NAME , USER_NAME , USER_TYPE , EMAIL , CONTACT , LAST_ACC_IP , LAST_ACC_DATE , RETRY_CNT , LAST_PASS_MOD_DATE , INIT_PASS_YN , USE_YN , OTP_TYPE , CASE USER_TYPE WHEN 1 THEN 'Security Admin' WHEN 100 THEN 'User' WHEN 200 THEN 'Operator' ELSE 'User' END userTypeName, CASE USE_YN WHEN 'Y' THEN 'Active' WHEN 'N' THEN 'Inactive' END 'status' FROM USERS WHERE USER_TYPE != 1 ORDER BY USER_ID ASC LIMIT 0, 8 
+05:42:15.786 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.a.UserMapper.getUserList - ==> Parameters: 
+05:42:15.787 [http-nio-8080-exec-2] DEBUG c.s.s.c.d.a.UserMapper.getUserList - <==      Total: 2
+05:42:15.787 [http-nio-8080-exec-1] DEBUG c.s.s.c.d.a.UserMapper.getUserList - <==      Total: 2
+05:42:18.084 [http-nio-8080-exec-3] INFO  c.s.s.a.controller.AuthController - /sdashboard/UserData [userId=1, logonName=admin, logonPwd=*4ACFE3202A5FF5CF467898FC58AAB1D615029441, userType=1, email=admin@soteria-sys.com, contact=01011112222, lastAccIp=172.26.0.1, lastAccDate=Thu Mar 25 14:32:28 UTC 2021, token=null, retryCnt=0, lastPassModDate=Fri Mar 19 17:03:51 UTC 2021, userName=시큐리티어드민 사용자, initPassYn=Y, useYn=Y, allowedIps=[], modUser=0, modDate=null, userTypeName=null, status=null, sbbList=[]]
+05:42:18.087 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.s.S.getConfData - ==>  Preparing: SELECT CONF_ID , CONF_NAME , CONF_VALUE , OTHER_NAME , UNIT , MOD_USER , MOD_DATE FROM SYSTEM_CONFIG WHERE CONF_NAME = ? 
+05:42:18.087 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.s.S.getConfData - ==> Parameters: REFRESH_RATE(String)
+05:42:18.089 [http-nio-8080-exec-3] DEBUG c.s.s.c.d.s.S.getConfData - <==      Total: 1
+05:42:18.639 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==>  Preparing: SELECT LOG_ID, ATTACK_TIME, DATE(ATTACK_TIME) AS DATEORD, HOUR(ATTACK_TIME) AS HOURORD, COUNT(AC_ID) AS CNT, AC_ID, (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO ACI WHERE ACI.AC_ID=AI.AC_ID) AS AC_NAME FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AC_ID, DATEORD, HOURORD ORDER BY ATTACK_TIME DESC LIMIT 30; 
+05:42:18.639 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - ==> Parameters: 
+05:42:18.642 [http-nio-8080-exec-6] DEBUG c.s.s.c.d.l.D.getDetectionClassificationToday - <==      Total: 13
+05:42:18.840 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==>  Preparing: SELECT CNT, (SELECT ATTACK_NAME FROM ATTACK_INFO WHERE ATTACK_ID = ADL.ATTACK_ID ) AS ATTACK_NAME FROM ( SELECT COUNT(*) CNT, ATTACK_ID FROM ATTACK_DETECTION_LOG GROUP BY ATTACK_ID ORDER BY CNT DESC LIMIT 5 ) AS ADL 
+05:42:18.840 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - ==> Parameters: 
+05:42:18.844 [http-nio-8080-exec-8] DEBUG c.s.s.c.d.l.D.getAttackTypeTop5 - <==      Total: 5
+05:42:18.946 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==>  Preparing: SELECT AS_ID, COUNT(AS_ID) as TOTAL FROM ATTACK_DETECTION_LOG LOG LEFT JOIN ATTACK_INFO AI ON LOG.ATTACK_ID = AI.ATTACK_ID GROUP BY AS_ID ORDER BY AS_ID ASC; 
+05:42:18.946 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - ==> Parameters: 
+05:42:18.952 [http-nio-8080-exec-5] DEBUG c.s.s.c.d.l.D.getSeverityDetectionStatus - <==      Total: 3
+05:42:19.038 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==>  Preparing: SELECT * FROM (SELECT AD.*, AI.ATTACK_NAME , (SELECT AS_NAME FROM ATTACK_SEVERITY_INFO WHERE AS_ID = AI.AS_ID) AS AS_NAME , (SELECT AC_NAME FROM ATTACK_CLASSIFICATION_INFO WHERE AC_ID = AI.AC_ID) AS AC_NAME , (SELECT SOLUTION FROM ATTACK_MITIGATION_INFO WHERE AM_ID = AI.AM_ID) AM_DESC , IFNULL((SELECT PROTCOL_NAME FROM ATTACK_KNOWN_PORT WHERE PORT_NUM = DST_PORT), '') AS dstProtocolName FROM ATTACK_DETECTION_LOG AD LEFT JOIN ATTACK_INFO AI ON AD.ATTACK_ID = AI.ATTACK_ID) ADL2 ORDER BY ADL2.ATTACK_TIME DESC LIMIT 0, 108 
+05:42:19.038 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - ==> Parameters: 
+05:42:19.043 [http-nio-8080-exec-7] DEBUG c.s.s.c.d.l.D.getDetectionDetailListForScroller - <==      Total: 38
+05:48:34.422 [http-nio-8080-exec-9] INFO  c.s.s.a.controller.AuthController - /logout, UserData [userId=1, logonName=admin, logonPwd=*4ACFE3202A5FF5CF467898FC58AAB1D615029441, userType=1, email=admin@soteria-sys.com, contact=01011112222, lastAccIp=172.26.0.1, lastAccDate=Thu Mar 25 05:32:36 UTC 2021, token=null, retryCnt=0, lastPassModDate=Fri Mar 19 17:03:51 UTC 2021, userName=시큐리티어드민 사용자, initPassYn=Y, useYn=Y, allowedIps=[], modUser=0, modDate=null, userTypeName=null, status=null, sbbList=[]], 172.26.0.1
+05:48:34.435 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.a.U.insertUserAction - ==>  Preparing: INSERT INTO USERS_ACTION_HIS (USER_ID, ACTION_TYPE, ACTION_SUB_TYPE, ACTION_RSLT, REMOTE_IP, REASON, REG_DATE) VALUES (?, ?, ?, ?, ?, ?, NOW()) 
+05:48:34.435 [http-nio-8080-exec-9] DEBUG c.s.s.c.d.a.U.insertUserAction - ==> Parameters: 1(Integer), 100(Integer), 102(Integer), S(String), 172.26.0.1(String), USER LOGOUT(String)
+06:14:51.262 [http-nio-8080-exec-2] WARN  c.s.s.a.controller.AuthController - /sdashboard Login required. invalid session.

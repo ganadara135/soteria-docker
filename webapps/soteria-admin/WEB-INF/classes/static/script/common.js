@@ -2,6 +2,9 @@
  * 
  */
 function showModal(msg, title){
+
+	console.log("check msg ----------  : ", msg);
+
 	$('#baseModal .modal-body p').html(msg);
 	if(!title){
 		$('#baseModal .modal-title').text(title);
